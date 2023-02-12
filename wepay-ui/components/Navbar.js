@@ -89,7 +89,7 @@ const Navbar = () => {
 
             <div className={sideNav?'fixed top-0 right-0 z-50 w-[85%] h-full bg-textColor2 dark:bg-textColor px-5 pb-10 flex flex-col overflow-y-auto ease-linear duration-300':'fixed top-0 -right-full z-50 w-[85%] h-full bg-textColor2 dark:bg-textColor px-5 pb-10 flex flex-col overflow-y-auto ease-linear duration-100'}>
 
-                <div className='flex justify-between items-center border-green-500 border-2 min-h-32'>
+                <div className='flex justify-between items-center border-green-500 border-2 min-h-[128px]'>
                     <AiOutlineClose className='shadow-md shadow-gray-400 rounded-full w-10 h-10 cursor-pointer hover:scale-[1.1] hover:text-effectColor p-1 ml-4' onClick={handleSideNav}/>
                     <img src="logo.svg" className='w-36 h-32'/>
                 </div>
