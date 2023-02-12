@@ -69,7 +69,7 @@ const Signup = () => {
                                 placeholder='الاسم الأوسط' 
                                 className='outline-none shadow-lg'/>
                                 <input 
-                                data-aos="fade-up"
+                                data-aos="fade-right"
                                 type="text" 
                                 placeholder='الاسم الأخير' 
                                 className='outline-none shadow-lg'/>
@@ -93,7 +93,7 @@ const Signup = () => {
                                 placeholder='البريد الإلكتروني' 
                                 className='outline-none shadow-lg'/>
                                 <input 
-                                data-aos="fade-up"
+                                data-aos="fade-right"
                                 type="number" 
                                 placeholder='+963' 
                                 className='outline-none shadow-lg text-start'/>
@@ -116,7 +116,7 @@ const Signup = () => {
                                 placeholder='أكد كلمة المرور' 
                                 className='outline-none shadow-lg'/>
                                 <input 
-                                data-aos="fade-up"
+                                data-aos="fade-right"
                                 type="number"  
                                 placeholder='PIN' 
                                 className='outline-none shadow-lg text-start'/>
@@ -154,14 +154,14 @@ const Signup = () => {
                     {
                         ( first || second ) && (
 
-                            <button data-aos="zoom-in" type='button' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center' onClick={signNext}>التالي</button>
+                            <button data-aos="fade-up" type='button' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center' onClick={signNext}>التالي</button>
 
                         )
                     }
 
                     {
                         last && (
-                            <button data-aos="zoom-in" type='submit' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center'>إنشاء حساب</button>
+                            <button data-aos="fade-up" type='submit' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center'>إنشاء حساب</button>
                         )
                     }
 

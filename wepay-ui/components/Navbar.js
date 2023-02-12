@@ -10,12 +10,28 @@ import { useTheme } from 'next-themes';
 const Navbar = () => {
     const router=useRouter();
 
-    const [sideNav, setSideNav] = useState(false);
+
+    //logo path and default image path
+    const [logoUrl, setLogoUrl] = useState('logo.svg');
+    const [defaultImg, setDefaultImg] = useState('default.jpg');
+    useEffect(() => {
+
+        if (
+            router.asPath == "/login/forgetPassword"
+        ) {
+            setLogoUrl("../logo.svg");
+            setDefaultImg('../default.jpg');
+        } else {
+            setLogoUrl("logo.svg");
+            setDefaultImg('default.jpg');
+        }
+
+    }, [router.asPath])
     //handle side navbar
+    const [sideNav, setSideNav] = useState(false);
     const handleSideNav = () => {
         setSideNav((prev) => !prev);
     };
-
     //! to avoide hydration mismatch when initialize the theme
     const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useTheme();
@@ -39,7 +55,7 @@ const Navbar = () => {
 
             {/* //! when the user is logged in */}
             {/* <div className='hidden md:flex space-x-5 items-center'>
-                <img src='default.jpg' className='rounded-full w-14 h-14 shadow-md shadow-gray-400 cursor-pointer' onClick={()=>{router.push('/')}}/>
+                <img src={defaultImg} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 cursor-pointer' onClick={()=>{router.push('/')}}/>
 
                 {
                     (mounted && theme == 'light') && (
@@ -80,7 +96,7 @@ const Navbar = () => {
 
             <GiHamburgerMenu className='md:hidden text-effectColor w-10 h-10 cursor-pointer hover:scale-[1.1]' onClick={handleSideNav}/>
 
-            <img src="logo.svg" className='w-32 md:w-40 h-20'/>
+            <img src={logoUrl} className='w-32 md:w-40 h-20'/>
 
         </div>
 
@@ -91,14 +107,14 @@ const Navbar = () => {
 
                 <div className='flex justify-between items-center min-h-[128px]'>
                     <AiOutlineClose className='shadow-md shadow-gray-400 rounded-full w-10 h-10 cursor-pointer hover:scale-[1.1] hover:text-effectColor p-1 ml-4' onClick={handleSideNav}/>
-                    <img src="logo.svg" className='w-36 h-32'/>
+                    <img src={logoUrl} className='w-36 h-32'/>
                 </div>
 
 
                 <div className='flex flex-col space-y-7 items-center min-h-fit'>
 
                     {/* //! when the user is logged in */}
-                    <img src='default.jpg' className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/"); handleSideNav(); }}/>
+                    <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/"); handleSideNav(); }}/>
                     {/* //! ******************* */}
 
                     <Link href="/" className='hover:text-effectColor' 

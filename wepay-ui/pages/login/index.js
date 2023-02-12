@@ -23,13 +23,13 @@ const Login = () => {
 
                 <form className='py-14 px-5 shadow-lg shadow-gray-400 rounded-lg flex flex-col space-y-10'>
 
-                    <input type="email" required placeholder='البريد الإلكتروني' className='outline-none shadow-lg'/>
-                    <input type="password" required placeholder='كلمة السر' className='outline-none shadow-lg'/>
-                    <input type="number" required placeholder='PIN' className='outline-none shadow-lg text-start'/>
+                    <input data-aos="fade-down" type="email" required placeholder='البريد الإلكتروني' className='outline-none shadow-lg'/>
+                    <input data-aos="fade-right" type="password" required placeholder='كلمة السر' className='outline-none shadow-lg'/>
+                    <input data-aos="fade-right" type="number" required placeholder='PIN' className='outline-none shadow-lg text-start'/>
 
                     
-                    <div className='flex justify-between items-center space-x-5'>
-                        <Link href="/forgetPassword" className='text-[#8488ED] hover:underline'>هل نسيت كلمة السر</Link>
+                    <div data-aos="fade-up" className='flex justify-between items-center space-x-5'>
+                        <Link href="/login/forgetPassword" className='text-[#8488ED] hover:underline'>هل نسيت كلمة السر</Link>
 
                         <button>تسجيل الدخول</button>
                     </div>
