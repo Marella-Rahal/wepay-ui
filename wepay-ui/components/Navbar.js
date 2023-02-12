@@ -95,7 +95,7 @@ const Navbar = () => {
                 </div>
 
 
-                <div className='flex flex-col space-y-7 items-center border-2 border-red-600'>
+                <div className='flex flex-col space-y-7 items-center border-2 border-red-600 min-h-fit'>
 
                     {/* //! when the user is logged in */}
                     <img src='default.jpg' className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/"); handleSideNav(); }}/>
