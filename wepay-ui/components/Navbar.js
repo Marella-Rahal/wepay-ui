@@ -55,7 +55,7 @@ const Navbar = () => {
 
             {/* //! when the user is logged in */}
             {/* <div className='hidden md:flex space-x-5 items-center'>
-                <img src={defaultImg} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 cursor-pointer' onClick={()=>{router.push('/')}}/>
+                <img src={defaultImg} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 cursor-pointer' onClick={()=>{router.push('/profile')}}/>
 
                 {
                     (mounted && theme == 'light') && (
@@ -114,7 +114,7 @@ const Navbar = () => {
                 <div className='flex flex-col space-y-7 items-center min-h-fit'>
 
                     {/* //! when the user is logged in */}
-                    <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/"); handleSideNav(); }}/>
+                    <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
                     {/* //! ******************* */}
 
                     <Link href="/" className='hover:text-effectColor' 

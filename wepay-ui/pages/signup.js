@@ -59,17 +59,14 @@ const Signup = () => {
 
                             <>
                                 <input 
-                                data-aos="fade-down"
                                 type="text" 
                                 placeholder='الأسم الأول' 
                                 className='outline-none shadow-lg'/>
                                 <input 
-                                data-aos="fade-right"
                                 type="text" 
                                 placeholder='الاسم الأوسط' 
                                 className='outline-none shadow-lg'/>
                                 <input 
-                                data-aos="fade-right"
                                 type="text" 
                                 placeholder='الاسم الأخير' 
                                 className='outline-none shadow-lg'/>
@@ -83,17 +80,14 @@ const Signup = () => {
 
                             <>
                                 <input
-                                data-aos="fade-down" 
                                 type="text" 
                                 placeholder='اسم المستخدم' 
                                 className='outline-none shadow-lg'/>
                                 <input 
-                                data-aos="fade-right"
                                 type="email" 
                                 placeholder='البريد الإلكتروني' 
                                 className='outline-none shadow-lg'/>
                                 <input 
-                                data-aos="fade-right"
                                 type="number" 
                                 placeholder='+963' 
                                 className='outline-none shadow-lg text-start'/>
@@ -106,17 +100,14 @@ const Signup = () => {
                         last && (
                             <>
                                 <input 
-                                data-aos="fade-down"
                                 type="password"  
                                 placeholder='ادخل كلمة المرور' 
                                 className='outline-none shadow-lg'/>
                                 <input 
-                                data-aos="fade-right"
                                 type="password"  
                                 placeholder='أكد كلمة المرور' 
                                 className='outline-none shadow-lg'/>
                                 <input 
-                                data-aos="fade-right"
                                 type="number"  
                                 placeholder='PIN' 
                                 className='outline-none shadow-lg text-start'/>
@@ -154,14 +145,14 @@ const Signup = () => {
                     {
                         ( first || second ) && (
 
-                            <button data-aos="fade-up" type='button' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center' onClick={signNext}>التالي</button>
+                            <button type='button' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center' onClick={signNext}>التالي</button>
 
                         )
                     }
 
                     {
                         last && (
-                            <button data-aos="fade-up" type='submit' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center'>إنشاء حساب</button>
+                            <button type='submit' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center'>إنشاء حساب</button>
                         )
                     }
 
