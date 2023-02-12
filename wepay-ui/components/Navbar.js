@@ -32,8 +32,8 @@ const Navbar = () => {
 
             {/* //todo when the user is not logged in */}
             <div className='hidden md:flex space-x-3'>
-                <button className='w-[120px]' onClick={()=>{router.push('/')}}>اشترك الآن</button>
-                <button className='w-[120px]' onClick={()=>{router.push('/')}}>تسجيل الدخول</button>
+                <button className='w-[120px]' onClick={()=>{router.push('/signup')}}>اشترك الآن</button>
+                <button className='w-[120px]' onClick={()=>{router.push('/login')}}>تسجيل الدخول</button>
             </div>
             {/* //todo ***************************** */}
 
@@ -131,8 +131,8 @@ const Navbar = () => {
                     {/* //! *********************** */}
 
                     {/* //todo when the user is not logged in */}
-                    {/* <button className='w-[120px]' onClick={() => { router.push("/"); handleSideNav(); }}>تسجيل الدخول</button>
-                    <button className='w-[120px]' onClick={() => { router.push("/"); handleSideNav(); }}>اشترك الآن</button> */}
+                    {/* <button className='w-[120px]' onClick={() => { router.push("/login"); handleSideNav(); }}>تسجيل الدخول</button>
+                    <button className='w-[120px]' onClick={() => { router.push("/signup"); handleSideNav(); }}>اشترك الآن</button> */}
                     {/* //todo ************************ */}
                     
                 </div>

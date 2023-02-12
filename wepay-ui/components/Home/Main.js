@@ -21,7 +21,7 @@ const Main = () => {
             تمتع بأمان وسرية عالية في محفظتك    
             </div>
 
-            <button onClick={()=>router.push('/')}>اشترك الآن</button>
+            <button onClick={()=>router.push('/signup')}>اشترك الآن</button>
 
             <div>
             أو قم بتحميل التطبيق على جهاز الموبايل الخاص بك 
