@@ -68,7 +68,7 @@
   }
 
   input{
-    @apply bg-white text-textColor text-end rounded-lg px-3 py-2
+    @apply bg-white text-textColor text-end rounded-lg px-3 py-2 disabled:bg-bgColor disabled:text-effectColor
   }
 
   /* Marker tweaks */

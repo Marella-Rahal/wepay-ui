@@ -24,7 +24,7 @@ const ForgetPassword = () => {
                 <img src='../forget_password.svg'/>
             </div>
 
-            <div className='w-full md:w-[550px] flex flex-col space-y-5 text-center p-5 shadow-lg shadow-gray-400 rounded-lg'>
+            <div className='w-full md:w-[550px] flex flex-col space-y-5 text-center p-5 shadow-cardShadow rounded-lg'>
 
                 <RiLockPasswordLine className='text-effectColor text-[30px] self-center'/>
 

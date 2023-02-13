@@ -25,8 +25,9 @@ module.exports = {
       },
       boxShadow: {
         'bgShadow':"inset 0px 4px 150px rgba(0, 0, 0, 0.25)",
-       'mapShadow': "inset 0px 0px 16px 6px rgba(0,0,0,0.10)",
-       'darkMapShadow' : "inset 0px 0px 16px 6px rgba(255,255,255,0.10)",
+        'cardShadow':"0px 4px 83px rgba(0, 0, 0, 0.25)",
+        'mapShadow': "inset 0px 0px 16px 6px rgba(0,0,0,0.10)",
+        'darkMapShadow' : "inset 0px 0px 16px 6px rgba(255,255,255,0.10)",
       }
     },
   },

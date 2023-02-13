@@ -86,7 +86,7 @@ const Navbar = () => {
                 {/* <Link href="/" className='hover:text-effectColor'>إحصائياتي</Link> */}
                 {/* //! *********************** */}
 
-                <Link href='/' className='hover:text-effectColor'>الباعة</Link>
+                <Link href='/' className='hover:text-effectColor'>الوكلاء</Link>
 
                 <Link href='/' className='hover:text-effectColor'>التجار والمحال</Link>
 
@@ -123,7 +123,7 @@ const Navbar = () => {
 
                     <Link href='/' className='hover:text-effectColor' onClick={handleSideNav}>التجار والمحال</Link>
 
-                    <Link href='/' className='hover:text-effectColor' onClick={handleSideNav}> الباعة</Link>
+                    <Link href='/' className='hover:text-effectColor' onClick={handleSideNav}> الوكلاء</Link>
 
                     {/* //! when the user logged in */}
 

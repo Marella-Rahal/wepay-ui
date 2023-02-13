@@ -13,15 +13,15 @@ const Login = () => {
                 <img src='login.svg'/>
             </div>
 
-            <div className='w-full md:w-[550px] flex flex-col space-y-14 text-center'>
+            <div className='w-full md:w-[550px] flex flex-col space-y-10 text-center'>
 
-                <div className='flex flex-col space-y-7'>
+                <div className='flex flex-col space-y-5'>
                     <h2>تسجيل الدخول لحسابك الشخصي</h2>
                     <Link href="/signup" className='text-[#8488ED] hover:underline
                     '>لا تملك حساب ؟ قم بالتسجيل و الاشتراك الآن</Link>
                 </div>
 
-                <form className='py-14 px-5 shadow-lg shadow-gray-400 rounded-lg flex flex-col space-y-10'>
+                <form className='py-10 px-5 shadow-cardShadow rounded-lg flex flex-col space-y-10'>
 
                     <input type="email" required placeholder='البريد الإلكتروني' className='outline-none shadow-lg'/>
                     <input type="password" required placeholder='كلمة السر' className='outline-none shadow-lg'/>

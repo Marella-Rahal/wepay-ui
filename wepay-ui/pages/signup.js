@@ -43,16 +43,16 @@ const Signup = () => {
                 <img src='signup.svg'/>
             </div>
 
-            <div className='w-full md:w-[550px] flex flex-col space-y-14 text-center'>
+            <div className='w-full md:w-[550px] flex flex-col space-y-10 text-center'>
                   
 
-                <div className='flex flex-col space-y-7'>
+                <div className='flex flex-col space-y-5'>
                     <h3>WEPAY ادر أموالك الآن عن طريق التسجيل في</h3>
                     <Link href="/login" className='text-[#8488ED] hover:underline
                     '>لديك حساب ؟ </Link>
                 </div>
 
-                <form className='py-14 px-5 shadow-lg shadow-gray-400 rounded-lg flex flex-col space-y-7'>
+                <form className='py-10 px-5 shadow-cardShadow rounded-lg flex flex-col space-y-7'>
 
                     {
                         first && (
