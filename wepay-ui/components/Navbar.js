@@ -83,7 +83,8 @@ const Navbar = () => {
             <div className='hidden md:flex justify-between space-x-5'>
 
                 {/* //! when the user logged in */}
-                {/* <Link href="/" className='hover:text-effectColor'>إحصائياتي</Link> */}
+                {/* <Link href="/dashboard" className='hover:text-effectColor'>إحصائياتي</Link> */}
+                {/* <Link href="/" className='hover:text-effectColor'>الدفع والشحن</Link> */}
                 {/* //! *********************** */}
 
                 <Link href='/' className='hover:text-effectColor'>الوكلاء</Link>
@@ -127,7 +128,9 @@ const Navbar = () => {
 
                     {/* //! when the user logged in */}
 
-                    <Link href='/' className='hover:text-effectColor' onClick={handleSideNav}>إحصائياتي</Link>
+                    <Link href='/' className='hover:text-effectColor' onClick={handleSideNav}>الدفع و الشحن</Link>
+
+                    <Link href='/dashboard' className='hover:text-effectColor' onClick={handleSideNav}>إحصائياتي</Link>
 
                     {
                         (mounted && theme == 'light') && (
