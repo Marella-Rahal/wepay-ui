@@ -9,6 +9,7 @@ import StatisticActivity from '../components/DashBoard/StatisticActivity';
 import ChartClassification from '../components/DashBoard/ChartClassification';
 import TotalCash from '../components/DashBoard/TotalCash';
 import BarChart from '../components/DashBoard/BarChart';
+import {motion} from 'framer-motion';
 
 const yearlyData = {
 
@@ -94,7 +95,7 @@ const Dashboard = () => {
 
             {
                 ( dashboardInfo=='statistic' ) && (
-                    <div className='w-full flex flex-col items-center space-y-10 md:space-y-0 md:flex-row md:space-x-10 md:justify-evenly text-end'>
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col items-center space-y-10 md:space-y-0 md:flex-row md:space-x-10 md:justify-evenly text-end'>
 
                         {/* //! left section */}
                         <div className='md:p-5 md:rounded-lg md:shadow-cardShadow w-full md:w-1/2 xl:w-1/3 flex flex-col space-y-5 text-effectColor dark:text-textColor2 font-bold'>
@@ -121,7 +122,7 @@ const Dashboard = () => {
                             </div>
 
                             <StatisticPayment type="قسط شهري" msg="دين لمتجر أبو عبدو ماركت" value="1000000000000" date="31/12/2023"/>
-                            <StatisticPayment type="دين" msg="دين لمتجر أبو عبدو ماركت" value="1000000000000" date="دفع كل شهر/ متبقي 29 أيام"/>
+                            <StatisticPayment type="دين" msg="دين لمتجر أبو عبدو ماركت" value="10000000000000" date="دفع كل شهر/ متبقي 29 أيام"/>
                             <StatisticPayment type="دين" msg="دين لمتجر " value="10000000" date="--/--/--"/>
                 
                             <div className='flex space-x-3 justify-between'>
@@ -129,7 +130,7 @@ const Dashboard = () => {
                                 <button className='text-[12px] xs:text-base p-1 px-3'>إضافة المزيد</button>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 )
             }
 
@@ -138,18 +139,28 @@ const Dashboard = () => {
             {
                 ( dashboardInfo == "activity" ) && (
                     
-                    <div className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
                         {/* ******************** */}
                         <div className='md:w-full flex flex-col-reverse items-center md:flex-row md:justify-end md:space-x-10'>
-                            <div className={typeOfAct=='recieve'?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0"} onClick={()=>setTypeOfAct("recieve")}>عمليات استلام الرصيد</div>
         
                             <div className={typeOfAct=="payAct"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0"} onClick={()=>setTypeOfAct("payAct")}>عمليات الدفع للمتاجر</div>
-        
-                            <div className={typeOfAct=="shipping"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0"} onClick={()=>setTypeOfAct("shipping")}>عمليات الشحن</div>
-        
-                            <div className={typeOfAct=="transfer"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0"} onClick={()=>setTypeOfAct("transfer")}>عمليات التحويل</div>
-        
-                            <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
+
+                            <div className='flex space-x-10 mt-10 md:mt-0'>
+
+                                <div className={typeOfAct=='recieve'?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("recieve")}>عمليات استلام الرصيد</div>
+            
+                                <div className={typeOfAct=="shipping"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("shipping")}>عمليات الشحن</div>
+
+                            </div>
+
+                            <div className='flex space-x-10'>
+
+                                <div className={typeOfAct=="transfer"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("transfer")}>عمليات التحويل</div>
+            
+                                <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
+
+                            </div>
+    
                         </div>
                         {/* ********************* */}
                         <div className='md:w-full flex flex-col space-y-10 items-center md:space-y-0 md:flex-row md:justify-between md:space-x-5 text-textColor dark:text-textColor2 font-normal'>
@@ -171,7 +182,7 @@ const Dashboard = () => {
                           
                         </div>
                          
-                    </div>
+                    </motion.div>
                 )
             }
 
@@ -180,19 +191,30 @@ const Dashboard = () => {
 
             {
                 (dashboardInfo == 'payment') && (
-                    <div className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
 
                         {/* ******************** */}
                         <div className='md:w-full flex flex-col-reverse items-center md:flex-row md:justify-end md:space-x-10'>
+
                             <div className={typeOfPayment=='otherPayment'?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0"} onClick={()=>setTypeOfPayment("otherPayment")}>مدفوعات أخرى  </div>
+
+                            <div className='flex space-x-10 mt-10 md:mt-0'>
+
+                                <div className={typeOfPayment=="storeDebt"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfPayment("storeDebt")}>ديون المتاجر  </div>
+            
+                                <div className={typeOfPayment=="monthlyPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo "} onClick={()=>setTypeOfPayment("monthlyPayment")}> الأقساط الشهرية</div>
+
+                            </div>
+
+                            <div className='flex space-x-10'>
+
+                                <div className={typeOfPayment=="debt"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo "} onClick={()=>setTypeOfPayment("debt")}> الديون</div>
+            
+                                <div className={typeOfPayment=="allPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfPayment("allPayment")}> كل الدفوعات </div>
+
+                            </div>
         
-                            <div className={typeOfPayment=="storeDebt"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0"} onClick={()=>setTypeOfPayment("storeDebt")}>ديون المتاجر  </div>
-        
-                            <div className={typeOfPayment=="monthlyPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0"} onClick={()=>setTypeOfPayment("monthlyPayment")}> الأقساط الشهرية</div>
-        
-                            <div className={typeOfPayment=="debt"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0"} onClick={()=>setTypeOfPayment("debt")}> الديون</div>
-        
-                            <div className={typeOfPayment=="allPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfPayment("allPayment")}> كل الدفوعات </div>
+
                         </div>
                         {/* ********************* */}
                         <div className='md:w-full flex flex-col space-y-10 items-center md:space-y-0 md:flex-row md:justify-between md:space-x-5 text-textColor dark:text-textColor2 font-normal'>
@@ -221,7 +243,7 @@ const Dashboard = () => {
 
                         </div>
 
-                    </div>
+                    </motion.div>
                 )
             }
 
