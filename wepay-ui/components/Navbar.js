@@ -84,7 +84,7 @@ const Navbar = () => {
 
                 {/* //! when the user logged in */}
                 <Link href="/dashboard" className='hover:text-effectColor'>إحصائياتي</Link> 
-                <Link href="/" className='hover:text-effectColor'>الدفع والشحن</Link>
+                <Link href="/shippingAndPayment" className='hover:text-effectColor'>الدفع والشحن</Link>
                 {/* //! *********************** */}
 
                 <Link href='/' className='hover:text-effectColor'>الوكلاء</Link>
@@ -128,7 +128,7 @@ const Navbar = () => {
 
                     {/* //! when the user logged in */}
 
-                    {/* <Link href='/' className='hover:text-effectColor' onClick={handleSideNav}>الدفع و الشحن</Link>
+                    {/* <Link href='/shippingAndPayment' className='hover:text-effectColor' onClick={handleSideNav}>الدفع و الشحن</Link>
 
                     <Link href='/dashboard' className='hover:text-effectColor' onClick={handleSideNav}>إحصائياتي</Link>
 
@@ -150,8 +150,8 @@ const Navbar = () => {
                     {/* //! *********************** */}
 
                     {/* //todo when the user is not logged in */}
-                    <button className='w-[120px]' onClick={() => { router.push("/login"); handleSideNav(); }}>تسجيل الدخول</button>
-                    <button className='w-[120px]' onClick={() => { router.push("/signup"); handleSideNav(); }}>اشترك الآن</button>
+                    <button className='w-[100px] text-xs' onClick={() => { router.push("/login"); handleSideNav(); }}>تسجيل الدخول</button>
+                    <button className='w-[100px] text-xs' onClick={() => { router.push("/signup"); handleSideNav(); }}>اشترك الآن</button>
                     {/* //todo ************************ */}
                     
                 </div>
