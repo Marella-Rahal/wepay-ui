@@ -2,7 +2,7 @@ import React from 'react'
 
 const Activity = (props) => {
   return (
-        <div className='p-3 rounded-lg shadow-cardShadow flex flex-col-reverse items-center md:flex-row md:justify-between md:space-x-3'>
+        <div className='p-3 rounded-lg shadow-cardShadow flex flex-col-reverse items-center md:flex-row md:justify-between md:space-x-3 text-[12px] xs:text-sm'>
 
             <div className='flex flex-col items-center mt-3 md:mt-0'>
                 <span> : التاريخ والوقت  </span>

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Payment = (props) => {
   return (
-    <div className='rounded-xl shadow-cardShadow px-3 py-5 flex flex-col space-y-10 w-full md:justify-between md:h-60 md:w-[350px] text-xs xs:text-sm my-5 md:mx-3'>
+    <div className='rounded-xl shadow-cardShadow px-3 py-5 flex flex-col space-y-10 w-full md:justify-between md:h-60 md:w-[350px] text-[12px] xs:text-sm my-5 md:mx-3'>
 
         <div className='flex flex-col space-y-3'>
 

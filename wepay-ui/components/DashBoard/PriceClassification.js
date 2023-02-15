@@ -3,7 +3,7 @@ import {AiFillCaretDown} from 'react-icons/ai';
 
 const PriceClassification = () => {
   return (
-        <div className='relative group'>
+        <div className='relative z-10 group w-fit'>
 
             <div className='p-2 rounded-lg shadow-cardShadow self-start flex w-[220px] justify-between items-center cursor-pointer group-hover:scale-[1.05]'>
                 <AiFillCaretDown className='w-6 h-6'/>
