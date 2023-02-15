@@ -10,18 +10,19 @@ import ChartClassification from '../components/DashBoard/ChartClassification';
 import TotalCash from '../components/DashBoard/TotalCash';
 import BarChart from '../components/DashBoard/BarChart';
 
-const monthlyData = {
+const yearlyData = {
 
     labels: [
-      "Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec"
+      "Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec",
     ],
     datasets: [
       {
         label:"إجمالي الصرف خلال هذا الشهر ",
         data:[
-          200,30,40,60,20,35,20,30,40,60,20,35
+          200,30,40,60,20,35,20,30,40,60,20,35,
         ],
         backgroundColor:["#3fb37f","#8488ED"],
+        hoverBackgroundColor:["#29b23d","#565bd0"],
         borderRadius:10,
       }
     ]
@@ -29,6 +30,9 @@ const monthlyData = {
 }
 
 const Dashboard = () => {
+
+    //todo to visulize the data on chart
+    const [chartClass,setChartClass]=useState(yearlyData);
 
     //todo what type of payment are displayed
     const [typeOfPayment,setTypeOfPayment]=useState('allPayment');
@@ -49,8 +53,8 @@ const Dashboard = () => {
                 {/* //! left section */}
                 <div className='w-full md:w-1/2 xl:w-2/3 h-[550px] md:min-h-full flex flex-col space-y-5 mt-10 md:mt-0'>
 
-                    <ChartClassification/>
-                    <BarChart data={monthlyData}/>
+                    <ChartClassification setChartClass={setChartClass}/>
+                    <BarChart data={chartClass}/>
                 
 
                 </div>
