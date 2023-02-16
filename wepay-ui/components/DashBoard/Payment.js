@@ -8,27 +8,27 @@ const Payment = (props) => {
 
         <div className='flex flex-col space-y-3'>
 
-            <span className='flex flex-wrap-reverse justify-end'>    
+            <span className='flex flex-wrap-reverse justify-center md:justify-end'>    
                 <span>{props.type} </span> 
                 : نوع الدفعة
             </span>
 
-            <span className='flex flex-wrap-reverse justify-end'>   
+            <span className='flex flex-wrap-reverse justify-center md:justify-end'>   
                 <span> {props.value} SYP </span> 
                 : قيمة الدفعة 
             </span>
-            <span className='flex flex-wrap-reverse justify-end'>   
+            <span className='flex flex-wrap-reverse justify-center md:justify-end'>   
                 <span> {props.name} </span> 
                 : اسم الدفعة 
             </span>
-            <span className='flex flex-wrap-reverse justify-end'>   
+            <span className='flex flex-wrap-reverse justify-center md:justify-end'>   
                 <span> {props.date} </span> 
                  : آخر موعد للدفع
             </span>
 
         </div>
 
-        <div className={props.type=='قسط شهري'?'flex justify-center':'flex justify-between'}>
+        <div className={props.type=='قسط شهري'?'flex justify-center':'flex justify-center space-x-3 md:justify-between'}>
             <button className='py-1 px-3'>حذف الدفعة</button>
             {
                ( props.type != "قسط شهري" ) && (
