@@ -1,12 +1,14 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 
 const StatisticPayment = (props) => {
+  const router=useRouter();  
   return (
         <div className='px-2 py-4 text-[12px] xs:text-sm rounded-lg shadow-cardShadow flex flex-col-reverse items-center md:flex-row md:space-x-3 md:justify-between text-center md:h-40'>
             <div className='flex flex-col space-y-3 mt-3 md:mt-0'>
                 {
                     (props.type != "قسط شهري" ) && (
-                        <button className='text-[12px] xs:text-base p-1 px-3 self-center md:self-start'>ادفع الآن</button>
+                        <button className='text-[12px] xs:text-base p-1 px-3 self-center md:self-start' onClick={()=>router.push('/shippingAndPayment')}>ادفع الآن</button>
                     )
                 }
                 <div className='flex flex-col space-y-2 md:space-y-0 md:max-w-[100px]'>

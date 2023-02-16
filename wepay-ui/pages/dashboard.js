@@ -237,7 +237,7 @@ const Dashboard = () => {
 
                         </div>
                         {/* *********************** */}
-                        <div className='flex flex-col md:flex-row md:justify-evenly md:flex-wrap'>
+                        <div className='w-full flex flex-col md:flex-row md:justify-evenly md:flex-wrap'>
 
 
                             <Payment type="دين" value="1000000000000000" name="دين لغيث عثمان" date="31/12/2023"/>

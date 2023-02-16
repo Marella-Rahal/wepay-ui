@@ -6,6 +6,8 @@ import {motion} from 'framer-motion';
 
 const ShippingAndPayment = () => {
   const [shippingAndPaymentInfo,setShippingAndPaymentInfo]=useState('transfer');
+  const [typeOfShipping,setTypeOfShipping]=useState('general');
+  const [typeOfWithdraw,setTypeOfWithdraw]=useState('general');
 
   return (
     <>
@@ -16,20 +18,151 @@ const ShippingAndPayment = () => {
           <div className='flex flex-col-reverse items-center md:flex-row md:space-x-10'>
 
             {/* //!left section */}
-            {
-              shippingAndPaymentInfo == 'transfer' && (
 
-                <form className='w-full md:w-1/2 xl:w-2/3 rounded-lg shadow-cardShadow mt-10 md:mt-0 p-5 flex flex-col space-y-10'>
+            <div className='w-full md:w-1/2 xl:w-2/3 rounded-lg shadow-cardShadow mt-10 md:mt-0 px-5 py-10 flex md:min-h-[532px]'>
 
-               
-          
-                  <button className='w-[40%] self-center'>ادفع الآن</button>
-  
-                </form>
+                {
+                  shippingAndPaymentInfo == 'transfer' && (
 
-              )
-            }
+                        <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex justify-end'>
 
+                          <form className='w-full lg:w-[90%] xl:w-[70%] flex flex-col space-y-20 justify-between text-sm text-end text-effectColor font-bold'>
+
+                              <div className='flex flex-col space-y-5'>
+
+                                <div className='flex space-x-3 items-center'>
+                                  <label className='w-1/2 pr-3'>أعد إدخال كود التحويل</label>
+                                  <label className='w-1/2 pr-3'>كود التحوبل</label>
+                                </div>
+
+                                <div className='flex space-x-3'>
+                                  <input type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
+                                  <input type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
+                                </div>
+
+                                <div className='flex space-x-3 items-center'>
+                                  <label className='w-1/2 pr-3'>أعد إدخال  المبلغ المراد إرساله</label>
+                                  <label className='w-1/2 pr-3'>المبلغ المراد إرساله</label>
+                                </div>
+
+                                <div className='flex space-x-3'>
+                                  <input type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
+                                  <input type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
+                                </div>
+
+                                <label className='pr-3'>PIN ادخل رمز ال</label>
+                                <input type="number" required className='outline-none shadow-lg text-start'/>
+
+                              </div>
+                      
+                              <button className='w-[60%] self-center lg:self-start'>ادفع الآن</button>
+            
+                          </form>
+
+                        </motion.div>
+
+                  )
+                }
+
+                {/* //! end of transfer section */}
+
+                {
+                  ( shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'general' ) && (
+
+                      <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
+
+                        <span className='w-[90%] md:w-[50%]'>اختر طريقة الشحن المستخدمة</span>
+
+                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('haram')}>شركة الهرم للحوالات المالية</button>
+                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('syriatel')}>Syriatel Cash سيرياتيل كاش </button>
+                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('bimo')}>بنك بيمو السعودي الفرنسي</button>
+
+                      </motion.div>
+
+                  )
+                }
+
+                {
+                  (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'haram') && (
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+
+                      <button onClick={()=>setTypeOfShipping('general')}>الرجوع</button>
+
+                    </motion.div>
+                  )
+                }
+
+                {
+                  (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'syriatel') && (
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+
+                      <button onClick={()=>setTypeOfShipping('general')}>الرجوع</button>
+
+                    </motion.div>
+                  )
+                }
+
+                {
+                  (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'bimo') && (
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+
+                      <button onClick={()=>setTypeOfShipping('general')}>الرجوع</button>
+
+                    </motion.div>
+                  )
+                }
+
+                {/* //! end of shipping section */}
+
+                {
+                  ( shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'general' ) && (
+
+                      <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
+
+                        <span className='w-[90%] md:w-[50%]'>اختر طريقة السحب المستخدمة</span>
+
+                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('haram')}>شركة الهرم للحوالات المالية</button>
+                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('syriatel')}>Syriatel Cash سيرياتيل كاش </button>
+                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('bimo')}>بنك بيمو السعودي الفرنسي</button>
+
+                      </motion.div>
+
+                  )
+                }
+
+                {
+                  (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'haram') && (
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+
+                      <button onClick={()=>setTypeOfWithdraw('general')}>الرجوع</button>                      
+
+                    </motion.div>
+                  )
+                }
+
+                {
+                  (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'syriatel') && (
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+
+                      <button onClick={()=>setTypeOfWithdraw('general')}>الرجوع</button>
+
+                    </motion.div>
+                  )
+                }
+
+                {
+                  (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'bimo') && (
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+
+                      <button onClick={()=>setTypeOfWithdraw('general')}>الرجوع</button> 
+
+                    </motion.div>
+                  )
+                }
+
+                {/* //! end of withdraw section */}
+
+            </div>    
 
             {/* //!right section */}
 
