@@ -32,7 +32,7 @@ const ShippingAndPayment = () => {
 
                                 <div className='flex space-x-3 items-center'>
                                   <label className='w-1/2 pr-3'>أعد إدخال كود التحويل</label>
-                                  <label className='w-1/2 pr-3'>كود التحوبل</label>
+                                  <label className='w-1/2 pr-3'>كود التحويل</label>
                                 </div>
 
                                 <div className='flex space-x-3'>
