@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import Navbar from '../../components/Navbar';
+import {motion} from 'framer-motion';
 
 const Login = () => {
   return (
@@ -21,7 +22,8 @@ const Login = () => {
                     '>لا تملك حساب ؟ قم بالتسجيل و الاشتراك الآن</Link>
                 </div>
 
-                <form className='py-10 px-5 shadow-cardShadow rounded-lg flex flex-col space-y-10'>
+                <motion.form initial={{opacity:0}} animate={{opacity:1}}
+                transition={{ ease: "easeInOut", duration: 1 }} className='py-10 px-5 shadow-cardShadow rounded-lg flex flex-col space-y-10'>
 
                     <input type="email" required placeholder='البريد الإلكتروني' className='outline-none shadow-lg'/>
                     <input type="password" required placeholder='كلمة السر' className='outline-none shadow-lg'/>
@@ -34,7 +36,7 @@ const Login = () => {
                         <button>تسجيل الدخول</button>
                     </div>
 
-                </form>
+                </motion.form>
                 
                 
 

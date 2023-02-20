@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from '../../components/Navbar';
 import {RiLockPasswordLine} from 'react-icons/ri';
+import {motion} from 'framer-motion';
 
 const ForgetPassword = () => {
     const [displayCode, setDisplayCode] = useState(false);
@@ -35,22 +36,22 @@ const ForgetPassword = () => {
 
                 {
                     displayCode && (
-                        <form className='flex flex-col space-y-5' onSubmit={checkCode}>
+                        <motion.form initial={{opacity:0,y:'-100%'}} animate={{opacity:1,y:'0'}} transition={{ ease: "easeInOut", duration: 0.3 }} className='flex flex-col space-y-5' onSubmit={checkCode}>
                             <input type="number" required placeholder='ادخل الكود الذي تم إرساله إليك' className='outline-none shadow-lg'/>
         
                             <button className='self-center'> تحقق من الكود</button>
-                        </form>
+                        </motion.form>
                     )
                 }
 
                 {
                     displayPwd && (
-                        <form className='flex flex-col space-y-5' onSubmit={(e)=>e.preventDefault()}>
+                        <motion.form initial={{opacity:0,y:'-100%'}} animate={{opacity:1,y:'0'}} transition={{ ease: "easeInOut", duration: 0.3 }} className='flex flex-col space-y-5' onSubmit={(e)=>e.preventDefault()}>
                             <input type="password" required placeholder=' ادخل كلمة المرور الجديدة' className='outline-none shadow-lg'/>
                             <input type="password" required placeholder='أكد كلمة المرور الجديدة' className='outline-none shadow-lg'/>
                             <input type="number" required placeholder='PIN' className='outline-none shadow-lg text-start'/>
                             <button className='self-center'>تحديث كلمة المرور</button>
-                        </form>
+                        </motion.form>
                     )
                 }
 

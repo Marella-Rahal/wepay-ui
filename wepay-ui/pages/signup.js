@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar';
+import {motion} from 'framer-motion'
 
 const Signup = () => {
 
@@ -57,7 +58,8 @@ const Signup = () => {
                     {
                         first && (
 
-                            <>
+                            <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 1 }} className='flex flex-col space-y-7'>
                                 <input 
                                 type="text" 
                                 placeholder='الأسم الأول' 
@@ -70,7 +72,7 @@ const Signup = () => {
                                 type="text" 
                                 placeholder='الاسم الأخير' 
                                 className='outline-none shadow-lg'/>
-                            </>
+                            </motion.div>
                             
                         )
                     }
@@ -78,7 +80,7 @@ const Signup = () => {
                     {
                         second && (
 
-                            <>
+                            <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{ ease: "easeInOut", duration: 1 }} className='flex flex-col space-y-7'>
                                 <input
                                 type="text" 
                                 placeholder='اسم المستخدم' 
@@ -91,14 +93,15 @@ const Signup = () => {
                                 type="number" 
                                 placeholder='+963' 
                                 className='outline-none shadow-lg text-start'/>
-                            </>
+                            </motion.div>
 
                         )
                     }
 
                     {
                         last && (
-                            <>
+                            <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 1 }} className='flex flex-col space-y-7'>
                                 <input 
                                 type="password"  
                                 placeholder='ادخل كلمة المرور' 
@@ -112,7 +115,7 @@ const Signup = () => {
                                 placeholder='PIN' 
                                 className='outline-none shadow-lg text-start'/>
 
-                            </>
+                            </motion.div>
                         )
                     }
  
@@ -145,14 +148,16 @@ const Signup = () => {
                     {
                         ( first || second ) && (
 
-                            <button type='button' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center' onClick={signNext}>التالي</button>
+                            <motion.button initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 0.5 }} type='button' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center' onClick={signNext}>التالي</motion.button>
 
                         )
                     }
 
                     {
                         last && (
-                            <button type='submit' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center'>إنشاء حساب</button>
+                            <motion.button initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 0.5 }} type='submit' className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center'>إنشاء حساب</motion.button>
                         )
                     }
 

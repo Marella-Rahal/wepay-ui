@@ -95,7 +95,8 @@ const Dashboard = () => {
 
             {
                 ( dashboardInfo=='statistic' ) && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col items-center space-y-10 md:space-y-0 md:flex-row md:space-x-10 md:justify-evenly text-end'>
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                    transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col items-center space-y-10 md:space-y-0 md:flex-row md:space-x-10 md:justify-evenly text-end'>
 
                         {/* //! left section */}
                         <div className='md:p-5 md:rounded-lg md:shadow-cardShadow w-full md:w-1/2 xl:w-1/3 flex flex-col space-y-5 text-effectColor dark:text-textColor2 font-bold'>
@@ -139,7 +140,8 @@ const Dashboard = () => {
             {
                 ( dashboardInfo == "activity" ) && (
                     
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                    transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
                         {/* ******************** */}
                         <div className='md:w-full flex flex-col-reverse items-center md:flex-row md:justify-end md:space-x-10'>
 
@@ -200,7 +202,8 @@ const Dashboard = () => {
 
             {
                 (dashboardInfo == 'payment') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                    transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
 
                         {/* ******************** */}
                         <div className='md:w-full flex flex-col-reverse items-center md:flex-row md:justify-end md:space-x-10'>

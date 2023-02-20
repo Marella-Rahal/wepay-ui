@@ -25,7 +25,8 @@ const ShippingAndPayment = () => {
                 {
                   shippingAndPaymentInfo == 'transfer' && (
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex justify-end'>
+                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                        transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex justify-end'>
 
                           <Transfer/>
 
@@ -39,7 +40,8 @@ const ShippingAndPayment = () => {
                 {
                   ( shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'general' ) && (
 
-                      <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
+                      <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                      transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
 
                         <span className='w-[90%] md:w-[50%]'>اختر طريقة الشحن المستخدمة</span>
 
@@ -54,7 +56,8 @@ const ShippingAndPayment = () => {
 
                 {
                   (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'haram') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
 
                       <button onClick={()=>setTypeOfShipping('general')}>الرجوع</button>
 
@@ -64,7 +67,8 @@ const ShippingAndPayment = () => {
 
                 {
                   (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'syriatel') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
 
                       <button onClick={()=>setTypeOfShipping('general')}>الرجوع</button>
 
@@ -74,7 +78,8 @@ const ShippingAndPayment = () => {
 
                 {
                   (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'bimo') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
 
                       <button onClick={()=>setTypeOfShipping('general')}>الرجوع</button>
 
@@ -87,7 +92,8 @@ const ShippingAndPayment = () => {
                 {
                   ( shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'general' ) && (
 
-                      <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
+                      <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                      transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
 
                         <span className='w-[90%] md:w-[50%]'>اختر طريقة السحب المستخدمة</span>
 
@@ -102,7 +108,8 @@ const ShippingAndPayment = () => {
 
                 {
                   (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'haram') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
 
                       <button onClick={()=>setTypeOfWithdraw('general')}>الرجوع</button>                      
 
@@ -112,7 +119,8 @@ const ShippingAndPayment = () => {
 
                 {
                   (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'syriatel') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
 
                       <button onClick={()=>setTypeOfWithdraw('general')}>الرجوع</button>
 
@@ -122,7 +130,8 @@ const ShippingAndPayment = () => {
 
                 {
                   (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'bimo') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className="w-full flex justify-center items-center">
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
 
                       <button onClick={()=>setTypeOfWithdraw('general')}>الرجوع</button> 
 
@@ -173,9 +182,11 @@ const ShippingAndPayment = () => {
                   shippingAndPaymentInfo == 'transfer' && (
                     <>
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}} className='self-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات الدفع والتحويل</motion.div>
+                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 1 }} className='self-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات الدفع والتحويل</motion.div>
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
+                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
 
                             <Activity type="دفع لمتجر" msg="دفع لمتجر أبو عبدو ماركت" value="1000000000000" date="02:30 PM 31/12/2023"/>
                             <Activity type="دفع لمتجر" msg="دفع لمتجر أبو عبدو ماركت" value="1000000000000" date="02:30 PM 31/12/2023"/>
@@ -193,9 +204,11 @@ const ShippingAndPayment = () => {
                   ( shippingAndPaymentInfo == 'shipping' ) && (
                     <>
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}} className='self-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات الشحن</motion.div>
+                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 1 }} className='self-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات الشحن</motion.div>
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
+                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
 
                             <Activity type="شحن" msg=" شحن رصيد الحساب " value="1000000000000" date="02:30 PM 31/12/2023"/>
                             <Activity type="شحن" msg="شحن رصيد الحساب" value="1000000000000" date="02:30 PM 31/12/2023"/>
@@ -214,9 +227,11 @@ const ShippingAndPayment = () => {
 
                     <>
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}} className='self-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات السحب</motion.div>
+                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 1 }} className='self-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات السحب</motion.div>
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
+                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
 
                           <Activity type="سحب" msg=" سحب رصيد الحساب " value="1000000000000" date="02:30 PM 31/12/2023"/>
                           <Activity type="سحب" msg="سحب رصيد الحساب" value="1000000000000" date="02:30 PM 31/12/2023"/>
