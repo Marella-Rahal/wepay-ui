@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import { useQRCode } from 'next-qrcode';
 import {BsCamera} from 'react-icons/bs'; 
 import {MdEdit} from 'react-icons/md';
+import {motion} from 'framer-motion';
 
 const Profile = () => {
     const { SVG } = useQRCode();
@@ -109,7 +110,7 @@ const Profile = () => {
                     {
                         personal && (
 
-                            <div className='flex flex-col items-center space-y-20 lg:items-end xl:space-y-0 xl:flex-row xl:justify-end xl:items-start xl:space-x-20 w-full'>
+                            <motion.div initial={{opacity:0}} animate={{opacity:1}} className='flex flex-col items-center space-y-20 lg:items-end xl:space-y-0 xl:flex-row xl:justify-end xl:items-start xl:space-x-20 w-full'>
 
 
                                 <div className='relative'>
@@ -206,14 +207,14 @@ const Profile = () => {
                                     <button className='self-center'>حفظ التغييرات</button>
         
                                 </form>
-                            </div>
+                            </motion.div>
 
                         )
                     }
 
                     {
                         security && (
-                            <form className='w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold'>
+                            <motion.form initial={{opacity:0}} animate={{opacity:1}} className='w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold'>
 
                                 <label>أدخل كلمة المرور الجديدة</label>
                                 <input 
@@ -238,13 +239,13 @@ const Profile = () => {
 
                                 <button className='self-center'>حفظ التغييرات</button>
 
-                            </form>
+                            </motion.form>
                         )
                     }
 
                     {
                         bank && (
-                            <form className='w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold'>
+                            <motion.form initial={{opacity:0}} animate={{opacity:1}} className='w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold'>
 
                                     <label>: بنك بيمو </label>
                                     <div className='flex'>
@@ -302,7 +303,7 @@ const Profile = () => {
                                 
                                 <button className='self-center'>حفظ التغييرات</button>
 
-                            </form>
+                            </motion.form>
                         )
                     }
 
