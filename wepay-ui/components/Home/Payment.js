@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 
 const Payment = () => {
+  const router=useRouter();
   return (
     <div className='bg-bgColor shadow-bgShadow w-full px-4 md:px-8 py-14 flex flex-col-reverse items-center md:flex-row md:justify-between md:space-x-10 text-end'>
         <div
@@ -13,7 +15,7 @@ const Payment = () => {
 
             <span>او الارسال عن طريق الكود المخصص لكل مستخدم</span>
 
-            <button>ادفع الآن</button>
+            <button onClick={()=>router.push('/shippingAndPayment')}>ادفع الآن</button>
 
             <div className='flex'>
                 <img src='../../appleStore.svg'className='cursor-pointer hover:scale-[1.1] w-24'/>

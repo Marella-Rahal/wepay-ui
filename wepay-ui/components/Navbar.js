@@ -115,7 +115,7 @@ const Navbar = () => {
                 <div className='flex flex-col space-y-7 items-center min-h-fit'>
 
                     {/* //! when the user is logged in */}
-                    {/* <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/> */}
+                    <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
                     {/* //! ******************* */}
 
                     <Link href="/" className='hover:text-effectColor' 
@@ -128,7 +128,7 @@ const Navbar = () => {
 
                     {/* //! when the user logged in */}
 
-                    {/* <Link href='/shippingAndPayment' className='hover:text-effectColor' onClick={handleSideNav}>الدفع و الشحن</Link>
+                    <Link href='/shippingAndPayment' className='hover:text-effectColor' onClick={handleSideNav}>الدفع و الشحن</Link>
 
                     <Link href='/dashboard' className='hover:text-effectColor' onClick={handleSideNav}>إحصائياتي</Link>
 
@@ -145,13 +145,13 @@ const Navbar = () => {
                     }
 
                    
-                    <BiLogOut className='w-12 h-12 rounded-full pr-2 pl-1 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={() => { router.push("/"); handleSideNav(); }}/> */}
+                    <BiLogOut className='w-12 h-12 rounded-full pr-2 pl-1 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={() => { router.push("/"); handleSideNav(); }}/>
 
                     {/* //! *********************** */}
 
                     {/* //todo when the user is not logged in */}
-                    <button className='w-[100px] text-xs' onClick={() => { router.push("/login"); handleSideNav(); }}>تسجيل الدخول</button>
-                    <button className='w-[100px] text-xs' onClick={() => { router.push("/signup"); handleSideNav(); }}>اشترك الآن</button>
+                    {/* <button className='w-[100px] text-xs' onClick={() => { router.push("/login"); handleSideNav(); }}>تسجيل الدخول</button>
+                    <button className='w-[100px] text-xs' onClick={() => { router.push("/signup"); handleSideNav(); }}>اشترك الآن</button> */}
                     {/* //todo ************************ */}
                     
                 </div>
