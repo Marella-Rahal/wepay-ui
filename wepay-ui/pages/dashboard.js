@@ -10,6 +10,7 @@ import ChartClassification from '../components/DashBoard/ChartClassification';
 import TotalCash from '../components/DashBoard/TotalCash';
 import BarChart from '../components/DashBoard/BarChart';
 import {motion} from 'framer-motion';
+import {AiFillCaretDown} from 'react-icons/ai'
 
 const yearlyData = {
 
@@ -128,7 +129,7 @@ const Dashboard = () => {
                 
                             <div className='flex space-x-3 justify-between'>
                                 <button className='text-[12px] xs:text-base p-1 px-3' onClick={()=>setDashboardInfo("payment")}>عرض الكل</button>
-                                <button className='text-[12px] xs:text-base p-1 px-3'>إضافة المزيد</button>
+                                <button className='text-[12px] xs:text-base p-1 px-3' onClick={()=>setDashboardInfo("addPayment")}>إضافة المزيد</button>
                             </div>
                         </div>
                     </motion.div>
@@ -233,7 +234,7 @@ const Dashboard = () => {
 
                             <PriceClassification/>
 
-                            <button>إضافة مدفوعات أخرى</button>
+                            <button onClick={()=>setDashboardInfo("addPayment")}>إضافة مدفوعات أخرى</button>
 
                             <DateClassification/>
 
@@ -259,7 +260,54 @@ const Dashboard = () => {
                 )
             }
 
+            {/* //! third section add new payment */}
 
+            {
+                ( dashboardInfo == 'addPayment' ) && (
+                    <motion.form initial={{opacity:0}} animate={{opacity:1}}
+                    transition={{ ease: "easeInOut", duration: 1 }} className="flex flex-col space-y-10 text-end text-effectColor" onSubmit={(e)=>e.preventDefault()}>
+
+                        <div className='self-end pb-2 border-b-[2px] border-effectColor'>
+                            :  إدخال مدفوعات مستحقة
+                        </div>
+
+
+                        <div className='w-full flex space-x-5 justify-evenly'>
+                            <label className='w-1/2 md:w-1/3 pr-2'>قيمة الدفعة</label>
+                            <label className='w-1/2 md:w-1/3 pr-2'>نوع الدفعة</label>
+                        </div>
+
+                        <div className='w-full flex space-x-5 justify-evenly'>
+
+                            <input type="number" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow text-start'/>
+
+                            <select name='typeOfPayment' className='bg-white text-end text-textColor rounded-lg px-3 py-2 w-1/2 md:w-1/3 outline-none shadow-cardShadow'>
+                                <option value="مدفوعات أخرى">مدفوعات أخرى</option>
+                                <option value="دين">دين</option>
+                                <option value="قسط شهري">قسط شهري</option>
+                                <option value="دين لمتجر">دين لمتجر</option>
+                            </select>
+                            
+                        </div>
+
+                        <div className='w-full flex space-x-5 justify-evenly'>
+                            <label className='w-1/2 md:w-1/3 pr-2'>تفاصيل الدفعة</label>
+                            <label className='w-1/2 md:w-1/3 pr-2'>آخر موعد للدفعة</label>
+                        </div>
+
+                        <div className='w-full flex space-x-5 justify-evenly'>
+
+                            <input type="text" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow'/>
+
+                            <input type="date" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow'/>
+                            
+                        </div>
+
+                        <button className='self-center w-1/2 md:w-1/4'>إدخال</button>
+
+                    </motion.form>
+                )
+            }
            
 
         </div>
