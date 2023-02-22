@@ -145,7 +145,7 @@ const Dashboard = () => {
 
                         {/* ******************** */}
 
-                        <div className='w-full p-5 rounded-lg text-[12px] md:text-sm overflow-x-scroll XScrollbar flex items-center justify-between space-x-5'>
+                        <div className='w-full p-5 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between space-x-5'>
 
 
                                 <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
