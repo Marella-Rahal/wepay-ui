@@ -145,7 +145,7 @@ const Dashboard = () => {
 
                         {/* ******************** */}
 
-                        <div dir='rtl' className='w-full px-3 h-20 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between'>
+                        <div dir='rtl' className='w-full h-20 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between'>
 
 
                                 <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[100px]"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
@@ -199,7 +199,7 @@ const Dashboard = () => {
                     transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
 
                         {/* ******************** */}
-                        <div dir='rtl' className='w-full px-3 h-20 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between'>
+                        <div dir='rtl' className='w-full h-20 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between'>
 
 
                             <div className={typeOfPayment=="allPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[100px]"} onClick={()=>setTypeOfPayment("allPayment")}> كل الدفوعات </div>
