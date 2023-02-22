@@ -90,9 +90,8 @@ const Signup = () => {
                                 placeholder='البريد الإلكتروني' 
                                 className='outline-none shadow-lg'/>
                                 <input 
-                                type="tel"
-                                pattern='[0][9][0-9]{2}-[0-9]{3}-[0-9]{3}' 
-                                placeholder='0912-345-678' 
+                                type="number" 
+                                placeholder='+963' 
                                 className='outline-none shadow-lg text-start'/>
                             </motion.div>
 
