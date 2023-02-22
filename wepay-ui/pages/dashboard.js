@@ -156,7 +156,7 @@ const Dashboard = () => {
                         {/* ******************** */}
 
                         <motion.div ref={slider}
-                        className="w-full p-5 rounded-lg text-[12px] md:text-sm overflow-hidden cursor-grab">
+                        className="w-full p-5 rounded-lg text-[12px] md:text-sm overflow-x-scroll HScrollbar cursor-grab">
 
                             <motion.div drag="x"
                             dragConstraints={{ right:0 , left:-width }} className='flex items-center justify-between space-x-5'>
