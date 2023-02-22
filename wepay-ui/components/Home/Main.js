@@ -6,7 +6,7 @@ const Main = () => {
   return (
     <div className='bg-bgColor shadow-bgShadow pt-28 pb-14 px-4 md:px-8 w-full flex flex-col space-y-10 items-center md:space-y-0 md:flex-row md:justify-center md:space-x-24'>
         <div>
-            <img src='../../main.svg' className='w-[300px] md:w-[500px]'/>
+            <img src='../../main.svg' className='w-[300px] md:w-[450px]'/>
         </div>
         
         <div className='flex flex-col space-y-7 items-end text-end'>
