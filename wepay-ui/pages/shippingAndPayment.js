@@ -4,6 +4,12 @@ import TotalCash from '../components/DashBoard/TotalCash';
 import Navbar from '../components/Navbar';
 import {motion} from 'framer-motion';
 import Transfer from '../components/ShippingAndPayment/Transfer';
+import WithdrawHaram from '../components/ShippingAndPayment/WithdrawHaram';
+import WithdrawSyriatel from '../components/ShippingAndPayment/WithdrawSyriatel';
+import ShippingBimo from '../components/ShippingAndPayment/ShippingBimo';
+import ShippingSyriatel from '../components/ShippingAndPayment/ShippingSyriatel';
+import WithdrawBimo from '../components/ShippingAndPayment/WithdrawBimo';
+import ShippingHaram from '../components/ShippingAndPayment/ShippingHaram';
 
 const ShippingAndPayment = () => {
   const [shippingAndPaymentInfo,setShippingAndPaymentInfo]=useState('transfer');
@@ -20,7 +26,7 @@ const ShippingAndPayment = () => {
 
             {/* //!left section */}
 
-            <div className='w-full md:w-1/2 xl:w-2/3 rounded-lg shadow-cardShadow mt-10 md:mt-0 px-5 py-10 flex md:min-h-[532px]'>
+            <div className='w-full md:w-1/2 xl:w-2/3 rounded-lg shadow-cardShadow mt-10 md:mt-0 p-5 flex md:min-h-[532px]'>
 
                 {
                   shippingAndPaymentInfo == 'transfer' && (
@@ -57,9 +63,9 @@ const ShippingAndPayment = () => {
                 {
                   (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'haram') && (
                     <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full">
 
-                      <button onClick={()=>setTypeOfShipping('general')}>الرجوع</button>
+                      <ShippingHaram setTypeOfShipping={setTypeOfShipping}/>  
 
                     </motion.div>
                   )
@@ -68,9 +74,9 @@ const ShippingAndPayment = () => {
                 {
                   (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'syriatel') && (
                     <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
 
-                      <button onClick={()=>setTypeOfShipping('general')}>الرجوع</button>
+                      <ShippingSyriatel setTypeOfShipping={setTypeOfShipping}/>
 
                     </motion.div>
                   )
@@ -79,9 +85,9 @@ const ShippingAndPayment = () => {
                 {
                   (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'bimo') && (
                     <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
 
-                      <button onClick={()=>setTypeOfShipping('general')}>الرجوع</button>
+                      <ShippingBimo setTypeOfShipping={setTypeOfShipping}/>
 
                     </motion.div>
                   )
@@ -109,9 +115,9 @@ const ShippingAndPayment = () => {
                 {
                   (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'haram') && (
                     <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
 
-                      <button onClick={()=>setTypeOfWithdraw('general')}>الرجوع</button>                      
+                      <WithdrawHaram setTypeOfWithdraw={setTypeOfWithdraw}/>                     
 
                     </motion.div>
                   )
@@ -120,9 +126,9 @@ const ShippingAndPayment = () => {
                 {
                   (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'syriatel') && (
                     <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
 
-                      <button onClick={()=>setTypeOfWithdraw('general')}>الرجوع</button>
+                      <WithdrawSyriatel setTypeOfWithdraw={setTypeOfWithdraw}/>
 
                     </motion.div>
                   )
@@ -131,9 +137,9 @@ const ShippingAndPayment = () => {
                 {
                   (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'bimo') && (
                     <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-center items-center">
+                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
 
-                      <button onClick={()=>setTypeOfWithdraw('general')}>الرجوع</button> 
+                      <WithdrawBimo setTypeOfWithdraw={setTypeOfWithdraw}/>
 
                     </motion.div>
                   )

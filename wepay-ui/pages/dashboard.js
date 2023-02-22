@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Payment from '../components/DashBoard/Payment';
 import PriceClassification from '../components/DashBoard/PriceClassification';
@@ -270,10 +270,10 @@ const Dashboard = () => {
                             <input type="number" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow text-start'/>
 
                             <select name='typeOfPayment' className='bg-white text-end text-textColor rounded-lg px-3 py-2 w-1/2 md:w-1/3 outline-none shadow-cardShadow'>
-                                <option value="مدفوعات أخرى">مدفوعات أخرى</option>
-                                <option value="دين">دين</option>
-                                <option value="قسط شهري">قسط شهري</option>
-                                <option value="دين لمتجر">دين لمتجر</option>
+                                <option value="otherPayment">مدفوعات أخرى</option>
+                                <option value="debt">دين</option>
+                                <option value="monthlyPayment">قسط شهري</option>
+                                <option value="storeDebt">دين لمتجر</option>
                             </select>
                             
                         </div>
