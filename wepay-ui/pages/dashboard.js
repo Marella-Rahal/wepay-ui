@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Payment from '../components/DashBoard/Payment';
 import PriceClassification from '../components/DashBoard/PriceClassification';
@@ -10,7 +10,6 @@ import ChartClassification from '../components/DashBoard/ChartClassification';
 import TotalCash from '../components/DashBoard/TotalCash';
 import BarChart from '../components/DashBoard/BarChart';
 import {motion} from 'framer-motion';
-import {AiFillCaretDown} from 'react-icons/ai'
 
 const yearlyData = {
 
@@ -43,7 +42,18 @@ const Dashboard = () => {
     const [typeOfAct,setTypeOfAct]=useState('allOperation');
 
     //todo what info are displayed 
-   const [dashboardInfo,setDashboardInfo]=useState("statistic");  
+   const [dashboardInfo,setDashboardInfo]=useState("statistic");
+   
+    //! to set constraint on how much i can drag the slider to the left
+    const [width, setWidth] = useState(0);
+    const slider = useRef();
+    useEffect(() => {
+        if(dashboardInfo=='activity'){
+           setWidth(slider.current.scrollWidth - slider.current.offsetWidth);
+           console.log(width)
+        }
+    }, [dashboardInfo]);
+    //! **************************************************
  
   return (
     <>
@@ -144,36 +154,34 @@ const Dashboard = () => {
                     <motion.div initial={{opacity:0}} animate={{opacity:1}}
                     transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
                         {/* ******************** */}
-                        <div className='md:w-full flex flex-col-reverse items-center md:flex-row md:justify-end md:space-x-10'>
 
-                            <div className='flex space-x-10 mt-10 md:mt-0'>
+                        <motion.div ref={slider}
+                        className="w-full p-5 rounded-lg text-sm overflow-hidden cursor-grab">
 
+                            <motion.div drag="x"
+                            dragConstraints={{ right:0 , left:-width }} className='flex items-center justify-between space-x-5'>
+
+
+                                <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
+
+
+                                <div className={typeOfAct=='recieve'?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("recieve")}>عمليات استلام الرصيد</div>
+
+
+                                <div className={typeOfAct=="payAct"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("payAct")}>عمليات الدفع للمتاجر</div>
+
+                                <div className={typeOfAct=="transfer"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("transfer")}>عمليات التحويل</div>
+
+                            
                                 <div className={typeOfAct=="withdraw"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("withdraw")}>عمليات  السحب</div>
 
 
                                 <div className={typeOfAct=="shipping"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("shipping")}>عمليات الشحن</div>
 
-                            </div>
-
-                            <div className='flex space-x-10 mt-10 md:mt-0'>
-
-                                <div className={typeOfAct=="transfer"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("transfer")}>عمليات التحويل</div>
-
         
-                                <div className={typeOfAct=="payAct"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("payAct")}>عمليات الدفع للمتاجر</div>
+                            </motion.div>
 
-                            </div>
-
-                            <div className='flex space-x-10'>
-
-                                <div className={typeOfAct=='recieve'?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("recieve")}>عمليات استلام الرصيد</div>
-
-            
-                                <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
-
-                            </div>
-    
-                        </div>
+                        </motion.div>
                         {/* ********************* */}
                         <div className='md:w-full flex flex-col space-y-10 items-center md:space-y-0 md:flex-row md:justify-between md:space-x-5 text-textColor dark:text-textColor2 font-normal'>
 
