@@ -43,17 +43,6 @@ const Dashboard = () => {
 
     //todo what info are displayed 
    const [dashboardInfo,setDashboardInfo]=useState("statistic");
-   
-    //! to set constraint on how much i can drag the slider to the left
-    const [width, setWidth] = useState(0);
-    const slider = useRef();
-    useEffect(() => {
-        if(dashboardInfo=='activity'){
-           setWidth(slider.current.scrollWidth - slider.current.offsetWidth);
-           console.log(width)
-        }
-    }, [dashboardInfo]);
-    //! **************************************************
  
   return (
     <>
@@ -153,13 +142,10 @@ const Dashboard = () => {
                     
                     <motion.div initial={{opacity:0}} animate={{opacity:1}}
                     transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
+
                         {/* ******************** */}
 
-                        <motion.div ref={slider}
-                        className="w-full p-5 rounded-lg text-[12px] md:text-sm overflow-x-scroll HScrollbar cursor-grab">
-
-                            <motion.div drag="x"
-                            dragConstraints={{ right:0 , left:-width }} className='flex items-center justify-between space-x-5'>
+                        <div className='w-full p-5 rounded-lg text-[12px] md:text-sm overflow-x-scroll XScrollbar flex items-center justify-between space-x-5'>
 
 
                                 <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
@@ -179,9 +165,7 @@ const Dashboard = () => {
                                 <div className={typeOfAct=="shipping"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]"} onClick={()=>setTypeOfAct("shipping")}>عمليات الشحن</div>
 
         
-                            </motion.div>
-
-                        </motion.div>
+                        </div>
                         {/* ********************* */}
                         <div className='md:w-full flex flex-col space-y-10 items-center md:space-y-0 md:flex-row md:justify-between md:space-x-5 text-textColor dark:text-textColor2 font-normal'>
 

@@ -27,17 +27,17 @@
   /***Horizontal scrollbar***/
   
   /* width */
-  .HScrollbar::-webkit-scrollbar {
+  .XScrollbar::-webkit-scrollbar {
     height:2px
   }
 
   /* Track */
-  .HScrollbar::-webkit-scrollbar-track {
+  .XScrollbar::-webkit-scrollbar-track {
     box-shadow:inset 0 0 3px grey;
   }
 
   /* Handle */
-  .HScrollbar::-webkit-scrollbar-thumb {
+  .XScrollbar::-webkit-scrollbar-thumb {
     @apply bg-gradient-to-b from-gradientFrom to-gradientTo;
   }
 
