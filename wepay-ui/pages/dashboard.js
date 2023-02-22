@@ -156,27 +156,27 @@ const Dashboard = () => {
                         {/* ******************** */}
 
                         <motion.div ref={slider}
-                        className="w-full p-5 rounded-lg text-sm overflow-hidden cursor-grab">
+                        className="w-full p-5 rounded-lg text-[12px] md:text-sm overflow-hidden cursor-grab">
 
                             <motion.div drag="x"
                             dragConstraints={{ right:0 , left:-width }} className='flex items-center justify-between space-x-5'>
 
 
-                                <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
+                                <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
 
 
-                                <div className={typeOfAct=='recieve'?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("recieve")}>عمليات استلام الرصيد</div>
+                                <div className={typeOfAct=='recieve'?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[150px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[150px]"} onClick={()=>setTypeOfAct("recieve")}>عمليات استلام الرصيد</div>
 
 
-                                <div className={typeOfAct=="payAct"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("payAct")}>عمليات الدفع للمتاجر</div>
+                                <div className={typeOfAct=="payAct"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[150px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[150px]"} onClick={()=>setTypeOfAct("payAct")}>عمليات الدفع للمتاجر</div>
 
-                                <div className={typeOfAct=="transfer"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("transfer")}>عمليات التحويل</div>
+                                <div className={typeOfAct=="transfer"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]"} onClick={()=>setTypeOfAct("transfer")}>عمليات التحويل</div>
 
                             
-                                <div className={typeOfAct=="withdraw"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("withdraw")}>عمليات  السحب</div>
+                                <div className={typeOfAct=="withdraw"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]"} onClick={()=>setTypeOfAct("withdraw")}>عمليات  السحب</div>
 
 
-                                <div className={typeOfAct=="shipping"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfAct("shipping")}>عمليات الشحن</div>
+                                <div className={typeOfAct=="shipping"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]"} onClick={()=>setTypeOfAct("shipping")}>عمليات الشحن</div>
 
         
                             </motion.div>
