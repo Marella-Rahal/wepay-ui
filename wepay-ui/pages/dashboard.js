@@ -145,24 +145,24 @@ const Dashboard = () => {
 
                         {/* ******************** */}
 
-                        <div className='w-full p-5 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between space-x-5'>
+                        <div dir='rtl' className='w-full h-20 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between'>
 
 
-                                <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
+                                <div className={typeOfAct=="allOperation"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[100px]"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
 
 
-                                <div className={typeOfAct=='recieve'?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[150px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[150px]"} onClick={()=>setTypeOfAct("recieve")}>عمليات استلام الرصيد</div>
+                                <div className={typeOfAct=='recieve'?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[155px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[155px]"} onClick={()=>setTypeOfAct("recieve")}>عمليات استلام الرصيد</div>
 
 
-                                <div className={typeOfAct=="payAct"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[150px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[150px]"} onClick={()=>setTypeOfAct("payAct")}>عمليات الدفع للمتاجر</div>
+                                <div className={typeOfAct=="payAct"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[155px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[155px]"} onClick={()=>setTypeOfAct("payAct")}>عمليات الدفع للمتاجر</div>
 
-                                <div className={typeOfAct=="transfer"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]"} onClick={()=>setTypeOfAct("transfer")}>عمليات التحويل</div>
+                                <div className={typeOfAct=="transfer"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfAct("transfer")}>عمليات التحويل</div>
 
                             
-                                <div className={typeOfAct=="withdraw"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]"} onClick={()=>setTypeOfAct("withdraw")}>عمليات  السحب</div>
+                                <div className={typeOfAct=="withdraw"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfAct("withdraw")}>عمليات  السحب</div>
 
 
-                                <div className={typeOfAct=="shipping"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]"} onClick={()=>setTypeOfAct("shipping")}>عمليات الشحن</div>
+                                <div className={typeOfAct=="shipping"?'mx-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mx-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfAct("shipping")}>عمليات الشحن</div>
 
         
                         </div>
@@ -199,26 +199,22 @@ const Dashboard = () => {
                     transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 items-center text-effectColor dark:text-textColor2 font-bold text-center'>
 
                         {/* ******************** */}
-                        <div className='md:w-full flex flex-col-reverse items-center md:flex-row md:justify-end md:space-x-10'>
+                        <div dir='rtl' className='w-full h-20 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between'>
 
-                            <div className={typeOfPayment=='otherPayment'?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo mt-10 md:mt-0"} onClick={()=>setTypeOfPayment("otherPayment")}>مدفوعات أخرى  </div>
 
-                            <div className='flex space-x-10 mt-10 md:mt-0'>
+                            <div className={typeOfPayment=="allPayment"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[100px]"} onClick={()=>setTypeOfPayment("allPayment")}> كل الدفوعات </div>
 
-                                <div className={typeOfPayment=="storeDebt"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfPayment("storeDebt")}>ديون المتاجر  </div>
+                            
+                            <div className={typeOfPayment=="debt"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[100px]"} onClick={()=>setTypeOfPayment("debt")}> الديون</div>
+
+                            <div className={typeOfPayment=="monthlyPayment"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfPayment("monthlyPayment")}> الأقساط الشهرية</div>
+
+
+                            <div className={typeOfPayment=="storeDebt"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfPayment("storeDebt")}>ديون المتاجر  </div>
+
+                            <div className={typeOfPayment=='otherPayment'?'mx-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mx-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfPayment("otherPayment")}>مدفوعات أخرى  </div>
+
             
-                                <div className={typeOfPayment=="monthlyPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo "} onClick={()=>setTypeOfPayment("monthlyPayment")}> الأقساط الشهرية</div>
-
-                            </div>
-
-                            <div className='flex space-x-10'>
-
-                                <div className={typeOfPayment=="debt"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo "} onClick={()=>setTypeOfPayment("debt")}> الديون</div>
-            
-                                <div className={typeOfPayment=="allPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo':"p-2 rounded-lg shadow-cardShadow hover:text-textColor2 cursor-pointer hover:bg-gradient-to-b from-gradientFrom to-gradientTo"} onClick={()=>setTypeOfPayment("allPayment")}> كل الدفوعات </div>
-
-                            </div>
-        
 
                         </div>
                         {/* ********************* */}
