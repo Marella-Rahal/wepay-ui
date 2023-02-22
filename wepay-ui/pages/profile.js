@@ -55,11 +55,15 @@ const Profile = () => {
 
 
     //! if the user does not have a profile photo then we put default.jpg but if he has we put his photo
-    const [img, setImg] = useState("default.jpg");
     //! change the image and send it to backend then change it in redux
+    const [img, setImg] = useState("default.jpg");
     const updateImage = (e) => {
-        console.log(e.target.files[0]);
-        console.log(e.target.files[0].name);
+        // console.log(e.target.files[0]);
+        // console.log(e.target.files[0].name);
+        //! for preview
+        if(e.target.files[0]){
+            document.getElementById('imgProfile').src=URL.createObjectURL(e.target.files[0])
+        }
     };
 
   return (
@@ -117,7 +121,7 @@ const Profile = () => {
 
                                 <div className='relative'>
         
-                                    <img src={img} className='w-48 h-48 rounded-full shadow-cardShadow'/>
+                                    <img src={img} id="imgProfile" className='w-48 h-48 rounded-full shadow-cardShadow'/>
         
                                     <label
                                     htmlFor="profilePhoto"
@@ -128,6 +132,7 @@ const Profile = () => {
         
                                     <input
                                     type="file"
+                                    accept="image/*"
                                     id="profilePhoto"
                                     className="hidden"
                                     onChange={updateImage}

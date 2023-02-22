@@ -9,7 +9,7 @@ const ShippingHaram = (props) => {
   }  
 
   return (
-    <form className='w-full flex flex-col space-y-10 justify-between items-end text-end text-sm'>
+    <form className='w-full flex flex-col space-y-5 md:space-y-10 justify-between items-end text-end text-sm'>
 
         <div className='w-full flex flex-col space-y-5'>
 
@@ -24,7 +24,7 @@ const ShippingHaram = (props) => {
             {/* //! two */}
             <div className='w-full flex flex-col-reverse md:flex-row'>
 
-                <div className='md:w-1/2 md:pr-3 py-3 text-effectColor md:border-r-[1px] border-effectColor flex flex-col space-y-3'>
+                <div className='md:w-1/2 md:pr-3 pt-3 md:py-3 text-effectColor md:border-r-[1px] border-effectColor flex flex-col space-y-3'>
 
                     <label className='w-full pr-2'>رقم عملية الإرسال</label>
                     <input type="number" required className='outline-none shadow-lg text-start'/>
@@ -39,7 +39,7 @@ const ShippingHaram = (props) => {
 
                 </div>
 
-                <div className='md:w-1/2 md:pl-3 py-3 text-effectColor flex flex-col space-y-3'>
+                <div className='md:w-1/2 md:pl-3 md:py-3 text-effectColor flex flex-col space-y-3'>
 
                     <label className='w-full pr-2'>اسم المرسل</label>
                     <input type="text" required className='outline-none shadow-lg'/>

@@ -255,40 +255,48 @@ const Dashboard = () => {
                     <motion.form initial={{opacity:0}} animate={{opacity:1}}
                     transition={{ ease: "easeInOut", duration: 1 }} className="flex flex-col space-y-10 text-end text-effectColor" onSubmit={(e)=>e.preventDefault()}>
 
+                        {/* //! one */}
                         <div className='self-end pb-2 border-b-[2px] border-effectColor'>
                             :  إدخال مدفوعات مستحقة
                         </div>
 
+                        {/* //! two */}
+                        <div className='flex flex-col space-y-3'>
+                            <div className='w-full flex space-x-5 justify-evenly'>
+                                <label className='w-1/2 md:w-1/3 pr-2'>قيمة الدفعة</label>
+                                <label className='w-1/2 md:w-1/3 pr-2'>نوع الدفعة</label>
+                            </div>
 
-                        <div className='w-full flex space-x-5 justify-evenly'>
-                            <label className='w-1/2 md:w-1/3 pr-2'>قيمة الدفعة</label>
-                            <label className='w-1/2 md:w-1/3 pr-2'>نوع الدفعة</label>
+                            <div className='w-full flex space-x-5 justify-evenly'>
+
+                                <input type="number" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow text-start'/>
+
+                                <select name='typeOfPayment' className='bg-white text-end text-textColor rounded-lg px-3 py-2 w-1/2 md:w-1/3 outline-none shadow-cardShadow'>
+                                    <option value="otherPayment">مدفوعات أخرى</option>
+                                    <option value="debt">دين</option>
+                                    <option value="monthlyPayment">قسط شهري</option>
+                                    <option value="storeDebt">دين لمتجر</option>
+                                </select>
+                                
+                            </div>
                         </div>
 
-                        <div className='w-full flex space-x-5 justify-evenly'>
+                        {/* //!three */}
+                        <div className='flex flex-col space-y-3'>
 
-                            <input type="number" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow text-start'/>
+                            <div className='w-full flex space-x-5 justify-evenly'>
+                                <label className='w-1/2 md:w-1/3 pr-2'>تفاصيل الدفعة</label>
+                                <label className='w-1/2 md:w-1/3 pr-2'>آخر موعد للدفعة</label>
+                            </div>
 
-                            <select name='typeOfPayment' className='bg-white text-end text-textColor rounded-lg px-3 py-2 w-1/2 md:w-1/3 outline-none shadow-cardShadow'>
-                                <option value="otherPayment">مدفوعات أخرى</option>
-                                <option value="debt">دين</option>
-                                <option value="monthlyPayment">قسط شهري</option>
-                                <option value="storeDebt">دين لمتجر</option>
-                            </select>
-                            
-                        </div>
+                            <div className='w-full flex space-x-5 justify-evenly'>
 
-                        <div className='w-full flex space-x-5 justify-evenly'>
-                            <label className='w-1/2 md:w-1/3 pr-2'>تفاصيل الدفعة</label>
-                            <label className='w-1/2 md:w-1/3 pr-2'>آخر موعد للدفعة</label>
-                        </div>
+                                <input type="text" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow'/>
 
-                        <div className='w-full flex space-x-5 justify-evenly'>
+                                <input type="date" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow'/>
+                                
+                            </div>
 
-                            <input type="text" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow'/>
-
-                            <input type="date" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow'/>
-                            
                         </div>
 
                         <button className='self-center w-1/2 md:w-1/4'>إدخال</button>
