@@ -34,10 +34,12 @@
   /* Track */
   .XScrollbar::-webkit-scrollbar-track {
     box-shadow:inset 0 0 3px grey;
+    border-radius: 20px;
   }
 
   /* Handle */
   .XScrollbar::-webkit-scrollbar-thumb {
+    border-radius: 20px;
     @apply bg-gradient-to-b from-gradientFrom to-gradientTo;
   }
 
