@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import dynamic from 'next/dynamic';
-const QrReader = dynamic(()=>import('react-qr-scanner'),{
-    ssr:false
-})
+// import dynamic from 'next/dynamic';
+// const QrReader = dynamic(()=>import('react-qr-scanner'),{
+//     ssr:false
+// })
+
+import { QrReader } from 'react-qr-reader';
 
 const Transfer = () => {
     const [reader,setReader]=useState();
@@ -21,11 +23,17 @@ const Transfer = () => {
     const read = ()=>{
         setReader(
             <QrReader
-            facingMode='rear'
-            delay={300}
-            style={{width:'100%',height:'100%'}}
-            onScan={data=> data?setCode(data.text):setCode('')}
-            onError={error=>alert(error)}
+                onResult={(result, error) => {
+                    if (result) {
+                        setCode(result.text)
+                    }
+                    if(error){
+                        setCode('')
+                    }
+                }}
+                constraints={{facingMode: 'environment'}}
+                scanDelay={500}
+                style={{ width: '100%' }}
             />
         );
     } 
