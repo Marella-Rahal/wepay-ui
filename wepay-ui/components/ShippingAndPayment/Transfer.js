@@ -8,7 +8,7 @@ const Transfer = () => {
     const [reader,setReader]=useState();
     const [code,setCode]=useState();
     
-    //! when getting the code close full screen and put the code in the input
+    //! every time the camera will open and get the code i will check if the code is empty or does have our qrcode if it does have the code i will close the QrReader by setting the reader to empty and then i will put the code value in the input
     useEffect(()=>{
         if(code){
             setReader();
@@ -17,17 +17,15 @@ const Transfer = () => {
         }
     },[code])
 
-    //! to open full screen and the reader
+    //! to put our QrReader in the reader and open the camera to scan
     const read = ()=>{
         setReader(
             <QrReader
-            delay='500'
-            constraints={{
-                facingMode: 'environment'
-            }}
+            facingMode='rear'
+            delay={300}
             style={{width:'100%',height:'100%'}}
-            onScan={data=> data?setCode(data.text):''}
-            onError={(error)=>console.log(error)}
+            onScan={data=> data?setCode(data.text):setCode('')}
+            onError={error=>alert(error)}
             />
         );
     } 
@@ -37,18 +35,17 @@ const Transfer = () => {
 
         <div className='flex flex-col space-y-10'>
 
-            <div className='md:hidden flex flex-col space-y-5'>
+            <div className='md:hidden flex flex-col space-y-10'>
 
                 <div className='flex justify-between items-center space-x-5 text-center'>
-                    <button className='hover:scale-[1] hover:bg-gradient-to-l' onClick={read}>QRCode امسح رمز</button>
+                    <div type='button' className='rounded-lg p-2 cursor-pointer text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo hover:bg-gradient-to-l' onClick={read}>QRCode امسح رمز</div>
                     <div className='text-[gray] dark:text-textColor2'>
                         ادخل الكود يدوياً أو
                     </div>
                 </div>    
 
-                <div id="fullscreenCamera">
-                    {reader}
-                </div>
+                {reader}
+                
 
             </div>
 
