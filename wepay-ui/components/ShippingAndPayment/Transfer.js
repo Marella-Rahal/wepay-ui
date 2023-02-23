@@ -12,53 +12,25 @@ const Transfer = () => {
     useEffect(()=>{
         if(code){
             setReader();
-            closeFullscreen();
             document.getElementById('inputCode').value=code;
             document.getElementById('inputCodeRepeat').value=code;
         }
     },[code])
 
     //! to open full screen and the reader
-
     const read = ()=>{
-        openFullscreen();
         setReader(
             <QrReader
             delay='500'
-            facingMode='rear'
+            constraints={{
+                facingMode: 'environment'
+            }}
             style={{width:'100%',height:'100%'}}
             onScan={data=> data?setCode(data.text):''}
             onError={(error)=>console.log(error)}
             />
         );
     } 
-
-    //! View in fullscreen */
-
-    function openFullscreen() {
-        const elem = document.getElementById('fullscreenCamera'); 
-        if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-        }
-    }
-
-    //! Close fullscreen */
-
-    function closeFullscreen() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { /* Safari */
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE11 */
-            document.msExitFullscreen();
-        }
-    }
-
-    //! ********************
 
   return (
     <form className='w-full lg:w-[90%] xl:w-[70%] flex flex-col space-y-20 justify-between text-sm text-end text-effectColor font-bold'>
