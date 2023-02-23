@@ -78,7 +78,7 @@ const Profile = () => {
                 <h4>الخاص بك QR Code رمز </h4>
 
                 <SVG
-                text={'Grad Project - wepay - shoppingo - Marella - Ghaith - Ali -Rounia'}
+                text={'12345667'}
                 options={{
                     margin: 3,
                     width: 200,

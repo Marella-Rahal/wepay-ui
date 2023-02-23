@@ -1,10 +1,83 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic';
+const QrReader = dynamic(()=>import('react-qr-scanner'),{
+    ssr:false
+})
 
 const Transfer = () => {
+    const [reader,setReader]=useState();
+    const [code,setCode]=useState();
+    
+    //! when getting the code close full screen and put the code in the input
+    useEffect(()=>{
+        if(code){
+            setReader();
+            closeFullscreen();
+            document.getElementById('inputCode').value=code;
+            document.getElementById('inputCodeRepeat').value=code;
+        }
+    },[code])
+
+    //! to open full screen and the reader
+
+    const read = ()=>{
+        openFullscreen();
+        setReader(
+            <QrReader
+            delay='500'
+            style={{width:'100%',height:'100%'}}
+            onScan={data=> data?setCode(data.text):''}
+            onError={(error)=>console.log(error)}
+            />
+        );
+    } 
+
+    //! View in fullscreen */
+
+    function openFullscreen() {
+        const elem = document.getElementById('fullscreenCamera'); 
+        if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+        }
+    }
+
+    //! Close fullscreen */
+
+    function closeFullscreen() {
+        if (document.exitFullscreen) {
+        document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+        }
+    }
+
+    //! ********************
+
   return (
     <form className='w-full lg:w-[90%] xl:w-[70%] flex flex-col space-y-20 justify-between text-sm text-end text-effectColor font-bold'>
 
         <div className='flex flex-col space-y-10'>
+
+            <div className='md:hidden flex flex-col space-y-5'>
+
+                <div className='flex justify-between items-center space-x-5 text-center'>
+                    <button className='hover:scale-[1] hover:bg-gradient-to-l' onClick={read}>QRCode امسح رمز</button>
+                    <div className='text-[gray] dark:text-textColor2'>
+                        ادخل الكود يدوياً أو
+                    </div>
+                </div>    
+
+                <div id="fullscreenCamera">
+                    {reader}
+                </div>
+
+            </div>
 
             {/* //! one */}
             <div className='flex flex-col space-y-5'>
@@ -15,8 +88,8 @@ const Transfer = () => {
                 </div>
 
                 <div className='flex space-x-5'>
-                    <input type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
-                    <input type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
+                    <input id="inputCode" type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
+                    <input id="inputCodeRepeat" type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
                 </div>
 
             </div>
