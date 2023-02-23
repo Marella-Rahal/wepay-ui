@@ -1,10 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import QrReader from 'modern-react-qr-reader'
 
 const Transfer = () => {
+    const [code,setCode]=useState();
+    const [reader,setReader]=useState();
+
+    useEffect(()=>{
+        if(code){
+            setReader();
+            document.getElementById('ReaderCode').value=code;
+            document.getElementById('ReaderCodeRepeat').value=code;
+        }
+    },[code])
+
+    const read=()=>{
+        setReader(
+            <QrReader
+            onScan={ (data) => data ? setCode(data) : setCode('') }
+            onError={ (error) => console.log(error)}
+            />
+        );
+    }
+
   return (
     <form className='w-full lg:w-[90%] xl:w-[70%] flex flex-col space-y-20 justify-between text-sm text-end text-effectColor font-bold'>
 
         <div className='flex flex-col space-y-10'>
+
+            <div className='md:hidden flex flex-col space-y-10'>
+
+                <div className='flex justify-between space-x-5 items-center text-center'>
+                    <div onClick={read} className='rounded-lg p-2 cursor-pointer text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo hover:bg-gradient-to-l'>
+                        QRCode امسح رمز
+                    </div>
+                    <div className='text-[gray] dark:text-textColor2'>ادخل كود التحويل يدوياً أو</div>
+                </div>
+
+                {reader}
+
+            </div>
 
             {/* //! one */}
             <div className='flex flex-col space-y-5'>
@@ -15,8 +49,8 @@ const Transfer = () => {
                 </div>
 
                 <div className='flex space-x-5'>
-                    <input type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
-                    <input type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
+                    <input id="ReaderCodeRepeat" type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
+                    <input id="ReaderCode" type="number" required className='w-1/2 outline-none shadow-lg text-start'/>
                 </div>
 
             </div>
