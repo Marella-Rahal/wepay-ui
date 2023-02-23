@@ -38,7 +38,7 @@ const Transfer = () => {
             <div className='md:hidden flex flex-col space-y-10'>
 
                 <div className='flex justify-between items-center space-x-5 text-center'>
-                    <div type='button' className='rounded-lg p-2 cursor-pointer text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo hover:bg-gradient-to-l' onClick={read}>QRCode امسح رمز</div>
+                    <div className='rounded-lg p-2 cursor-pointer text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo hover:bg-gradient-to-l' onClick={read}>QRCode امسح رمز</div>
                     <div className='text-[gray] dark:text-textColor2'>
                         ادخل الكود يدوياً أو
                     </div>
