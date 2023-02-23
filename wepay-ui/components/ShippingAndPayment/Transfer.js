@@ -25,6 +25,7 @@ const Transfer = () => {
         setReader(
             <QrReader
             delay='500'
+            facingMode='rear'
             style={{width:'100%',height:'100%'}}
             onScan={data=> data?setCode(data.text):''}
             onError={(error)=>console.log(error)}
@@ -49,11 +50,11 @@ const Transfer = () => {
 
     function closeFullscreen() {
         if (document.exitFullscreen) {
-        document.exitFullscreen();
+            document.exitFullscreen();
         } else if (document.webkitExitFullscreen) { /* Safari */
-        document.webkitExitFullscreen();
+            document.webkitExitFullscreen();
         } else if (document.msExitFullscreen) { /* IE11 */
-        document.msExitFullscreen();
+            document.msExitFullscreen();
         }
     }
 
