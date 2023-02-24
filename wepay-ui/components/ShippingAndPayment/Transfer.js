@@ -10,6 +10,7 @@ const Transfer = () => {
             setReader();
             document.getElementById('ReaderCode').value=code;
             document.getElementById('ReaderCodeRepeat').value=code;
+            setCode();
         }
     },[code])
 
@@ -23,16 +24,11 @@ const Transfer = () => {
                     if (result) {
                         setCode(result.text);
                     }
-        
-                    if (error) {
-                        setCode('');
-                    }
     
                 } 
             }
             constraints={{ facingMode:  "environment"  }}
-            style={{ width: "100%" }}
-          />
+            />
         );
     }
 
