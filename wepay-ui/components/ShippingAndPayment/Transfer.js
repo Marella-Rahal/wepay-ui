@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import QrReader from 'modern-react-qr-reader'
+import { QrReader } from "react-qr-reader";
 
 const Transfer = () => {
     const [code,setCode]=useState();
@@ -16,9 +16,23 @@ const Transfer = () => {
     const read=()=>{
         setReader(
             <QrReader
-            onScan={ (data) => data ? setCode(data) : setCode('') }
-            onError={ (error) => console.log(error)}
-            />
+            onResult={ 
+
+                (result, error) => {
+
+                    if (result) {
+                        setCode(result.text);
+                    }
+        
+                    if (error) {
+                        setCode('');
+                    }
+    
+                } 
+            }
+            constraints={{ facingMode:  "environment"  }}
+            style={{ width: "100%", height: "100%" }}
+          />
         );
     }
 
