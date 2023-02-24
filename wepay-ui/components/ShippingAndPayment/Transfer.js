@@ -39,9 +39,10 @@ const Transfer = () => {
 
             <div className='md:hidden flex flex-col space-y-10'>
 
-                <div className='flex justify-between space-x-5 items-center text-center'>
-                    <div onClick={read} className='rounded-lg p-2 cursor-pointer text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo hover:bg-gradient-to-l'>
-                        QRCode امسح رمز
+                <div className='flex justify-between space-x-5 items-center'>
+                    <div onClick={read} className='rounded-lg p-2 cursor-pointer text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo hover:bg-gradient-to-l text-center flex flex-wrap-reverse items-center justify-center'>
+                        <span className='mx-1'> QRCode </span>
+                        <span className='mx-1'> امسح رمز </span>
                     </div>
                     <div className='text-[gray] dark:text-textColor2'>ادخل كود التحويل يدوياً أو</div>
                 </div>
