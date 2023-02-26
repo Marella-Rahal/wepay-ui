@@ -86,7 +86,7 @@
   }
 
   button {
-    @apply bg-gradient-to-b from-gradientFrom to-gradientTo text-white rounded-lg px-3 py-2 outline-none hover:scale-[1.05]
+    @apply bg-gradient-to-b from-gradientFrom to-gradientTo text-white rounded-lg px-3 py-2 outline-none hover:bg-gradient-to-l
   }
 
   input{

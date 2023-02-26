@@ -167,7 +167,7 @@ const Dashboard = () => {
         
                         </div>
                         {/* ********************* */}
-                        <div className='md:w-full flex flex-col space-y-10 items-center md:space-y-0 md:flex-row md:justify-between md:space-x-5 text-textColor dark:text-textColor2 font-normal'>
+                        <div className='w-full flex items-center justify-between space-x-5 text-textColor dark:text-textColor2 font-normal'>
 
                             <PriceClassification/>
                             
@@ -217,12 +217,17 @@ const Dashboard = () => {
             
 
                         </div>
+
                         {/* ********************* */}
-                        <div className='md:w-full flex flex-col space-y-10 items-center md:space-y-0 md:flex-row md:justify-between md:space-x-5 text-textColor dark:text-textColor2 font-normal'>
+
+                        <button className='md:hidden w-full flex justify-center items-center text-[12px]' onClick={()=>setDashboardInfo("addPayment")}>إضافة مدفوعات أخرى</button>
+
+                        {/* ********************* */}
+                        <div className='w-full flex items-center justify-between space-x-5 text-textColor dark:text-textColor2 font-normal'>
 
                             <PriceClassification/>
 
-                            <button onClick={()=>setDashboardInfo("addPayment")}>إضافة مدفوعات أخرى</button>
+                            <button className='hidden md:flex' onClick={()=>setDashboardInfo("addPayment")}>إضافة مدفوعات أخرى</button>
 
                             <DateClassification/>
 
@@ -262,7 +267,7 @@ const Dashboard = () => {
 
                         {/* //! two */}
                         <div className='flex flex-col space-y-3'>
-                            <div className='w-full flex space-x-5 justify-evenly'>
+                            <div className='w-full flex space-x-5 justify-evenly items-center'>
                                 <label className='w-1/2 md:w-1/3 pr-2'>قيمة الدفعة</label>
                                 <label className='w-1/2 md:w-1/3 pr-2'>نوع الدفعة</label>
                             </div>
@@ -284,7 +289,7 @@ const Dashboard = () => {
                         {/* //!three */}
                         <div className='flex flex-col space-y-3'>
 
-                            <div className='w-full flex space-x-5 justify-evenly'>
+                            <div className='w-full flex space-x-5 justify-evenly items-center'>
                                 <label className='w-1/2 md:w-1/3 pr-2'>تفاصيل الدفعة</label>
                                 <label className='w-1/2 md:w-1/3 pr-2'>آخر موعد للدفعة</label>
                             </div>
