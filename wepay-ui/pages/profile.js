@@ -98,16 +98,16 @@ const Profile = () => {
 
             </div>
 
-            <div className='w-full lg:w-3/4 lg:border-l-[1px] lg:border-textColor dark:border-textColor2 lg:px-10 flex flex-col space-y-10 items-center lg:items-end text-center'>
+            <div className='w-full lg:w-3/4 lg:border-l-[1px] lg:border-textColor dark:border-textColor2 lg:px-7 xl:px-10 flex flex-col space-y-10 items-center lg:items-end text-center'>
 
-                    <div className='flex md:space-x-10 space-x-5 font-bold md:text-base text-[12px]'>
+                    <div className='flex sm:space-x-10 space-x-5 font-bold sm:text-base text-[12px]'>
 
-                        <div className={bank?'md:py-5 py-3 md:px-7 px-3 border-b-[1px] border-effectColor text-effectColor cursor-pointer':'md:py-5 py-3 md:px-7 px-3 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor'} 
+                        <div className={bank?'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-effectColor text-effectColor cursor-pointer':'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor'} 
                         onClick={()=>changeDisplayInfo('bank')}>البيانات البنكية</div>
 
-                        <div className={security?'md:py-5 py-3 md:px-7 px-3 border-b-[1px] cursor-pointer border-b-effectColor text-effectColor':'md:py-5 py-3 md:px-7 px-3 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor'} onClick={()=>changeDisplayInfo('security')}>الحماية والأمان</div>
+                        <div className={security?'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] cursor-pointer border-b-effectColor text-effectColor':'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor'} onClick={()=>changeDisplayInfo('security')}>الحماية والأمان</div>
 
-                        <div className={personal?'md:py-5 py-3 md:px-7 px-3 border-b-[1px] border-effectColor text-effectColor cursor-pointer':'md:py-5 py-3 md:px-7 px-3 border-b-[1px] border-textColor cursor-pointer hover:text-effectColor hover:border-b-effectColor dark:border-textColor2 hover:dark:border-b-effectColor'} onClick={()=>changeDisplayInfo('personal')}>البيانات الشخصية</div>
+                        <div className={personal?'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-effectColor text-effectColor cursor-pointer':'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-textColor cursor-pointer hover:text-effectColor hover:border-b-effectColor dark:border-textColor2 hover:dark:border-b-effectColor'} onClick={()=>changeDisplayInfo('personal')}>البيانات الشخصية</div>
 
                     </div>
 
@@ -116,10 +116,10 @@ const Profile = () => {
 
                             <motion.div initial={{opacity:0}} animate={{opacity:1}}
                             transition={{ ease: "easeInOut", duration: 1 }}
-                            className='flex flex-col items-center space-y-10 lg:items-end xl:space-y-0 xl:flex-row xl:justify-end xl:items-start xl:space-x-20 w-full'>
+                            className='flex flex-col items-center space-y-10 lg:space-y-0 lg:flex-row lg:justify-end lg:items-start lg:space-x-7 xl:space-x-20 w-full'>
 
 
-                                <div className='relative'>
+                                <div className='relative min-w-fit'>
         
                                     <img src={img} id="imgProfile" className='w-48 h-48 rounded-full shadow-cardShadow'/>
         
