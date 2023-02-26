@@ -100,14 +100,14 @@ const Profile = () => {
 
             <div className='w-full lg:w-3/4 lg:border-l-[1px] lg:border-textColor dark:border-textColor2 lg:px-10 flex flex-col space-y-10 items-center lg:items-end text-center'>
 
-                    <div className='flex flex-col-reverse md:flex-row md:space-x-10 font-bold'>
+                    <div className='flex md:space-x-10 space-x-5 font-bold md:text-base text-[12px]'>
 
-                        <div className={bank?'py-5 px-7 border-b-[1px] border-effectColor text-effectColor cursor-pointer mb-10 md:mb-0':'py-5 px-7 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor mb-10 md:mb-0'} 
+                        <div className={bank?'md:py-5 py-3 md:px-7 px-3 border-b-[1px] border-effectColor text-effectColor cursor-pointer':'md:py-5 py-3 md:px-7 px-3 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor'} 
                         onClick={()=>changeDisplayInfo('bank')}>البيانات البنكية</div>
 
-                        <div className={security?'py-5 px-7 border-b-[1px] cursor-pointer border-b-effectColor text-effectColor mb-10 md:mb-0':'py-5 px-7 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor mb-10 md:mb-0'} onClick={()=>changeDisplayInfo('security')}>الحماية والأمان</div>
+                        <div className={security?'md:py-5 py-3 md:px-7 px-3 border-b-[1px] cursor-pointer border-b-effectColor text-effectColor':'md:py-5 py-3 md:px-7 px-3 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor'} onClick={()=>changeDisplayInfo('security')}>الحماية والأمان</div>
 
-                        <div className={personal?'py-5 px-7 border-b-[1px] border-effectColor text-effectColor cursor-pointer mb-10 md:mb-0':'py-5 px-7 border-b-[1px] border-textColor cursor-pointer hover:text-effectColor hover:border-b-effectColor dark:border-textColor2 hover:dark:border-b-effectColor mb-10 md:mb-0'} onClick={()=>changeDisplayInfo('personal')}>البيانات الشخصية</div>
+                        <div className={personal?'md:py-5 py-3 md:px-7 px-3 border-b-[1px] border-effectColor text-effectColor cursor-pointer':'md:py-5 py-3 md:px-7 px-3 border-b-[1px] border-textColor cursor-pointer hover:text-effectColor hover:border-b-effectColor dark:border-textColor2 hover:dark:border-b-effectColor'} onClick={()=>changeDisplayInfo('personal')}>البيانات الشخصية</div>
 
                     </div>
 
