@@ -116,7 +116,7 @@ const Profile = () => {
 
                             <motion.div initial={{opacity:0}} animate={{opacity:1}}
                             transition={{ ease: "easeInOut", duration: 1 }}
-                            className='flex flex-col items-center space-y-20 lg:items-end xl:space-y-0 xl:flex-row xl:justify-end xl:items-start xl:space-x-20 w-full'>
+                            className='flex flex-col items-center space-y-10 lg:items-end xl:space-y-0 xl:flex-row xl:justify-end xl:items-start xl:space-x-20 w-full'>
 
 
                                 <div className='relative'>
@@ -125,7 +125,7 @@ const Profile = () => {
         
                                     <label
                                     htmlFor="profilePhoto"
-                                    className="absolute bottom-2 right-4 w-12 h-12 flex justify-center items-center rounded-full bg-textColor2 shadow-md shadow-shadowColor hover:scale-[1.1] cursor-pointer"
+                                    className="absolute bottom-0 right-4 w-12 h-12 flex justify-center items-center rounded-full bg-textColor2 shadow-md shadow-shadowColor hover:scale-[1.1] cursor-pointer"
                                     >
                                     <BsCamera className="w-7 h-7 text-textColor" />
                                     </label>
