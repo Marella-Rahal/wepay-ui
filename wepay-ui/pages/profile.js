@@ -125,7 +125,7 @@ const Profile = () => {
         
                                     <label
                                     htmlFor="profilePhoto"
-                                    className="absolute bottom-0 right-4 w-12 h-12 flex justify-center items-center rounded-full bg-textColor2 shadow-md shadow-shadowColor hover:scale-[1.1] cursor-pointer"
+                                    className="absolute bottom-0 right-5 w-12 h-12 flex justify-center items-center rounded-full bg-textColor2 shadow-md shadow-shadowColor hover:scale-[1.1] cursor-pointer"
                                     >
                                     <BsCamera className="w-7 h-7 text-textColor" />
                                     </label>
