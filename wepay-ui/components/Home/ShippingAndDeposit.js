@@ -7,7 +7,7 @@ const ShippingAndDeposit = () => {
         data-aos="zoom-in"
          className='flex flex-col space-y-5 w-[225px] md:w-1/3 md:h-[250px]'>
             <img src='../../shipping_deposit1.svg' className='w-full h-[150px]'/>
-            <h3>ايداع بنكي </h3>
+            <h3>إيداع بنكي </h3>
         </div>
         <div
         data-aos="zoom-in" 
