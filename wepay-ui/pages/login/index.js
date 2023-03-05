@@ -17,8 +17,9 @@ const Login = () => {
 
                 <div className='flex flex-col space-y-5'>
                     <h2>تسجيل الدخول لحسابك الشخصي</h2>
-                    <Link href="/signup" className='text-[#8488ED] hover:underline
-                    '>لا تملك حساب ؟ قم بالتسجيل و الاشتراك الآن</Link>
+                    <div className='text-[#8488ED] hover:underline hover:cursor-pointer self-center'>
+                        <Link href="/signup">لا تملك حساب ؟ قم بالتسجيل و الاشتراك الآن</Link>
+                    </div>
                 </div>
 
                 <form className='py-10 px-5 shadow-cardShadow rounded-lg flex flex-col space-y-10'>
@@ -29,7 +30,9 @@ const Login = () => {
 
                     
                     <div className='flex justify-between items-center space-x-5'>
-                        <Link href="/login/forgetPassword" className='text-[#8488ED] hover:underline'>هل نسيت كلمة السر</Link>
+                        <div className='text-[#8488ED] hover:underline hover:cursor-pointer'>
+                            <Link href="/login/forgetPassword">هل نسيت كلمة السر</Link>
+                        </div>
 
                         <button>تسجيل الدخول</button>
                     </div>

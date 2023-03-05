@@ -83,15 +83,26 @@ const Navbar = () => {
             <div className='hidden md:flex justify-between font-bold text-sm lg:text-base space-x-3 lg:space-x-5'>
 
                 {/* //! when the user logged in */}
-                <Link href="/dashboard" className='hover:text-effectColor'>إحصائياتي</Link> 
-                <Link href="/shippingAndPayment" className='hover:text-effectColor'>الدفع والشحن</Link>
+                <div className='hover:text-effectColor hover:cursor-pointer'>
+                    <Link href="/dashboard">إحصائياتي</Link>
+                </div> 
+                <div className='hover:text-effectColor hover:cursor-pointer'>
+                    <Link href="/shippingAndPayment">الدفع والشحن</Link>
+                </div>
                 {/* //! *********************** */}
 
-                <Link href='/' className='hover:text-effectColor'>الوكلاء</Link>
+            
+                <div className='hover:text-effectColor hover:cursor-pointer'>
+                    <Link href='/'>الوكلاء</Link>
+                </div>
 
-                <Link href='/' className='hover:text-effectColor'>التجار والمحال</Link>
+                <div className='hover:text-effectColor hover:cursor-pointer'>
+                    <Link href='/'>التجار والمحال</Link>
+                </div>
 
-                <Link href='/' className='hover:text-effectColor'>الرئيسية</Link>
+                <div className='hover:text-effectColor hover:cursor-pointer'>
+                    <Link href='/'>الرئيسية</Link>
+                </div>
 
             </div>
 
@@ -118,19 +129,26 @@ const Navbar = () => {
                     <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
                     {/* //! ******************* */}
 
-                    <Link href="/" className='hover:text-effectColor' 
-                    onClick={handleSideNav}>الرئيسية</Link>
+                    <div className='hover:text-effectColor hover:cursor-pointer'>
+                        <Link href="/" onClick={handleSideNav}>الرئيسية</Link>
+                    </div>
                     
+                    <div className='hover:text-effectColor hover:cursor-pointer'>
+                        <Link href='/' onClick={handleSideNav}>التجار والمحال</Link>
+                    </div>
 
-                    <Link href='/' className='hover:text-effectColor' onClick={handleSideNav}>التجار والمحال</Link>
-
-                    <Link href='/' className='hover:text-effectColor' onClick={handleSideNav}> الوكلاء</Link>
+                    <div className='hover:text-effectColor hover:cursor-pointer'>
+                        <Link href='/' onClick={handleSideNav}> الوكلاء</Link>
+                    </div>
 
                     {/* //! when the user logged in */}
+                    <div className='hover:text-effectColor hover:cursor-pointer'>
+                        <Link href='/shippingAndPayment' onClick={handleSideNav}>الدفع و الشحن</Link>
+                    </div>
 
-                    <Link href='/shippingAndPayment' className='hover:text-effectColor' onClick={handleSideNav}>الدفع و الشحن</Link>
-
-                    <Link href='/dashboard' className='hover:text-effectColor' onClick={handleSideNav}>إحصائياتي</Link>
+                    <div className='hover:text-effectColor hover:cursor-pointer'>
+                        <Link href='/dashboard' onClick={handleSideNav}>إحصائياتي</Link>
+                    </div>
 
                     {
                         (mounted && theme == 'light') && (

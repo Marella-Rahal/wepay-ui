@@ -49,8 +49,9 @@ const Signup = () => {
 
                 <div className='flex flex-col space-y-5'>
                     <h3>WEPAY ادر أموالك الآن عن طريق التسجيل في</h3>
-                    <Link href="/login" className='text-[#8488ED] hover:underline
-                    '>لديك حساب ؟ </Link>
+                    <div className='text-[#8488ED] hover:underline hover:cursor-pointer self-center'>
+                        <Link href="/login">لديك حساب ؟ </Link>
+                    </div>
                 </div>
 
                 <form className='py-10 px-5 shadow-cardShadow rounded-lg flex flex-col space-y-7'>
