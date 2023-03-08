@@ -37,10 +37,10 @@ const Sellers = () => {
     <>
         <NotePopUp noteMsg={noteMsg} />
         <Navbar/>  
-        <div className='bg-bgColor shadow-bgShadow pt-28 md:pt-24 pb-10 md:pb-4 px-4 md:px-8 min-h-screen md:h-screen flex flex-col space-y-10 items-center md:space-y-0 md:flex-row md:space-x-5 text-end'>
+        <div className='bg-bgColor shadow-bgShadow pt-28 md:pt-24 pb-7 md:pb-4 px-4 md:px-8 min-h-screen md:h-screen flex flex-col-reverse items-center md:flex-row md:space-x-7 text-end'>
 
             {/* //! left section */}
-            <div className='w-full md:w-1/2 xl:w-2/3 md:h-full flex flex-col space-y-5 items-center text-center font-bold'>
+            <div className='w-full md:w-1/2 xl:w-2/3 md:h-full flex flex-col space-y-7 items-center text-center font-bold mt-7 md:mt-0'>
                 <div className='flex justify-center items-center space-x-3'>
 
                     <div className='flex items-center space-x-1'>
@@ -64,7 +64,7 @@ const Sellers = () => {
                 </div>
 
                 {/* Map */}
-                <div className='w-full h-[250px] md:h-full rounded-lg shadow-cardShadow'>
+                <div className='w-full h-[450px] md:h-full rounded-lg shadow-cardShadow'>
                     <div className="w-full h-full rounded-lg shadow-mapShadow dark:shadow-darkMapShadow">
                         {coords.length > 0 && <Map coords={coords} />}
                     </div>
@@ -81,7 +81,7 @@ const Sellers = () => {
                 <div className='flex space-x-3'>
                     <select 
                     name='store' 
-                    className='outline-none bg-textColor2 text-textColor text-end rounded-lg shadow-cardShadow w-1/2 h-9 px-3'>
+                    className='outline-none bg-textColor2 text-textColor text-end rounded-lg shadow-cardShadow w-1/2 h-9 px-1'>
                         <option value="">تصنيف حسب نوع المتجر</option>
                         <option value="Clothes">ألبسة</option>
                         <option value="Shoes">أحذية</option>
@@ -96,7 +96,7 @@ const Sellers = () => {
                     
                     <select 
                     name='city' 
-                    className='outline-none bg-textColor2 text-textColor text-end rounded-lg shadow-cardShadow w-1/2 h-9 px-3'>
+                    className='outline-none bg-textColor2 text-textColor text-end rounded-lg shadow-cardShadow w-1/2 h-9 px-1'>
                         <option value="">تصنيف حسب المحافظة</option>
                         <option value="Aleppo">حلب</option>
                         <option value="Damascus">دمشق</option>
@@ -115,7 +115,7 @@ const Sellers = () => {
                     </select>
 
                 </div>
-                <div className='flex flex-col space-y-5 p-5 pl-1 rounded-lg overflow-y-auto XScrollbar self-center w-full h-[250px] md:h-full'>
+                <div className='flex flex-col space-y-5 p-5 pl-1 rounded-lg overflow-y-auto XScrollbar self-center w-full h-[300px] md:h-full'>
                     <Seller id="1" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية"/>
                     <Seller id="2" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية"/>
                     <Seller id="3" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية"/>
