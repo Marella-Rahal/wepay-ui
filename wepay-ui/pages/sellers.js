@@ -115,7 +115,7 @@ const Sellers = () => {
                     </select>
 
                 </div>
-                <div className='flex flex-col space-y-5 p-5 pl-1 rounded-lg overflow-y-auto XScrollbar self-center w-full h-[200px] md:h-full'>
+                <div className='flex flex-col space-y-5 p-5 pl-1 rounded-lg overflow-y-auto XScrollbar self-center w-full h-[250px] md:h-full'>
                     <Seller id="1" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية"/>
                     <Seller id="2" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية"/>
                     <Seller id="3" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية"/>
