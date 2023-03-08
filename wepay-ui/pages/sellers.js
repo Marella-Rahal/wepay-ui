@@ -40,8 +40,8 @@ const Sellers = () => {
         <div className='bg-bgColor shadow-bgShadow pt-28 md:pt-24 pb-10 md:pb-4 px-4 md:px-8 min-h-screen md:h-screen flex flex-col space-y-10 items-center md:space-y-0 md:flex-row md:space-x-5 text-end'>
 
             {/* //! left section */}
-            <div className='w-full md:w-1/2 xl:w-2/3 h-[350px] md:h-full flex flex-col space-y-5 items-center text-center font-bold'>
-                <div className='flex justify-center items-center space-x-3'>
+            <div className='w-full md:w-1/2 xl:w-2/3 h-[350px] md:h-full flex flex-col items-center text-center font-bold'>
+                <div className='flex justify-center items-center space-x-3 mb-5'>
 
                     <div className='flex items-center space-x-1'>
                         <label htmlFor='only'>عرض المتجر المحدد فقط</label>
@@ -72,13 +72,13 @@ const Sellers = () => {
 
             </div>
             {/* //! right Section */}
-            <div className='w-full md:w-1/2 xl:w-1/3 h-[500px] md:h-full rounded-lg shadow-cardShadow flex flex-col space-y-5 p-5'>
-                <div className='text-center flex flex-col space-y-1'>
+            <div className='w-full md:w-1/2 xl:w-1/3 h-[500px] md:h-full rounded-lg shadow-cardShadow flex flex-col p-5'>
+                <div className='text-center flex flex-col space-y-1 mb-5'>
                     جميع المتاجر التي تقبل الدفع عن طريق 
                     <span>WEPAY</span>
                 </div>
                 <Search/>
-                <div className='flex space-x-3'>
+                <div className='flex space-x-3 my-5'>
                     <select 
                     name='store' 
                     className='outline-none bg-textColor2 text-textColor text-end rounded-lg shadow-cardShadow w-1/2 h-9 px-3'>
