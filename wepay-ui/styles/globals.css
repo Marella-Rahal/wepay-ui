@@ -28,7 +28,8 @@
   
   /* width */
   .XScrollbar::-webkit-scrollbar {
-    height:2px
+    height:2px;
+    width:4px;
   }
 
   /* Track */
@@ -96,7 +97,7 @@
   /* Marker tweaks */
   .mapboxgl-popup {
     padding-bottom: 35px;
-    @apply shadow-shadowColor drop-shadow-lg
+    @apply shadow-[gray] drop-shadow-lg
   }
 
   .mapboxgl-popup .mapboxgl-popup-close-button {
