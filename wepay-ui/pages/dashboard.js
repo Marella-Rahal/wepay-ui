@@ -63,17 +63,17 @@ const Dashboard = () => {
                 
                 <TotalCash>
                         
-                    <div className={dashboardInfo=="statistic"?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow py-2 cursor-pointer':"text-effectColor dark:text-textColor2 hover:text-textColor2 hover:bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow py-2 cursor-pointer"} 
+                    <div className={dashboardInfo=="statistic"?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':"text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center"} 
                     onClick={()=>setDashboardInfo("statistic")}>
                             أهم الإحصائيات
                     </div>
 
-                    <div className={dashboardInfo=='activity'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow py-2 cursor-pointer':'text-effectColor dark:text-textColor2 hover:text-textColor2 hover:bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow py-2 cursor-pointer'} 
+                    <div className={dashboardInfo=='activity'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'} 
                     onClick={()=>setDashboardInfo("activity")}>
                             كل الأنشطة
                     </div>
 
-                    <div className={dashboardInfo=='payment'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow py-2 cursor-pointer':'text-effectColor dark:text-textColor2 hover:text-textColor2 hover:bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow py-2 cursor-pointer'}
+                    <div className={dashboardInfo=='payment'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'}
                     onClick={()=>setDashboardInfo("payment")}>
                             المدفوعات المستحقة
                     </div>
@@ -148,21 +148,21 @@ const Dashboard = () => {
                         <div dir='rtl' className='w-full h-20 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between'>
 
 
-                                <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[100px]"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
+                                <div className={typeOfAct=="allOperation"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[100px]"} onClick={()=>setTypeOfAct("allOperation")}> كل العمليات </div>
 
 
-                                <div className={typeOfAct=='recieve'?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[155px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[155px]"} onClick={()=>setTypeOfAct("recieve")}>عمليات استلام الرصيد</div>
+                                <div className={typeOfAct=='recieve'?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[155px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[155px]"} onClick={()=>setTypeOfAct("recieve")}>عمليات استلام الرصيد</div>
 
 
-                                <div className={typeOfAct=="payAct"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[155px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[155px]"} onClick={()=>setTypeOfAct("payAct")}>عمليات الدفع للمتاجر</div>
+                                <div className={typeOfAct=="payAct"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[155px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[155px]"} onClick={()=>setTypeOfAct("payAct")}>عمليات الدفع للمتاجر</div>
 
-                                <div className={typeOfAct=="transfer"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfAct("transfer")}>عمليات التحويل</div>
+                                <div className={typeOfAct=="transfer"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>setTypeOfAct("transfer")}>عمليات التحويل</div>
 
                             
-                                <div className={typeOfAct=="withdraw"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfAct("withdraw")}>عمليات  السحب</div>
+                                <div className={typeOfAct=="withdraw"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>setTypeOfAct("withdraw")}>عمليات  السحب</div>
 
 
-                                <div className={typeOfAct=="shipping"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfAct("shipping")}>عمليات الشحن</div>
+                                <div className={typeOfAct=="shipping"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>setTypeOfAct("shipping")}>عمليات الشحن</div>
 
         
                         </div>
@@ -202,17 +202,17 @@ const Dashboard = () => {
                         <div dir='rtl' className='w-full h-20 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between'>
 
 
-                            <div className={typeOfPayment=="allPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[100px]"} onClick={()=>setTypeOfPayment("allPayment")}> كل الدفوعات </div>
+                            <div className={typeOfPayment=="allPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[100px]"} onClick={()=>setTypeOfPayment("allPayment")}> كل الدفوعات </div>
 
                             
-                            <div className={typeOfPayment=="debt"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[100px]"} onClick={()=>setTypeOfPayment("debt")}> الديون</div>
+                            <div className={typeOfPayment=="debt"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[100px]"} onClick={()=>setTypeOfPayment("debt")}> الديون</div>
 
-                            <div className={typeOfPayment=="monthlyPayment"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfPayment("monthlyPayment")}> الأقساط الشهرية</div>
+                            <div className={typeOfPayment=="monthlyPayment"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>setTypeOfPayment("monthlyPayment")}> الأقساط الشهرية</div>
 
 
-                            <div className={typeOfPayment=="storeDebt"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfPayment("storeDebt")}>ديون المتاجر  </div>
+                            <div className={typeOfPayment=="storeDebt"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>setTypeOfPayment("storeDebt")}>ديون المتاجر  </div>
 
-                            <div className={typeOfPayment=='otherPayment'?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor dark:border-gradientFrom min-w-[120px]"} onClick={()=>setTypeOfPayment("otherPayment")}>مدفوعات أخرى  </div>
+                            <div className={typeOfPayment=='otherPayment'?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>setTypeOfPayment("otherPayment")}>مدفوعات أخرى  </div>
 
             
 

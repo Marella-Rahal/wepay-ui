@@ -11,8 +11,76 @@ const Map = dynamic(() => import("../components/Map/Map"), {
     ssr: false,
 });
 
+//! used in three places
+//! in useffect twice and in stores.map once  
+const stores = [
+    {
+      id: 1,
+      coo: [36.720798, 34.725587],
+      name: "For_you",
+      type:'أطعمة',
+      city:'حمص',
+      address:'شارع الحضارة جانب الإطفائية'
+    },
+    {
+      id: 2,
+      coo: [36.720798, 34.7254],
+      name: "For_you",
+      type:'ألبسة',
+      city:'حماة',
+      address:'شارع الحضارة جانب الإطفائية'
+    },
+    {
+      id: 3,
+      coo: [36.7206, 34.725587],
+      name: "For_you",
+      type:'بالة',
+      city:'اللاذقية',
+      address:'شارع الحضارة جانب الإطفائية'
+    },
+    {
+      id: 4,
+      coo: [36.6, 34.725587],
+      name: "For_you",
+      type:'مواد تنظيف',
+      city:'طرطوس',
+      address:'شارع الحضارة جانب الإطفائية'
+    },
+    {
+      id: 5,
+      coo: [36.7206, 34.725],
+      name: "For_you",
+      type:'أطعمة',
+      city:'حمص',
+      address:'شارع الحضارة جانب الإطفائية'
+    },
+    {
+      id: 6,
+      coo: [36.55, 34.725587],
+      name: "For_you",
+      type:'صاغة',
+      city:'حماة',
+      address:'شارع الحضارة جانب الإطفائية'
+    },
+];
+
 const Sellers = () => {
-    const [storesNumber,setStoresNumber]=useState('all');
+
+    //! to display number of stores on map
+    const [storesCounter,setStoresCounter]=useState('all');
+    const [storeId,setStoreId]=useState('');
+    const [storesOnMap,setStoresOnMap]=useState([]);
+    useEffect(()=>{
+
+        if(storesCounter=='all'){
+            setStoresOnMap(stores);
+        }else if(storesCounter=='only'&& storeId){
+            setStoresOnMap(stores.filter(store => store.id == storeId))
+        }else{
+            setStoresOnMap([])
+        }
+
+    },[storeId,storesCounter])
 
 
     //todo *********** the massage for the popUp
@@ -49,7 +117,7 @@ const Sellers = () => {
                         type="radio" 
                         id="only" 
                         name='mapStore'
-                        onChange={(e)=>setStoresNumber('only')}/>
+                        onChange={(e)=>setStoresCounter('only')}/>
                     </div>
                     <div className='flex items-center space-x-1'>
                         <label htmlFor='all'>عرض جميع المتاجر معاً</label>
@@ -58,7 +126,7 @@ const Sellers = () => {
                         id="all"  
                         name='mapStore' 
                         defaultChecked={true}
-                        onChange={(e)=>setStoresNumber('all')}/>
+                        onChange={(e)=>setStoresCounter('all')}/>
                     </div>
 
                 </div>
@@ -66,7 +134,7 @@ const Sellers = () => {
                 {/* Map */}
                 <div className='w-full h-[400px] md:h-full rounded-lg shadow-cardShadow'>
                     <div className="w-full h-full rounded-lg shadow-mapShadow dark:shadow-darkMapShadow">
-                        {coords.length > 0 && <Map coords={coords} />}
+                        {coords.length > 0 && <Map stores={storesOnMap} coords={coords} />}
                     </div>
                 </div>
 
@@ -116,13 +184,21 @@ const Sellers = () => {
 
                 </div>
                 <div dir="rtl" className='flex flex-col space-y-3 p-1 pl-3 rounded-lg overflow-y-auto XScrollbar w-full h-[250px] md:h-full'>
-                    <Seller id="1" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية حمص شارع الحضارة جانب الإطفائية"/>
-                    <Seller id="2" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية"/>
-                    <Seller id="3" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية"/>
-                    <Seller id="4" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية"/>
-                    <Seller id="5" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية"/>
-                    <Seller id="6" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية"/>
-                    <Seller id="7" img="storePhoto.svg" name="أبو عبدو ماركت" type="محل خضرة" address="حمص شارع الحضارة جانب الإطفائية"/>
+
+                  {
+                    stores.map((store,index)=>{
+                      return <Seller
+                      key={index} 
+                      id={store.id} 
+                      img="storePhoto.svg"
+                      name={store.name}
+                      type={store.type}
+                      address={`${store.city} - ${store.address}`}
+                      storeId={storeId}
+                      setStoreId={setStoreId}/>
+                    })
+                  }
+  
                 </div>
             </div>
             

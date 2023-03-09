@@ -13,41 +13,7 @@ mapboxgl.setRTLTextPlugin(
   true // Lazy load the plugin
 );
 
-const stores = [
-  {
-    id: 1,
-    coo: [36.720798, 34.725587],
-    name: "For_you",
-  },
-  {
-    id: 2,
-    coo: [36.720798, 34.7254],
-    name: "For_you",
-  },
-  {
-    id: 3,
-    coo: [36.7206, 34.725587],
-    name: "For_you",
-  },
-  {
-    id: 4,
-    coo: [36.6, 34.725587],
-    name: "For_you",
-  },
-  {
-    id: 5,
-    coo: [36.7206, 34.725],
-    name: "For_you",
-  },
-  {
-    id: 6,
-    coo: [36.55, 34.725587],
-    name: "For_you",
-  },
-];
-
-
-const Map = ({ coords}) => {
+const Map = ({ stores,coords}) => {
   //************ Start of Map **************************/
   const mapContainerRef = useRef(null);
 
@@ -266,7 +232,7 @@ const Map = ({ coords}) => {
     // Clean up on unmount
     return () => map.remove();
     //*********************************************/
-  }, []);
+  }, [stores,coords]);
 
   return (
     <div
