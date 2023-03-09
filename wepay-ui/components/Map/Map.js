@@ -232,7 +232,7 @@ const Map = ({ stores,coords}) => {
     // Clean up on unmount
     return () => map.remove();
     //*********************************************/
-  }, [stores,coords]);
+  }, [stores]);
 
   return (
     <div
