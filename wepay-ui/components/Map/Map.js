@@ -47,6 +47,9 @@ const Map = ({ stores,coords}) => {
     // Add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
 
+    // to remover the dist-time dialog when changing the map because of the stores
+    document.getElementById('dist-time').innerHTML="";
+
     //* calling Markers
     map.on("load", () => {
         addMarkers(stores, "#258A25");
