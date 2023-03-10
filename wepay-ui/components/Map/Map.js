@@ -51,28 +51,37 @@ const Map = ({ stores,coords}) => {
     //* Add navigation control (the +/- zoom buttons)
     tempMap.addControl(new mapboxgl.NavigationControl(), "bottom-right");
 
-    //* personal marker
-    if (coords.length > 0) {
-      tempMap.on("load", () => {
-        const el = document.createElement("div");
-        el.className = "marker";
-        ReactDOM.render(
-          <Marker
-          image="../../default.jpg"
-          color= "#3fb37f"
-          />
-        ,el)
-        new mapboxgl.Marker(el, { offset: [0, -10] })
-        .setLngLat(coords)
-        .addTo(tempMap);
-      });
-    }
-
     setMap(tempMap);
 
     return () => tempMap.remove();
 
   },[])
+
+  //! execute when the person coordinates changes or when th map state changes
+  useEffect(()=>{
+
+    if ( ( map != undefined ) && ( coords.length > 0 ) ){
+            //* change the position for the personal marker
+            const p=document.querySelector('.removablePerson');
+            if (p) p.remove()
+
+            const el = document.createElement("div");
+            el.className = "marker";
+            el.className = "removablePerson"
+            ReactDOM.render(
+              <Marker
+              image="../../default.jpg"
+              color= "#3fb37f"
+              />
+            ,el)
+            new mapboxgl.Marker(el, { offset: [0, -10] })
+            .setLngLat(coords)
+            .addTo(map);
+         
+  
+    }  
+
+  },[map,coords])
 
   //! execute when the stores on map changes or when th map state changes
   useEffect(() => {
