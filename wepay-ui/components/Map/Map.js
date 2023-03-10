@@ -14,7 +14,7 @@ mapboxgl.setRTLTextPlugin(
 );
 
 const Map = ({ stores,coords}) => {
-  //************ Start of Map **************************/
+
   const mapContainerRef = useRef(null);
 
   const [lng, setLng] = useState(() => {
@@ -25,9 +25,12 @@ const Map = ({ stores,coords}) => {
   });
   const [zoom, setZoom] = useState(12);
 
-  useEffect(() => {
-    //***********initialize the map*************/
-    const map = new mapboxgl.Map({
+  //! to make sure the map initialize just once
+  const [map,setMap]=useState();
+  useEffect(()=>{
+
+    //* initialize
+    const tempMap= new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v12",
       center: [lng, lat],
@@ -35,207 +38,234 @@ const Map = ({ stores,coords}) => {
       scrollZoom: true,
     });
 
-    map.on("move", () => {
-      setLng(map.getCenter().lng.toFixed(4));
-      setLat(map.getCenter().lat.toFixed(4));
-      setZoom(map.getZoom().toFixed(2));
+    //* movment on the map
+    tempMap.on("move", () => {
+      setLng(tempMap.getCenter().lng.toFixed(4));
+      setLat(tempMap.getCenter().lat.toFixed(4));
+      setZoom(tempMap.getZoom().toFixed(2));
     });
 
-    // Add FullScreen control
-    map.addControl(new mapboxgl.FullscreenControl(), "top-right");
+    //* Add FullScreen control
+    tempMap.addControl(new mapboxgl.FullscreenControl(), "top-right");
 
-    // Add navigation control (the +/- zoom buttons)
-    map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+    //* Add navigation control (the +/- zoom buttons)
+    tempMap.addControl(new mapboxgl.NavigationControl(), "bottom-right");
 
-    // to remover the dist-time dialog when changing the map because of the stores
-    document.getElementById('dist-time').innerHTML="";
-
-    //* calling Markers
-    map.on("load", () => {
-        addMarkers(stores, "#258A25");
-    });
-
-    //*****personal marker*********
+    //* personal marker
     if (coords.length > 0) {
-      map.on("load", () => {
+      tempMap.on("load", () => {
         const el = document.createElement("div");
         el.className = "marker";
         ReactDOM.render(
           <Marker
-            image="../../default.jpg"
-            color= "#3fb37f"
+          image="../../default.jpg"
+          color= "#3fb37f"
           />
         ,el)
         new mapboxgl.Marker(el, { offset: [0, -10] })
-          .setLngLat(coords)
-          .addTo(map);
+        .setLngLat(coords)
+        .addTo(tempMap);
       });
     }
 
-    //**************adding Markers *******************
-    function addMarkers(marker, markerColor) {
-      for (const x of marker) {
-        const el = document.createElement("div");
-        el.className = "marker";
+    setMap(tempMap);
 
-        ReactDOM.render(
-          <Marker image="../../storePhoto.svg" color={markerColor} />
-        ,el)
+    return () => tempMap.remove();
 
-        new mapboxgl.Marker(el, { offset: [0, -10] })
-          .setLngLat(x.coo)
-          .addTo(map);
+  },[])
 
-        el.addEventListener("click", (e) => {
-          //! important i put it so i can create a popup when clicking on the marker despite setting the closeOnClick to true in popup
-          e.stopPropagation();
-          /* make thw direction */
-          if (coords.length > 0) {
-            getRoute(coords, x.coo, "#3fb37f");
-          }
-          /* Fly to the point */
-          flyToStore(x.coo);
-          /* Close all other popups and display popup for clicked store */
-          createPopUp(x, markerColor);
-        });
-      }
+  //! execute when the stores on map changes or when th map state changes
+  useEffect(() => {
+
+    if ( map != undefined ) {
+
+      //* removing existing marker and every thing related to except the personal one
+      removeMarkers();
+
+      //* calling the new Markers
+      addMarkers(stores, "#258A25");
+
     }
-    // ************ Directions ********************
 
-    async function getRoute(start, end, routeColor) {
-      const res = await axios.get(
-        `https://api.mapbox.com/directions/v5/mapbox/walking/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`
-      );
+  }, [map,stores]);
 
-      //res.data contains an object with three values( code , waypoints , routes)
+  //**************adding Markers *******************
+  function addMarkers(marker, markerColor) {
 
-      //routes contains an array of every single route in our condition we have just one route
+    for (const x of marker) {
+      const el = document.createElement("div");
+      el.className = "marker";
+      el.className = "removableMarker";
 
-      const data = res.data.routes[0];
-      //every single route is an ((object)) contains
+      ReactDOM.render(
+        <Marker image="../../storePhoto.svg" color={markerColor} />
+      ,el)
 
-      //an ((object)) ((legs)) for the ((instructions)),
-      //weight_name,
-      //weight
-      //distance
-      //duration
-      //an ((object)) ((geometry)) which contains an ((array)) for the ((coordinates)) all the route
+      new mapboxgl.Marker(el, { offset: [0, -10] })
+      .setLngLat(x.coo)
+      .addTo(map);  
 
-      const route = data.geometry.coordinates;
+      el.addEventListener("click", (e) => {
+        //! important i put it so i can create a popup when clicking on the marker despite setting the closeOnClick to true in popup
+        e.stopPropagation();
+        /* make thw direction */
+        if (coords.length > 0) {
+          getRoute(coords, x.coo, "#3fb37f");
+        }
+        /* Fly to the point */
+        flyToStore(x.coo);
+        /* Close all other popups and display popup for clicked store */
+        createPopUp(x, markerColor);
+      });
 
-      //putting the array of coordinates in geojson object
-      const geojson = {
-        type: "Feature",
-        properties: {},
-        geometry: {
-          type: "LineString",
-          coordinates: route,
+    }
+  }
+
+  //**************removing Markers **************
+  function removeMarkers(){
+    // to remove the markers
+    const m=document.querySelectorAll('.removableMarker');
+    m.forEach( i => i.remove() )
+    
+    // to remove the dist-time dialog when removing the markers 
+    document.getElementById('dist-time').innerHTML="";
+
+    // to close opened popup
+    const popUps = document.getElementsByClassName("mapboxgl-popup");
+    if (popUps[0]) popUps[0].remove();
+
+    // to remove the route when removing the marker 
+    if (map.getSource("route")) {
+      map.removeLayer("route");
+      map.removeSource("route");
+    }
+  }
+
+  // ************ Directions ********************
+  async function getRoute(start, end, routeColor) {
+    const res = await axios.get(
+      `https://api.mapbox.com/directions/v5/mapbox/walking/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`
+    );
+
+    //res.data contains an object with three values( code , waypoints , routes)
+
+    //routes contains an array of every single route in our condition we have just one route
+
+    const data = res.data.routes[0];
+    //every single route is an ((object)) contains
+
+    //an ((object)) ((legs)) for the ((instructions)),
+    //weight_name,
+    //weight
+    //distance
+    //duration
+    //an ((object)) ((geometry)) which contains an ((array)) for the ((coordinates)) all the route
+
+    const route = data.geometry.coordinates;
+
+    //putting the array of coordinates in geojson object
+    const geojson = {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: route,
+      },
+    };
+
+    //if the route already exists on the map , we will reset it using setData
+
+    if (map.getSource("route")) {
+      map.getSource("route").setData(geojson);
+    }
+    //otherwise we will make a new request
+    else {
+      map.addLayer({
+        id: "route",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: geojson,
         },
-      };
-
-      //if the route already exists on the map , we will reset it using setData
-
-      if (map.getSource("route")) {
-        map.getSource("route").setData(geojson);
-      }
-      //otherwise we will make a new request
-      else {
-        map.addLayer({
-          id: "route",
-          type: "line",
-          source: {
-            type: "geojson",
-            data: geojson,
-          },
-          layout: {
-            "line-join": "round",
-            "line-cap": "round",
-          },
-          paint: {
-            "line-color": `${routeColor}`,
-            "line-width": 4,
-            "line-opacity": 1,
-          },
-        });
-      }
-
-      //putting the time and the distance on the map
-      const dT = document.getElementById("dist-time");
-
-      dT.innerHTML = `
-      <h4> 
-       : المسافة المقدرة للوصول 
-      </h4>
-      <h5>
-        ${Math.floor(data.distance / 1000)} K.m
-      <h5/>
-
-      <h4>
-      : الوقت المقدر للوصول  
-      </h4>
-      <h5>
-        ${Math.floor(data.duration / 60)} M
-      </h5>
-
-      `;
-    }
-
-    // ************ fly to store ******************
-
-    function flyToStore(coords) {
-      map.flyTo({
-        center: coords,
-        zoom: 12,
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": `${routeColor}`,
+          "line-width": 4,
+          "line-opacity": 1,
+        },
       });
     }
 
-    // ************ popup ******************
-    function createPopUp(marker, markerColor) {
-      const popUps = document.getElementsByClassName("mapboxgl-popup");
+    //putting the time and the distance on the map
+    const dT = document.getElementById("dist-time");
 
-      // to close opened popup
-      if (popUps[0]) popUps[0].remove();
+    dT.innerHTML = `
+    <h4> 
+    : المسافة المقدرة للوصول 
+    </h4>
+    <h5>
+      ${Math.floor(data.distance / 1000)} K.m
+    <h5/>
 
-      //************** seller popup
-      const seller_popup = (
-        <>
-          <h4
-            style={{
-              backgroundColor: "white",
-              color: markerColor,
-              minWidth: "125px",
-              minHeight: "40px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: "10px",
-              borderColor: `${markerColor}`,
-            }}
-            className="border-x-4"
-          >
-            {marker.name}
-          </h4>
-        </>
-      );
-      
-      //******************* rendering the popup
-      const my_popup_container = document.createElement("div");
+    <h4>
+    : الوقت المقدر للوصول  
+    </h4>
+    <h5>
+      ${Math.floor(data.duration / 60)} M
+    </h5>
 
-      ReactDOM.render(seller_popup,my_popup_container)
+    `;
+  }
+
+  // ************ fly to store ******************
+  function flyToStore(coords) {
+    map.flyTo({
+      center: coords,
+      zoom: 14,
+    });
+  }
+
+  // ************ popup ******************
+  function createPopUp(marker, markerColor) {
+    const popUps = document.getElementsByClassName("mapboxgl-popup");
+
+    // to close opened popup
+    if (popUps[0]) popUps[0].remove();
+
+    const seller_popup = (
+      <>
+        <h4
+          style={{
+            backgroundColor: "white",
+            color: markerColor,
+            minWidth: "125px",
+            minHeight: "40px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "10px",
+            borderColor: `${markerColor}`,
+          }}
+          className="border-x-4"
+        >
+          {marker.name}
+        </h4>
+      </>
+    );
+    
+  const my_popup_container = document.createElement("div");
+
+  ReactDOM.render(seller_popup,my_popup_container)
 
 
-      const popup = new mapboxgl.Popup({ closeOnClick: true }) //! ***** the close on click
-        .setLngLat(marker.coo)
-        .setDOMContent(my_popup_container)
-        .addTo(map);
-    }
-
-    // **************end of popup***********************
-
-    // Clean up on unmount
-    return () => map.remove();
-    //*********************************************/
-  }, [stores]);
+  const popup = new mapboxgl.Popup({ closeOnClick: true }) //! ***** the close on click
+      .setLngLat(marker.coo)
+      .setDOMContent(my_popup_container)
+      .addTo(map);
+  }
 
   return (
     <div
