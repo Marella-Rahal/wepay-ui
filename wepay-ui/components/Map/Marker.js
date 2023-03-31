@@ -1,15 +1,30 @@
 import React from "react";
-
+import {motion} from 'framer-motion';
+const markerVariant={
+  animate:{
+    y:7,
+    transition:{
+      duration: 0.5,
+      repeat: Infinity,
+      repeatType: "reverse"
+    }
+  }
+}
 const Marker = ({ image, color }) => {
   return (
     <>
-      <button
-        type="button"
-        className="marker-btn after:top-[80%] xs:after:top-[83%] sm:after:top-[85%] hover:bg-none"
-        style={{ backgroundColor: color, borderColor: color }}
-      >
-        <img src={image} alt="product image" className="marker-img" />
-      </button>
+      <motion.div
+      variants={markerVariant}
+      animate="animate" 
+      className="marker">
+        <button
+          type="button"
+          className="marker-btn after:top-[80%] xs:after:top-[83%] sm:after:top-[85%] hover:bg-none"
+          style={{ backgroundColor: color, borderColor: color }}
+        >
+          <img src={image} alt="product image" className="marker-img" />
+        </button>
+      </motion.div>
       <style jsx>
         {`
           // the div arround th button
