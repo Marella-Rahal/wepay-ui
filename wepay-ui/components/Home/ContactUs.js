@@ -47,19 +47,8 @@ const ContactUs = () => {
         
             /* width */
             #textarea::-webkit-scrollbar {
-                width: 7px;
-            }
-        
-            /* Track */
-            #textarea::-webkit-scrollbar-track {
-                box-shadow:inset 0 0 3px grey;
-                border-radius:20px;
-            }
-        
-            /* Handle */
-            #textarea::-webkit-scrollbar-thumb {
-                border-radius:20px; 
-                background-image: linear-gradient(#258A25, #3fb37f);
+                width: 0px;
+                height:0px;
             }
 
         `}</style>
