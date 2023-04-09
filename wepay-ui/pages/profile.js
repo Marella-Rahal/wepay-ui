@@ -16,6 +16,7 @@ const Profile = () => {
   const [fullName, setFullName] = useState();
   const [mobile, setMobile] = useState();
 
+  const [oldPwd, setOldPwd]=useState();
   const [pwd, setPwd] = useState();
   const [confirmPwd, setConfirmPwd] = useState();
   const [pin, setPin] = useState();
@@ -71,29 +72,34 @@ const Profile = () => {
     <>
       <Navbar />
       <div className="pt-28 pb-10 px-4 md:px-8 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col items-center space-y-10 lg:space-y-0 lg:flex-row lg:space-x-10 lg:justify-between">
+
         <div className="flex flex-col w-full lg:w-[420px]">
-          <div className="w-full lg:w-[420px] rounded-lg shadow-cardShadow px-3 py-7 flex flex-col items-center space-y-7 text-center">
-            <h4>الخاص بك QR Code رمز </h4>
 
-            <SVG
-              text={'12345667'}
-              options={{
-                margin: 3,
-                width: 200,
-                color: {
-                  dark: '#161616',
-                  light: '#ffffff',
-                },
-              }}
-            />
+            <div className="w-full lg:w-[420px] rounded-lg shadow-cardShadow px-3 py-7 flex flex-col items-center space-y-7 text-center">
+              <h4>الخاص بك QR Code رمز </h4>
 
-            <h4>أو قم بالاستلام عن طريق الرمز التالي</h4>
+              <SVG
+                text={'12345667'}
+                options={{
+                  margin: 3,
+                  width: 200,
+                  color: {
+                    dark: '#161616',
+                    light: '#ffffff',
+                  },
+                }}
+              />
 
-            <div className="bg-gradient-to-b from-gradientFrom to-gradientTo p-2 rounded-lg text-textColor2">
-              12345667
+              <h4>أو قم بالاستلام عن طريق الرمز التالي</h4>
+
+              <div className="bg-gradient-to-b from-gradientFrom to-gradientTo p-2 rounded-lg text-textColor2">
+                12345667
+              </div>
+
             </div>
-          </div>
-          <NotePopUp />
+
+            <NotePopUp />
+
         </div>
 
         <div className="w-full lg:w-3/4 lg:border-l-[1px] lg:border-textColor dark:border-textColor2 lg:px-7 xl:px-10 flex flex-col space-y-10 items-center lg:items-end text-center">
@@ -247,6 +253,14 @@ const Profile = () => {
               transition={{ ease: 'easeInOut', duration: 1 }}
               className="w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold"
             >
+              <label>أدخل كلمة المرور القديمة</label>
+              <input
+                type="password"
+                required
+                onChange={(e) => setOldPwd(e.target.value)}
+                className="outline-none shadow-lg"
+              />
+
               <label>أدخل كلمة المرور الجديدة</label>
               <input
                 type="password"
@@ -263,7 +277,7 @@ const Profile = () => {
                 className="outline-none shadow-lg"
               />
 
-              <label>الجديد PIN ادخل رمز</label>
+              <label>الجديد PIN أدخل رمز</label>
               <input
                 type="number"
                 required
