@@ -7,7 +7,7 @@ function NotePopUp() {
  
   return (
     <Popup
-      trigger={<button className="p-3 mt-3">ترقية الحساب لتاجر </button>}
+      trigger={<button className="p-3">ترقية الحساب لتاجر </button>}
       modal
       nested
     >

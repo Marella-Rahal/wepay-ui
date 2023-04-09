@@ -73,7 +73,7 @@ const Profile = () => {
       <Navbar />
       <div className="pt-28 pb-10 px-4 md:px-8 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col items-center space-y-10 lg:space-y-0 lg:flex-row lg:space-x-10 lg:justify-between">
 
-        <div className="flex flex-col w-full lg:w-[420px]">
+        <div className="flex flex-col space-y-5 w-full lg:w-[420px]">
 
             <div className="w-full lg:w-[420px] rounded-lg shadow-cardShadow px-3 py-7 flex flex-col items-center space-y-7 text-center">
               <h4>الخاص بك QR Code رمز </h4>
