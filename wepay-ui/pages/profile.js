@@ -1,328 +1,348 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { useQRCode } from 'next-qrcode';
-import {BsCamera} from 'react-icons/bs'; 
-import {MdEdit} from 'react-icons/md';
-import {motion} from 'framer-motion';
+import { BsCamera } from 'react-icons/bs';
+import { MdEdit } from 'react-icons/md';
+import { motion } from 'framer-motion';
+import NotePopUp from '../components/Profile/NotePopUp';
 
 const Profile = () => {
-    const { SVG } = useQRCode();
+  const { SVG } = useQRCode();
 
-    //! the default values for inputs (meaning the deafault values as defaultchecked ...) from redux
-    //! the values which will be sent to the backend
-    const [email,setEmail]=useState();
-    const [userName,setUserName]=useState();
-    const [fullName,setFullName]=useState();
-    const [mobile,setMobile]=useState();
+  //! the default values for inputs (meaning the deafault values as defaultchecked ...) from redux
+  //! the values which will be sent to the backend
+  const [email, setEmail] = useState();
+  const [userName, setUserName] = useState();
+  const [fullName, setFullName] = useState();
+  const [mobile, setMobile] = useState();
 
-    const [pwd,setPwd]=useState();
-    const [confirmPwd,setConfirmPwd]=useState();
-    const [pin,setPin]=useState();
+  const [pwd, setPwd] = useState();
+  const [confirmPwd, setConfirmPwd] = useState();
+  const [pin, setPin] = useState();
 
-    const [bimo,setBimo]=useState();
-    const [haram,setHaram]=useState();
-    const [syriatel,setSyriatel]=useState();
+  const [bimo, setBimo] = useState();
+  const [haram, setHaram] = useState();
+  const [syriatel, setSyriatel] = useState();
 
-    //! to allow edit Info
-    const [enableEmail,setEnableEmail]=useState(true);
-    const [enableUserName,setEnableUserName]=useState(true);
-    const [enableFullName,setEnableFullName]=useState(true);
-    const [enableMobile,setEnableMobile]=useState(true);
-    const [enableBimo,setEnableBimo]=useState(true);
-    const [enableHaram,setEnableHaram]=useState(true);
-    const [enableSyriatel,setEnableSyriatel]=useState(true);
+  //! to allow edit Info
+  const [enableEmail, setEnableEmail] = useState(true);
+  const [enableUserName, setEnableUserName] = useState(true);
+  const [enableFullName, setEnableFullName] = useState(true);
+  const [enableMobile, setEnableMobile] = useState(true);
+  const [enableBimo, setEnableBimo] = useState(true);
+  const [enableHaram, setEnableHaram] = useState(true);
+  const [enableSyriatel, setEnableSyriatel] = useState(true);
 
-
-    //! change the displayed Info
-    const [personal,setPersonal]=useState(true);
-    const [security,setSecurity]=useState(false);
-    const [bank,setBank]=useState(false);
-    const changeDisplayInfo=(type)=>{
-        if(type=='personal'){
-            setPersonal(true);
-            setSecurity(false);
-            setBank(false);
-        }else if(type=='security'){
-            setPersonal(false);
-            setSecurity(true);
-            setBank(false);
-        }else{
-            setPersonal(false);
-            setSecurity(false);
-            setBank(true);
-        }
+  //! change the displayed Info
+  const [personal, setPersonal] = useState(true);
+  const [security, setSecurity] = useState(false);
+  const [bank, setBank] = useState(false);
+  const changeDisplayInfo = (type) => {
+    if (type == 'personal') {
+      setPersonal(true);
+      setSecurity(false);
+      setBank(false);
+    } else if (type == 'security') {
+      setPersonal(false);
+      setSecurity(true);
+      setBank(false);
+    } else {
+      setPersonal(false);
+      setSecurity(false);
+      setBank(true);
     }
+  };
 
-
-    //! if the user does not have a profile photo then we put default.jpg but if he has we put his photo
-    //! change the image and send it to backend then change it in redux
-    const [img, setImg] = useState("default.jpg");
-    const updateImage = (e) => {
-        // console.log(e.target.files[0]);
-        // console.log(e.target.files[0].name);
-        //! for preview
-        if(e.target.files[0]){
-            document.getElementById('imgProfile').src=URL.createObjectURL(e.target.files[0])
-        }
-    };
+  //! if the user does not have a profile photo then we put default.jpg but if he has we put his photo
+  //! change the image and send it to backend then change it in redux
+  const [img, setImg] = useState('default.jpg');
+  const updateImage = (e) => {
+    // console.log(e.target.files[0]);
+    // console.log(e.target.files[0].name);
+    //! for preview
+    if (e.target.files[0]) {
+      document.getElementById('imgProfile').src = URL.createObjectURL(
+        e.target.files[0]
+      );
+    }
+  };
 
   return (
     <>
+      <Navbar />
+      <div className="pt-28 pb-10 px-4 md:px-8 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col items-center space-y-10 lg:space-y-0 lg:flex-row lg:space-x-10 lg:justify-between">
+        <div className="flex flex-col w-full lg:w-[420px]">
+          <div className="w-full lg:w-[420px] rounded-lg shadow-cardShadow px-3 py-7 flex flex-col items-center space-y-7 text-center">
+            <h4>الخاص بك QR Code رمز </h4>
 
-        <Navbar/>
-        <div className='pt-28 pb-10 px-4 md:px-8 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col items-center space-y-10 lg:space-y-0 lg:flex-row lg:space-x-10 lg:justify-between'>
+            <SVG
+              text={'12345667'}
+              options={{
+                margin: 3,
+                width: 200,
+                color: {
+                  dark: '#161616',
+                  light: '#ffffff',
+                },
+              }}
+            />
+
+            <h4>أو قم بالاستلام عن طريق الرمز التالي</h4>
+
+            <div className="bg-gradient-to-b from-gradientFrom to-gradientTo p-2 rounded-lg text-textColor2">
+              12345667
+            </div>
+          </div>
+          <NotePopUp />
+        </div>
+
+        <div className="w-full lg:w-3/4 lg:border-l-[1px] lg:border-textColor dark:border-textColor2 lg:px-7 xl:px-10 flex flex-col space-y-10 items-center lg:items-end text-center">
+          <div className="flex sm:space-x-10 space-x-5 font-bold sm:text-base text-[12px]">
+            <div
+              className={
+                bank
+                  ? 'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-effectColor text-effectColor cursor-pointer'
+                  : 'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor'
+              }
+              onClick={() => changeDisplayInfo('bank')}
+            >
+              البيانات البنكية
+            </div>
 
             <div
-             className='w-full lg:w-[420px] rounded-lg shadow-cardShadow px-3 py-7 flex flex-col items-center space-y-7 text-center'>
+              className={
+                security
+                  ? 'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] cursor-pointer border-b-effectColor text-effectColor'
+                  : 'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor'
+              }
+              onClick={() => changeDisplayInfo('security')}
+            >
+              الحماية والأمان
+            </div>
 
-                <h4>الخاص بك QR Code رمز </h4>
+            <div
+              className={
+                personal
+                  ? 'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-effectColor text-effectColor cursor-pointer'
+                  : 'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-textColor cursor-pointer hover:text-effectColor hover:border-b-effectColor dark:border-textColor2 hover:dark:border-b-effectColor'
+              }
+              onClick={() => changeDisplayInfo('personal')}
+            >
+              البيانات الشخصية
+            </div>
+          </div>
 
-                <SVG
-                text={'12345667'}
-                options={{
-                    margin: 3,
-                    width: 200,
-                    color: {
-                    dark: '#161616',
-                    light: '#ffffff',
-                    },
-                }}
+          {personal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ ease: 'easeInOut', duration: 1 }}
+              className="flex flex-col items-center space-y-10 lg:space-y-0 lg:flex-row lg:justify-end lg:items-start lg:space-x-7 xl:space-x-20 w-full"
+            >
+              <div className="relative min-w-fit">
+                <img
+                  src={img}
+                  id="imgProfile"
+                  className="w-48 h-48 rounded-full shadow-cardShadow"
                 />
 
-                <h4>أو قم بالاستلام عن طريق الرمز التالي</h4>
+                <label
+                  htmlFor="profilePhoto"
+                  className="absolute bottom-0 right-5 w-12 h-12 flex justify-center items-center rounded-full bg-textColor2 shadow-md shadow-shadowColor hover:scale-[1.1] cursor-pointer"
+                >
+                  <BsCamera className="w-7 h-7 text-textColor" />
+                </label>
 
-                <div className='bg-gradient-to-b from-gradientFrom to-gradientTo p-2 rounded-lg text-textColor2'>
-                    12345667
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="profilePhoto"
+                  className="hidden"
+                  onChange={updateImage}
+                />
+              </div>
+
+              <form className="w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold">
+                <label>: البريد الإلكتروني</label>
+                <div className="flex">
+                  <div
+                    className="bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg"
+                    onClick={() => setEnableEmail((prev) => !prev)}
+                  >
+                    <MdEdit className="w-6 h-6 " />
+                  </div>
+
+                  <input
+                    type="email"
+                    defaultValue={'marellarahhal@gmail.com'}
+                    disabled={enableEmail}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="shadow-lg outline-none rounded-none rounded-r-lg w-full"
+                  />
                 </div>
 
+                <label>: اسم المستخدم</label>
+                <div className="flex">
+                  <div
+                    className="bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg"
+                    onClick={() => setEnableUserName((prev) => !prev)}
+                  >
+                    <MdEdit className="w-6 h-6" />
+                  </div>
 
-            </div>
+                  <input
+                    type="text"
+                    defaultValue={'MR'}
+                    disabled={enableUserName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="shadow-lg outline-none rounded-none rounded-r-lg w-full"
+                  />
+                </div>
 
-            <div className='w-full lg:w-3/4 lg:border-l-[1px] lg:border-textColor dark:border-textColor2 lg:px-7 xl:px-10 flex flex-col space-y-10 items-center lg:items-end text-center'>
+                <label>: الاسم الثلاثي</label>
+                <div className="flex">
+                  <div
+                    className="bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg"
+                    onClick={() => setEnableFullName((prev) => !prev)}
+                  >
+                    <MdEdit className="w-6 h-6" />
+                  </div>
 
-                    <div className='flex sm:space-x-10 space-x-5 font-bold sm:text-base text-[12px]'>
+                  <input
+                    type="text"
+                    defaultValue={'Marella Rimon Rahal'}
+                    disabled={enableFullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="shadow-lg outline-none rounded-none rounded-r-lg w-full"
+                  />
+                </div>
 
-                        <div className={bank?'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-effectColor text-effectColor cursor-pointer':'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor'} 
-                        onClick={()=>changeDisplayInfo('bank')}>البيانات البنكية</div>
+                <label>: رقم الهاتف</label>
+                <div className="flex">
+                  <div
+                    className="bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg"
+                    onClick={() => setEnableMobile((prev) => !prev)}
+                  >
+                    <MdEdit className="w-6 h-6" />
+                  </div>
 
-                        <div className={security?'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] cursor-pointer border-b-effectColor text-effectColor':'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-textColor dark:border-textColor2 cursor-pointer hover:text-effectColor hover:border-b-effectColor hover:dark:border-b-effectColor'} onClick={()=>changeDisplayInfo('security')}>الحماية والأمان</div>
+                  <input
+                    type="number"
+                    defaultValue={'0987654332'}
+                    disabled={enableMobile}
+                    onChange={(e) => setMobile(e.target.value)}
+                    className="shadow-lg outline-none rounded-none rounded-r-lg w-full text-start"
+                  />
+                </div>
 
-                        <div className={personal?'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-effectColor text-effectColor cursor-pointer':'sm:py-5 py-3 sm:px-7 px-3 border-b-[1px] border-textColor cursor-pointer hover:text-effectColor hover:border-b-effectColor dark:border-textColor2 hover:dark:border-b-effectColor'} onClick={()=>changeDisplayInfo('personal')}>البيانات الشخصية</div>
+                <button className="self-center">حفظ التغييرات</button>
+              </form>
+            </motion.div>
+          )}
 
-                    </div>
+          {security && (
+            <motion.form
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ ease: 'easeInOut', duration: 1 }}
+              className="w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold"
+            >
+              <label>أدخل كلمة المرور الجديدة</label>
+              <input
+                type="password"
+                required
+                onChange={(e) => setPwd(e.target.value)}
+                className="outline-none shadow-lg"
+              />
 
-                    {
-                        personal && (
+              <label> أعد إدخال كلمة المرور الجديدة</label>
+              <input
+                type="password"
+                required
+                onChange={(e) => setConfirmPwd(e.target.value)}
+                className="outline-none shadow-lg"
+              />
 
-                            <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }}
-                            className='flex flex-col items-center space-y-10 lg:space-y-0 lg:flex-row lg:justify-end lg:items-start lg:space-x-7 xl:space-x-20 w-full'>
+              <label>الجديد PIN ادخل رمز</label>
+              <input
+                type="number"
+                required
+                onChange={(e) => setPin(e.target.value)}
+                className="outline-none shadow-lg text-start"
+              />
 
+              <button className="self-center">حفظ التغييرات</button>
+            </motion.form>
+          )}
 
-                                <div className='relative min-w-fit'>
-        
-                                    <img src={img} id="imgProfile" className='w-48 h-48 rounded-full shadow-cardShadow'/>
-        
-                                    <label
-                                    htmlFor="profilePhoto"
-                                    className="absolute bottom-0 right-5 w-12 h-12 flex justify-center items-center rounded-full bg-textColor2 shadow-md shadow-shadowColor hover:scale-[1.1] cursor-pointer"
-                                    >
-                                    <BsCamera className="w-7 h-7 text-textColor" />
-                                    </label>
-        
-                                    <input
-                                    type="file"
-                                    accept="image/*"
-                                    id="profilePhoto"
-                                    className="hidden"
-                                    onChange={updateImage}
-                                    />
-        
-                                </div>
-        
-                                <form className='w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold'>
-        
-                                    <label>: البريد الإلكتروني</label>
-                                    <div className='flex'>
-        
-                                        <div className='bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg' 
-                                        onClick={()=> setEnableEmail(prev=>!prev) }>
-                                            <MdEdit className='w-6 h-6 '/>
-                                        </div>
-                                        
-                                        <input 
-                                        type="email"
-                                        defaultValue={"marellarahhal@gmail.com"}
-                                        disabled={enableEmail}
-                                        onChange={(e)=>setEmail(e.target.value)} 
-                                        className='shadow-lg outline-none rounded-none rounded-r-lg w-full'/>
-        
-                                    </div>
-        
-        
-                                    <label>: اسم المستخدم</label>
-                                    <div className='flex'>
-        
-                                        <div className='bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg'
-                                        onClick={()=> setEnableUserName(prev=>!prev) }>
-                                            <MdEdit className='w-6 h-6'/>
-                                        </div>
-                                        
-                                        <input 
-                                        type="text"
-                                        defaultValue={"MR"}
-                                        disabled={enableUserName}
-                                        onChange={(e)=>setUserName(e.target.value)} 
-                                        className='shadow-lg outline-none rounded-none rounded-r-lg w-full'/>
-        
-                                    </div>
-        
-                                    <label>: الاسم الثلاثي</label>
-                                    <div className='flex'>
-        
-                                        <div className='bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg'
-                                        onClick={()=> setEnableFullName(prev=>!prev) }>
-                                            <MdEdit className='w-6 h-6'/>
-                                        </div>
-                                        
-                                        <input 
-                                        type="text"
-                                        defaultValue={"Marella Rimon Rahal"}
-                                        disabled={enableFullName}
-                                        onChange={(e)=>setFullName(e.target.value)} 
-                                        className='shadow-lg outline-none rounded-none rounded-r-lg w-full'/>
-        
-                                    </div>
-        
-                                    <label>: رقم الهاتف</label>
-                                    <div className='flex'>
-        
-                                        <div className='bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg'
-                                        onClick={()=> setEnableMobile(prev=>!prev) }>
-                                            <MdEdit className='w-6 h-6'/>
-                                        </div>
-                                        
-                                        <input 
-                                        type="number"
-                                        defaultValue={"0987654332"}
-                                        disabled={enableMobile}
-                                        onChange={(e)=>setMobile(e.target.value)} 
-                                        className='shadow-lg outline-none rounded-none rounded-r-lg w-full text-start'/>
-        
-                                    </div>
-        
-                                    <button className='self-center'>حفظ التغييرات</button>
-        
-                                </form>
-                            </motion.div>
+          {bank && (
+            <motion.form
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ ease: 'easeInOut', duration: 1 }}
+              className="w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold"
+            >
+              <label>: بنك بيمو </label>
+              <div className="flex">
+                <div
+                  className="bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg"
+                  onClick={() => setEnableBimo((prev) => !prev)}
+                >
+                  <MdEdit className="w-6 h-6" />
+                </div>
 
-                        )
-                    }
+                <input
+                  type="text"
+                  defaultValue={'P123345676'}
+                  disabled={enableBimo}
+                  onChange={(e) => setBimo(e.target.value)}
+                  className="shadow-lg outline-none rounded-none rounded-r-lg w-full text-start"
+                />
+              </div>
 
-                    {
-                        security && (
-                            <motion.form initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold'>
+              <label>:رقم استقبال الحوالات عن طريق شركة الهرم </label>
+              <div className="flex">
+                <div
+                  className="bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg"
+                  onClick={() => setEnableHaram((prev) => !prev)}
+                >
+                  <MdEdit className="w-6 h-6" />
+                </div>
 
-                                <label>أدخل كلمة المرور الجديدة</label>
-                                <input 
-                                type="password" 
-                                required
-                                onChange={(e)=>setPwd(e.target.value)} 
-                                className='outline-none shadow-lg'/>
+                <input
+                  type="number"
+                  defaultValue={'0986432128'}
+                  disabled={enableHaram}
+                  onChange={(e) => setHaram(e.target.value)}
+                  className="shadow-lg outline-none rounded-none rounded-r-lg w-full text-start"
+                />
+              </div>
 
-                                <label> أعد إدخال كلمة المرور الجديدة</label>
-                                <input 
-                                type="password" 
-                                required
-                                onChange={(e)=>setConfirmPwd(e.target.value)} 
-                                className='outline-none shadow-lg'/>
+              <label>: Syriatel Cash رقم</label>
+              <div className="flex">
+                <div
+                  className="bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg"
+                  onClick={() => setEnableSyriatel((prev) => !prev)}
+                >
+                  <MdEdit className="w-6 h-6" />
+                </div>
 
-                                <label>الجديد PIN  ادخل رمز</label>
-                                <input 
-                                type="number" 
-                                required
-                                onChange={(e)=>setPin(e.target.value)} 
-                                className='outline-none shadow-lg text-start'/>
+                <input
+                  type="number"
+                  defaultValue={'0987543243'}
+                  disabled={enableSyriatel}
+                  onChange={(e) => setSyriatel(e.target.value)}
+                  className="shadow-lg outline-none rounded-none rounded-r-lg w-full text-start"
+                />
+              </div>
 
-                                <button className='self-center'>حفظ التغييرات</button>
-
-                            </motion.form>
-                        )
-                    }
-
-                    {
-                        bank && (
-                            <motion.form initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full lg:w-2/3 flex flex-col space-y-5 text-end font-bold'>
-
-                                    <label>: بنك بيمو </label>
-                                    <div className='flex'>
-        
-                                        <div className='bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg'
-                                        onClick={()=> setEnableBimo(prev=>!prev) }>
-                                            <MdEdit className='w-6 h-6'/>
-                                        </div>
-                                        
-                                        <input 
-                                        type="text"
-                                        defaultValue={"P123345676"}
-                                        disabled={enableBimo}
-                                        onChange={(e)=>setBimo(e.target.value)} 
-                                        className='shadow-lg outline-none rounded-none rounded-r-lg w-full text-start'/>
-        
-                                    </div>
-
-
-                                    <label>:رقم استقبال الحوالات عن طريق شركة الهرم </label>
-                                    <div className='flex'>
-        
-                                        <div className='bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg'
-                                        onClick={()=> setEnableHaram(prev=>!prev) }>
-                                            <MdEdit className='w-6 h-6'/>
-                                        </div>
-                                        
-                                        <input 
-                                        type="number"
-                                        defaultValue={"0986432128"}
-                                        disabled={enableHaram}
-                                        onChange={(e)=>setHaram(e.target.value)} 
-                                        className='shadow-lg outline-none rounded-none rounded-r-lg w-full text-start'/>
-        
-                                    </div>
-
-
-                                    <label>: Syriatel Cash رقم</label>
-                                    <div className='flex'>
-        
-                                        <div className='bg-textColor2 px-2 rounded-l-lg cursor-pointer text-textColor hover:text-effectColor flex items-center justify-center shadow-lg'
-                                        onClick={()=> setEnableSyriatel(prev=>!prev) }>
-                                            <MdEdit className='w-6 h-6'/>
-                                        </div>
-                                        
-                                        <input
-                                        type="number"
-                                        defaultValue={"0987543243"}
-                                        disabled={enableSyriatel}
-                                        onChange={(e)=>setSyriatel(e.target.value)} 
-                                        className='shadow-lg outline-none rounded-none rounded-r-lg w-full text-start'/>
-        
-                                    </div>
-
-                                
-                                <button className='self-center'>حفظ التغييرات</button>
-
-                            </motion.form>
-                        )
-                    }
-
-                    
-            </div>
-
+              <button className="self-center">حفظ التغييرات</button>
+            </motion.form>
+          )}
         </div>
-    
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
