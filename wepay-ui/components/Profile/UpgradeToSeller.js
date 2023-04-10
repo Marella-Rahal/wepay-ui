@@ -38,7 +38,7 @@ function UpgradeToSeller() {
                 {/* first col */}
                 <div className="relative w-fit h-fit">
 
-                      <div className='font-bold text-center mb-3'>صورة المتجر</div>
+                      <div className='font-bold text-center mb-2'>صورة المتجر</div>
 
                       <img
                         src="../storePhoto.svg"
@@ -66,12 +66,12 @@ function UpgradeToSeller() {
                 <div className="w-full md:w-1/2 flex flex-col text-end">
 
                     <label className="font-bold mb-1 mr-2">اسم المتجر</label>
-                    <input type="text" className="outline-none border focus:border-textColor"/>
+                    <input type="text" className="outline-none border focus:border-textColor py-1"/>
 
                     <label className="font-bold mb-1 mr-2 mt-2">نوع المتجر </label>
                     <select 
                           name='store' 
-                          className='outline-none border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-2'>
+                          className='outline-none border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'>
                               <option value="">تصنيف حسب نوع المتجر</option>
                               <option value="Clothes">ألبسة</option>
                               <option value="Shoes">أحذية</option>
@@ -87,7 +87,7 @@ function UpgradeToSeller() {
                     <label className="font-bold mb-1 mr-2 mt-2"> المحافظة </label>
                     <select 
                           name='city' 
-                          className='outline-none border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-2'>
+                          className='outline-none border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'>
                               <option value="">تصنيف حسب المحافظة</option>
                               <option value="Aleppo">حلب</option>
                               <option value="Damascus">دمشق</option>
@@ -106,7 +106,7 @@ function UpgradeToSeller() {
                     </select>
                     
                     <label className="font-bold mb-1 mr-2 mt-2">عنوان المحل </label>
-                    <input type="text" className="outline-none border focus:border-textColor"></input>
+                    <input type="text" className="outline-none border focus:border-textColor py-1"></input>
                     
                 </div>
 
