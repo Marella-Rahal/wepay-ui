@@ -32,7 +32,7 @@ function AddDelegate() {
                       <img
                         src="../default.jpg"
                         id="imgProfile2"
-                        className="w-[200px] h-[250px] rounded-md shadow-shadowColor shadow-md"
+                        className="w-[150px] h-[150px] md:w-[200px] md:h-[250px] rounded-md shadow-shadowColor shadow-md"
                       />
 
                       <label

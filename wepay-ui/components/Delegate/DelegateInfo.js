@@ -1,7 +1,7 @@
 import React from 'react';
 
 function DelegateInfo(props) {
-  console.log(props.value.name);
+
   return (
     <div
       className="w-[190px] h-[240px] rounded-lg bg-effectColor text-center text-white flex flex-col items-center justify-center space-y-2 p-2 mx-[14px] my-7"
