@@ -31,7 +31,7 @@ function NotePopUp() {
               <button className="px-4 py-3" onClick={() => close()}>
                 إغلاق
               </button>
-              <UpgradeToSeller />
+              <UpgradeToSeller closeFirstPopup={close}/>
             </div>
 
           </motion.div>

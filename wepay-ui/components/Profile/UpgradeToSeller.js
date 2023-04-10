@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { BsCamera } from 'react-icons/bs';
 import usePosition from '../../hooks/usePosition';
 
-function UpgradeToSeller() {
+function UpgradeToSeller({closeFirstPopup}) {
   const [coords , error] =usePosition();
   
   console.log(coords);
@@ -114,10 +114,10 @@ function UpgradeToSeller() {
 
             {/* two buttons */}
             <div className="w-full flex justify-between">
-              <button className="px-4 py-3" onClick={() => close()}>
+              <button className="px-4 py-3" onClick={() => { closeFirstPopup() ; close() } }>
                 إغلاق
               </button>
-              <button className="px-4 py-3" onClick={() => close()}>حفظ</button>
+              <button className="px-4 py-3" onClick={ () => { closeFirstPopup() ; close() } }>حفظ</button>
             </div>
 
           </motion.div>
