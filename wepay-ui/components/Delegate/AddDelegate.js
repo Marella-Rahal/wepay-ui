@@ -22,10 +22,10 @@ function AddDelegate() {
             initial={{ opacity: 0, y: '-200%', x: '-50%' }}
             animate={{ opacity: 1, y: '-50%', x: '-50%' }}
             transition={{ ease: 'easeInOut', duration: 0.7 }}
-            className="fixed z-10 top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-gray-50 text-textColor flex flex-col space-y-7 shadow-2xl rounded-lg w-[90%] md:w-[600px] p-3 md:p-5"
+            className="fixed z-10 top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-gray-50 text-textColor flex flex-col space-y-5 shadow-2xl rounded-lg w-[90%] md:w-[600px] p-3 md:p-5"
           >
             {/* info */}
-            <div className="flex flex-col items-center space-y-7 md:space-y-0 md:flex-row md:justify-between">
+            <div className="flex flex-col items-center space-y-5 md:space-y-0 md:flex-row md:justify-between">
 
                 {/* first col */}
                 <div className="relative w-fit h-fit">
@@ -53,11 +53,11 @@ function AddDelegate() {
 
                 {/* second  col*/}
                 <div className="w-full md:w-1/2 flex flex-col text-end">
-                  <label className="font-bold mb-2 mr-2">اسم الوكيل</label>
+                  <label className="font-bold mb-1 md:mb-2 mr-2">اسم الوكيل</label>
                   <input type="text" className="outline-none border focus:border-textColor"></input>
-                  <label className="font-bold mb-2 mr-2 mt-3">عنوانه </label>
+                  <label className="font-bold mb-1 md:mb-2 mr-2 mt-2 md:mt-3">عنوانه </label>
                   <input type="text" placeholder='حمص-الأرمن' className="outline-none border focus:border-textColor"></input>
-                  <label className="font-bold mb-2 mr-2 mt-3">رقمه </label>
+                  <label className="font-bold mb-1 md:mb-2 mr-2 mt-2 md:mt-3">رقمه </label>
                   <input type="number" placeholder='+963' className="outline-none border focus:border-textColor text-start"></input>
                 </div>
 
