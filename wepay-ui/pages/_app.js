@@ -4,6 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { ThemeProvider } from 'next-themes';
 
+// 𝘀𝗲𝘁𝘁𝗶𝗻𝗴 𝘂𝗽 𝗿𝗲𝗱𝘂𝘅
+import { Provider } from 'react-redux';
+import { wrapper } from "../Redux/Store";
+
 const pageVariants = {
   hidden: {
     opacity: 0,
@@ -16,7 +20,13 @@ const pageVariants = {
   },
 };
 
-function MyApp({ Component, pageProps }) {
+// 𝘀𝗲𝘁𝘁𝗶𝗻𝗴 𝘂𝗽 𝗿𝗲𝗱𝘂𝘅
+function MyApp({ Component, ...rest }) {
+  
+  // 𝘀𝗲𝘁𝘁𝗶𝗻𝗴 𝘂𝗽 𝗿𝗲𝗱𝘂𝘅
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const { pageProps } = props;
+
   const router = useRouter();
 
   return (
@@ -48,7 +58,12 @@ function MyApp({ Component, pageProps }) {
             animate="visible"
             exit="exit"
           >
-            <Component {...pageProps} />
+
+            {/* 𝘀𝗲𝘁𝘁𝗶𝗻𝗴 𝘂𝗽 𝗿𝗲𝗱𝘂𝘅 */}
+            <Provider store={store}>
+              <Component {...pageProps} />
+            </Provider>
+
           </motion.div>
         </AnimatePresence>
 
