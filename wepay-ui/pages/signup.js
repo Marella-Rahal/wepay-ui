@@ -355,7 +355,7 @@ const Signup = () => {
                             className='bg-gradient-to-b from-gradientFrom to-gradientTo self-center p-0 w-[105px] h-[35px] flex justify-center items-center'
                             >
                                 { 
-                                    sendingStatus 
+                                    !sendingStatus 
                                     ? "إنشاء حساب" 
                                     : <ThreeDots
                                         width="30"
