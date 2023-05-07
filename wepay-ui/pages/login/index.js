@@ -5,6 +5,7 @@ import NotePopUp, { showPopUpNote } from '../../components/PopUp/NotePopUp';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { ThreeDots } from 'react-loader-spinner';
+import Cookies from 'js-cookie';
 
 const Login = () => {
  
@@ -31,7 +32,7 @@ const Login = () => {
             pin:pin
         })
 
-        localStorage.setItem("token",res.data.token);
+        Cookies.set( "token" , res.data.token , { secure: true } );
 
         router.replace('/shippingAndPayment');
         
