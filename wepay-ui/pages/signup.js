@@ -191,7 +191,7 @@ const Signup = () => {
             )
         }else{
             setNoteMsg(
-                <h5 className='text-red-600 text-center'> فشل التسجيل </h5>
+                <h5 className='text-red-600 text-center'> فشل إنشاء الحساب </h5>
             )
         }
 
