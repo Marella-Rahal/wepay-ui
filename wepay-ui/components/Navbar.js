@@ -8,6 +8,7 @@ import {BsFillMoonStarsFill,BsFillSunFill} from 'react-icons/bs';
 import { useTheme } from 'next-themes';
 
 const Navbar = () => {
+
     const router=useRouter();
 
 

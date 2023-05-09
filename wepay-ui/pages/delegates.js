@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import DelegateInfo from '../components/Delegate/DelegateInfo';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import AddDelegate from '../components/Delegate/AddDelegate';
+import ReactPaginate from 'react-paginate';
+import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import axios from 'axios';
 
-function Delegates() {
+function Delegates(props) {
+
+  console.log(props)
+
   const info = [
     {
       image: '../delegate.svg',
@@ -150,14 +156,1039 @@ function Delegates() {
       address: 'حمص الأرمن',
       number: '09937082264',
     },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'ماريلا ريمون رحال',
+      address: 'حمص شارع الحضارة بجانب الإطفائية',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'ماريلا ريمون رحال',
+      address: 'حمص شارع الحضارة بجانب الإطفائية',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'ماريلا ريمون رحال',
+      address: 'حمص شارع الحضارة بجانب الإطفائية',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'ماريلا ريمون رحال',
+      address: 'حمص شارع الحضارة بجانب الإطفائية',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'ماريلا ريمون رحال',
+      address: 'حمص شارع الحضارة بجانب الإطفائية',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'ماريلا ريمون رحال',
+      address: 'حمص شارع الحضارة بجانب الإطفائية',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'ماريلا ريمون رحال',
+      address: 'حمص شارع الحضارة بجانب الإطفائية',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ماريلا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' رونيا',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: ' ديول',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
+    {
+      image: '../delegate.svg',
+      name: 'غيث عثمان',
+      address: 'حمص الأرمن',
+      number: '09937082264',
+    },
   ];
+
+  // *React-Paginate *********************************************************
+  const [ItemsDisplayed, setItemsDisplayed] = useState(info.slice(0, 10));
+  const [FirstArrow, setFirstArrow] = useState(false);
+  const [LastArrow, setLastArrow] = useState(true);
+  // functions
+  const handleChange = (data) => {
+    // for left arrow
+    if (data.selected == 0) setFirstArrow(false);
+    else setFirstArrow(true);
+    // for right arrow
+    if (data.selected == Math.ceil(info.length / 10) - 1) setLastArrow(false);
+    else setLastArrow(true);
+
+    setItemsDisplayed(info.slice(data.selected * 10, data.selected * 10 + 10));
+  };
+  // **************************************************************************
   return (
     <>
       <Navbar />
-      <div className="pt-28 pb-10 px-4 md:px-8 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col space-y-7">
+      <div className="pt-28 pb-10 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col space-y-7">
 
           {/* first section */}
-          <div className="flex flex-col space-y-7 md:space-y-0 md:flex-row md:space-x-7 md:justify-between md:items-center">
+          <div className="flex flex-col space-y-7 md:space-y-0 md:flex-row md:space-x-7 md:justify-between md:items-center mx-4 md:mx-8">
 
             <div className='w-full md:w-1/2 h-fit'>
               <img src="../delegate.svg" className="w-full h-[350px]"/>
@@ -176,19 +1207,19 @@ function Delegates() {
           </div>
 
           {/* Line */}
-          <div className="w-full flex items-center">
+          <div className="w-full flex items-center px-4 md:px-8">
             <div className="w-1/2 h-[1px] bg-effectColor" />
             <img src="logo.svg" />
             <div className="w-1/2 h-[1px] bg-effectColor" />
           </div>
 
           {/* delegates */}
-          <div className="w-full text-center text-effectColor dark:text-textColor2 text-2xl md:text-3xl">
+          <div className="w-full text-center text-effectColor dark:text-textColor2 text-2xl md:text-3xl px-4 md:px-8">
             الوكلاء
           </div>
 
           {/* classification and filter */}
-          <div className="w-full flex flex-col space-y-7 md:space-y-0 md:flex-row md:justify-between md:items-center">
+          <div className="w-full flex flex-col space-y-7 md:space-y-0 md:flex-row md:justify-between md:items-center px-4 md:px-8">
 
               {/* search */}
               <div className="flex">
@@ -220,11 +1251,32 @@ function Delegates() {
 
           </div>
 
-          <div className="flex flex-wrap justify-evenly ">
-            {info.map((value, index) => {
+          <div className="flex flex-wrap justify-evenly mx-4 md:mx-8">
+            {ItemsDisplayed.map((value, index) => {
               return <DelegateInfo value={value} key={index} />;
             })}
           </div>
+
+          <ReactPaginate
+            breakLabel={<span>...</span>}
+            nextLabel={
+              LastArrow ? (
+                <BsChevronRight />
+              ) : null
+            }
+            onPageChange={handleChange}
+            pageRangeDisplayed={1} // Display 1 page buttons on either side of the active page button
+            marginPagesDisplayed={1} // Display 1 page button on either side of the first and last page buttons
+            pageCount={info.length / 10}
+            previousLabel={
+              FirstArrow ? (
+                <BsChevronLeft />
+              ) : null
+            }
+            containerClassName="flex items-center justify-center space-x-2 md:space-x-3 pt-3 text-[grey] dark:text-white"
+            pageClassName="text-[grey] bg-textColor2 text-sm flex items-center justify-center rounded-lg px-2 py-1 md:px-3 md:py-2"
+            activeClassName="text-[white] bg-[#3fb37f]"
+          />
 
       </div>
     </>
@@ -232,3 +1284,15 @@ function Delegates() {
 }
 
 export default Delegates;
+
+export async function getServerSideProps(context){
+
+    const res = await axios.get(`${process.env.server_url}/api/v1.0/dealers/getAllDealers`)
+
+    return {
+      props : {
+        data : res.data
+      }
+    }
+
+}
