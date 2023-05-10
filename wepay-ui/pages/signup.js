@@ -8,7 +8,6 @@ import { saveUser } from '../Redux/Slices/userSlice';
 import NotePopUp , {showPopUpNote} from '../components/PopUp/NotePopUp';
 import { ThreeDots } from 'react-loader-spinner'
 import { useRouter } from 'next/router';
-import { setCookie } from 'cookies-next';
 const EMAIL_REGEX=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const PHONE_REGEX=/^09\d{8}$/
 
@@ -159,8 +158,6 @@ const Signup = () => {
             password:password,
             pin:pin
         })
-
-        setCookie( "token" , res.data.token , { secure: true } );
 
         dispatch(saveUser(res.data.user))
 

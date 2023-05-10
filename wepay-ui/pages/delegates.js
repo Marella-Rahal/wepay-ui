@@ -9,8 +9,6 @@ import axios from 'axios';
 
 function Delegates(props) {
 
-  console.log(props)
-
   const info = [
     {
       image: '../delegate.svg',
@@ -1182,6 +1180,7 @@ function Delegates(props) {
     setItemsDisplayed(info.slice(data.selected * 10, data.selected * 10 + 10));
   };
   // **************************************************************************
+  
   return (
     <>
       <Navbar />
@@ -1285,14 +1284,24 @@ function Delegates(props) {
 
 export default Delegates;
 
-export async function getServerSideProps(context){
+export async function getStaticProps(context){
 
-    const res = await axios.get(`${process.env.server_url}/api/v1.0/dealers/getAllDealers`)
+    try {
 
-    return {
-      props : {
-        data : res.data
+      const res = await axios.get(`${process.env.server_url}/api/v1.0/dealers/getAllDealers`);
+      
+      return {
+        props : {
+          data : res.data
+        }
       }
+
+    } catch (error) {
+
+      return {
+        props : {}
+      }
+
     }
 
 }
