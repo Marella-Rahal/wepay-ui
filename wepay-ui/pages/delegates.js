@@ -9,6 +9,8 @@ import axios from 'axios';
 
 function Delegates(props) {
 
+  console.log(props)
+
   const info = [
     {
       image: '../delegate.svg',
@@ -1180,7 +1182,7 @@ function Delegates(props) {
     setItemsDisplayed(info.slice(data.selected * 10, data.selected * 10 + 10));
   };
   // **************************************************************************
-  
+
   return (
     <>
       <Navbar />
