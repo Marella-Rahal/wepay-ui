@@ -114,11 +114,11 @@ const Signup = () => {
         return;
     }
 
-    if(password.length < 6){
+    if(password.length < 8){
         setNoteMsg(
             <h5 className='text-red-600 text-center flex flex-col justify-center items-center'>
                 <span>كلمة مرور غير صالحة</span>
-                <span>يجب أن تكون أكثر من 5 أحرف </span>
+                <span>يجب أن تكون أكثر من 7 أحرف </span>
             </h5>
         );
         showPopUpNote();
