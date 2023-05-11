@@ -87,7 +87,7 @@ exports.signup = async (req, res, next) => {
 				httpOnly: true,
 				secure: false,
 				maxAge: 24 * 60 * 60 * 1000, // 24 hours
-				sameSite: 'none',
+				sameSite: 'lax',
 				path: '/'
 			})
 		);
@@ -124,7 +124,7 @@ exports.login = async (req, res, next) => {
 				httpOnly: true,
 				secure: false,
 				maxAge: 24 * 60 * 60 * 1000, // 24 hours
-				sameSite: 'none',
+				sameSite: 'lax',
 				path: '/'
 			})
 		);
@@ -243,16 +243,16 @@ exports.updateUserToSeller = async (req, res, next) => {
 	}
 };
 
-exports.logout = (req, res) => {
+exports.logout = (req, res, next) => {
 	try {
 		if (req.cookies.token) {
 			res.setHeader(
 				'set-Cookie',
 				cookie.serialize('token', '', {
-					httpOnly: process.env.NODE_ENV === 'development',
-					secure: process.env.NODE_ENV === 'production',
-					maxAge: 24 * 60 * 60 * 1000, // 24 hours
-					sameSite: 'none',
+					httpOnly: true,
+					secure: false,
+					maxAge: 0, // 24 hours
+					sameSite: 'lax',
 					path: '/'
 				})
 			);

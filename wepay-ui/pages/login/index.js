@@ -29,6 +29,8 @@ const Login = () => {
             email:email,
             password:password,
             pin:pin
+        },{
+            withCredentials: true
         })
 
         router.replace('/shippingAndPayment');

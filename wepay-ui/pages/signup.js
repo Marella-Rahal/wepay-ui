@@ -157,6 +157,8 @@ const Signup = () => {
             phoneNumber:phoneNumber,
             password:password,
             pin:pin
+        },{
+            withCredentials: true
         })
 
         dispatch(saveUser(res.data.user))
