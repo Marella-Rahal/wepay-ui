@@ -6,25 +6,10 @@ import {BiLogOut} from 'react-icons/bi';
 import {AiOutlineClose} from 'react-icons/ai';
 import {BsFillMoonStarsFill,BsFillSunFill} from 'react-icons/bs';
 import { useTheme } from 'next-themes';
-import axios from 'axios'
 
 const Navbar = () => {
 
     const router=useRouter();
-
-    // log out
-    const logOut=()=>{
-
-        axios.post(`${process.env.server_url}/api/v1.0/auth/logout`).then(res=>{
-                router.push('/login');
-                handleSideNav();
-        }).catch(error=>{
-                console.log(error.response.data.message)
-        });
-
-
-    }
-
 
     // logo path and default image path
     const [logoUrl, setLogoUrl] = useState('logo.svg');
@@ -88,7 +73,7 @@ const Navbar = () => {
                 }
                
             
-                <BiLogOut className='w-10 h-10 rounded-full pl-1 pr-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={logOut}/>
+                <BiLogOut className='w-10 h-10 rounded-full pl-1 pr-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={()=>{router.push('/login')}}/>
                 
                 
             </div>
@@ -220,7 +205,7 @@ const Navbar = () => {
                     }
 
                    
-                    <BiLogOut className='w-12 h-12 rounded-full pr-2 pl-1 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={logOut}/>
+                    <BiLogOut className='w-12 h-12 rounded-full pr-2 pl-1 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={() => { router.push("/login"); handleSideNav(); }}/>
 
                     {/* //! *********************** */}
 
