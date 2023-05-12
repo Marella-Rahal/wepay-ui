@@ -1286,11 +1286,18 @@ function Delegates(props) {
 
 export default Delegates;
 
-export async function getStaticProps(context){
+export async function getServerSideProps(context){
+
+    const { req } = context;
+    const cookie = req.headers.cookie;
 
     try {
 
-      const res = await axios.get(`${process.env.server_url}/api/v1.0/dealers/getAllDealers`);
+      const res = await axios.get(`${process.env.server_url}/api/v1.0/dealers/getAllDealers`,{
+        headers: {
+          Cookie: cookie,
+        },
+      });
       
       return {
         props : {

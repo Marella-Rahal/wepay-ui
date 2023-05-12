@@ -16,14 +16,7 @@ const fs = require('fs');
 // 		pass: process.env.pass
 // 	}
 // });
-const profileDirectory = '../uploads/profilePictures';
-if (!fs.existsSync(profileDirectory)) {
-	fs.mkdirSync(profileDirectory, { recursive: true });
-}
-const sellerDirectory = '../uploads/storeImages';
-if (!fs.existsSync(sellerDirectory)) {
-	fs.mkdirSync(sellerDirectory, { recursive: true });
-}
+
 const profileStorage = multer.diskStorage({
 	destination: function(req, file, cb) {
 		cb(null, 'uploads/profilePictures');
@@ -243,7 +236,7 @@ exports.updateUserToSeller = async (req, res, next) => {
 	}
 };
 
-exports.logout = (req, res, next) => {
+exports.logout = (req, res) => {
 	try {
 		if (req.cookies.token) {
 			res.setHeader(
@@ -251,7 +244,7 @@ exports.logout = (req, res, next) => {
 				cookie.serialize('token', '', {
 					httpOnly: true,
 					secure: false,
-					maxAge: 0, // 24 hours
+					maxAge: 24 * 60 * 60 * 1000, // 24 hours
 					sameSite: 'lax',
 					path: '/'
 				})

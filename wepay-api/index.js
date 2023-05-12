@@ -1,9 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+
 app.use(cookieParser());
+
 const ErrorHandler = require('./middleware/ErrorHandler');
 const db = require('./util/database');
 const authRoute = require('./routes/auth');
@@ -12,14 +15,12 @@ const paymentRoute = require('./routes/payment');
 const transactionRoute = require('./routes/transaction');
 const dealersRoute = require('./routes/dealers');
 
-require('dotenv').config();
 app.use(
 	cors({
 		origin: true,
 		credentials: true
 	})
 );
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
