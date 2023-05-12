@@ -79,7 +79,7 @@ exports.signup = async (req, res, next) => {
 			cookie.serialize('token', token, {
 				httpOnly: true,
 				secure: false,
-				maxAge: 24 * 60 * 60 * 1000, // 24 hours
+				maxAge: 24 * 60 * 60, // 24 hours
 				sameSite: 'lax',
 				path: '/'
 			})
@@ -116,7 +116,7 @@ exports.login = async (req, res, next) => {
 			cookie.serialize('token', token, {
 				httpOnly: true,
 				secure: false,
-				maxAge: 24 * 60 * 60 * 1000, // 24 hours
+				maxAge: 24 * 60 * 60, // 24 hours
 				sameSite: 'lax',
 				path: '/'
 			})
@@ -236,7 +236,7 @@ exports.updateUserToSeller = async (req, res, next) => {
 	}
 };
 
-exports.logout = (req, res) => {
+exports.logout = async (req, res, next) => {
 	try {
 		if (req.cookies.token) {
 			res.setHeader(
@@ -244,7 +244,7 @@ exports.logout = (req, res) => {
 				cookie.serialize('token', '', {
 					httpOnly: true,
 					secure: false,
-					maxAge: 24 * 60 * 60 * 1000, // 24 hours
+					maxAge: 0,
 					sameSite: 'lax',
 					path: '/'
 				})
