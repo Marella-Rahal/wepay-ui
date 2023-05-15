@@ -1274,8 +1274,8 @@ function Delegates(props) {
                 <BsChevronLeft />
               ) : null
             }
-            containerClassName="flex items-center justify-center space-x-2 md:space-x-3 pt-3 text-[grey] dark:text-white"
-            pageClassName="text-[grey] bg-textColor2 text-sm flex items-center justify-center rounded-lg px-2 py-1 md:px-3 md:py-2"
+            containerClassName="flex items-center justify-center space-x-1 md:space-x-3 pt-3 text-[grey] dark:text-white"
+            pageClassName="text-[grey] bg-textColor2 text-sm flex items-center justify-center rounded-lg px-3 py-2"
             activeClassName="text-[white] bg-gradient-to-b from-gradientTo to-gradientTo"
           />
 
