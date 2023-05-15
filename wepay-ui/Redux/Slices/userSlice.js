@@ -9,20 +9,22 @@ export const userSlice=createSlice({
     reducers:{
 
         saveUser:(state,action)=>{
-            state.user=action.payload
+            state.user = action.payload
         },
 
     },
     extraReducers: builder => {
 
         builder.addCase(HYDRATE, (state, action) => {
-            console.log("Before Hydration in userSlice : " , action.payload )
-            state.user = action.payload.userSlice;
+            if(!action.payload.userSlice.user){
+                return state
+            }
+            state.user = action.payload.userSlice.user;
         });
 
     }
 })
 
 export const { saveUser } = userSlice.actions;
-export const selectUser = state => state.reducer.user;
+export const selectUser = state => state.userSlice.user;
 export default userSlice.reducer;

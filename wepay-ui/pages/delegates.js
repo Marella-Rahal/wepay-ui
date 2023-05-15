@@ -7,24 +7,21 @@ import ReactPaginate from 'react-paginate';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import axios from 'axios';
 import FailToGet from '../components/FailToGet';
+import { wrapper } from '../Redux/Store'
+import { saveUser, selectUser } from '../Redux/Slices/userSlice';
+import { saveDelegates, selectDelegates } from '../Redux/Slices/delegatesSlice';
+import { useSelector } from 'react-redux';
 
-function Delegates(props) {
+function Delegates( { role } ) {
 
-  const [success,setSuccess]=useState(Object.keys(props).length !== 0);
-
-  console.log(props)
-
-  // ************************************************************************
-  const [role,setRole]=useState(props?.data?.role);
-  const [user,setUser]=useState(props?.data?.user==undefined ? {} : props?.data?.user);
+  const info=useSelector(selectDelegates)
 
   // *React-Paginate *********************************************************
-  
-  const [info,setInfo]=useState(props?.data?.data==undefined ? [] : props?.data?.data);
-  const [dealersPerPage,setDealersPerPage]=useState(10);
-  const [DealersDisplayed, setDealersDisplayed] = useState( info.slice(0,dealersPerPage) );
+
+  const [delegatesPerPage,setDelegatesPerPage]=useState(10);
+  const [delegatesDisplayed, setDelegatesDisplayed] = useState( info.slice(0,delegatesPerPage) );
   const [FirstArrow, setFirstArrow] = useState(false);
-  const [LastArrow, setLastArrow] = useState(info.length > dealersPerPage);
+  const [LastArrow, setLastArrow] = useState(info.length > delegatesPerPage);
 
   // 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝘀
   const handleChange = (data) => {
@@ -34,10 +31,10 @@ function Delegates(props) {
     else setFirstArrow(true);
 
     // 𝗳𝗼𝗿 𝗿𝗶𝗴𝗵𝘁 𝗮𝗿𝗿𝗼𝘄
-    if ( data.selected == ( Math.ceil(info.length / dealersPerPage) - 1 ) ) setLastArrow(false);
+    if ( data.selected == ( Math.ceil(info.length / delegatesPerPage) - 1 ) ) setLastArrow(false);
     else setLastArrow(true);
 
-    setDealersDisplayed(info.slice(data.selected * dealersPerPage, data.selected * dealersPerPage + dealersPerPage));
+    setDelegatesDisplayed(info.slice(data.selected * delegatesPerPage, data.selected * delegatesPerPage + delegatesPerPage));
 
   };
 
@@ -46,9 +43,9 @@ function Delegates(props) {
   return (
     <>
       {
-        success?(
+        role.length !== 0 ? (
           <>
-            <Navbar role={role}/>
+            <Navbar/>
             <div className="pt-28 pb-10 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col space-y-7">
 
                 {/* first section */}
@@ -122,8 +119,8 @@ function Delegates(props) {
                 <div className="flex flex-wrap justify-evenly mx-4 md:mx-8">
 
                   {
-                      DealersDisplayed.map((value, index) => {
-                        return <DelegateInfo dealer={value} key={index} />;
+                      delegatesDisplayed.map((value, index) => {
+                        return <DelegateInfo delegate={value} key={index} />;
                       })
                   }
 
@@ -139,7 +136,7 @@ function Delegates(props) {
                   onPageChange={handleChange}
                   pageRangeDisplayed={1} // Display 1 page buttons on either side of the active page button
                   marginPagesDisplayed={1} // Display 1 page button on either side of the first and last page buttons
-                  pageCount={ Math.ceil(info.length / dealersPerPage) }
+                  pageCount={ Math.ceil(info.length / delegatesPerPage) }
                   previousLabel={
                     FirstArrow && (
                       <BsChevronLeft />
@@ -152,7 +149,7 @@ function Delegates(props) {
 
             </div>
           </>
-        ):(
+        ) : (
           <FailToGet/>
         )
       }
@@ -163,31 +160,43 @@ function Delegates(props) {
 
 export default Delegates;
 
-export async function getServerSideProps(context){
+export const getServerSideProps = wrapper.getServerSideProps( store => async (context) =>{
 
-    const { req } = context;
-    const cookie = req.headers.cookie;
+      const { req } = context;
+      const cookie = req.headers.cookie;
 
     try {
 
-      const res = await axios.get(`${process.env.server_url}/api/v1.0/dealers/getAllDealers`,{
-        headers: {
-          Cookie: cookie,
-        },
-      });
-      
-      return {
-        props : {
-          data : res.data
-        }
-      }
+          const res = await axios.get(`${process.env.server_url}/api/v1.0/delegates/getAllDelegates`,{
+            headers: {
+              Cookie: cookie,
+            },
+          });
+
+          const data=res.data;
+
+          if( data.role !== "guest" ){
+            store.dispatch(saveUser(data.user))
+          }
+
+          if( data.data !== undefined){
+            store.dispatch(saveDelegates(data.data))
+          }
+          
+          return {
+            props : {
+              role : data.role
+            }
+          }
 
     } catch (error) {
 
-      return {
-        props : {}
-      }
+          return {
+            props : {
+              role : ""
+            }
+          }
 
     }
 
-}
+})

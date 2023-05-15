@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DelegateInfo( { dealer } ) {
+function DelegateInfo( { delegate } ) {
 
   return (
     <div
@@ -14,9 +14,9 @@ function DelegateInfo( { dealer } ) {
         />
       </div>
 
-      <div>{dealer.fullName}</div>
-      <div>{dealer.address}</div>
-      <div>{dealer.phoneNumber}</div>
+      <div>{delegate.fullName}</div>
+      <div>{delegate.address}</div>
+      <div>{delegate.phoneNumber}</div>
     </div>
   );
 }
