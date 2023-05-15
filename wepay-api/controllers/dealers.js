@@ -1,16 +1,29 @@
 const User = require('../models/user');
 const Dealer = require('../models/dealer');
+const multer = require('multer');
+const dealerStorage = multer.diskStorage({
+	destination: function(req, file, cb) {
+		cb(null, 'uploads/dealersAvatar');
+	},
+	filename: function(req, file, cb) {
+		cb(null, Date.now() + '-' + file.originalname);
+	}
+});
+const dealerUpload = multer({ storage: dealerStorage });
+
 exports.getAllDealers = async (req, res, next) => {
 	try {
 		const perPage = 10;
 		const page = req.query.page || 1;
 		const count = await Dealer.countDocuments();
+		const user = await User.findOne({ _id: req.user._id }, '-password -pin');
 		if (count == 0) {
-			res.status(200).json({ message: 'no dealer in site for now' });
+			res.status(200).json({ message: 'no dealer in site for now', user,role: req.user.role });
 		} else {
 			const dealers = await Dealer.find().skip(perPage * page - perPage).limit(perPage);
 			const totalPages = Math.ceil(count / perPage);
 			res.status(201).json({
+				user,
 				role: req.user.role,
 				success: true,
 				message: 'All dealers Ae retrieved successfully',
@@ -25,16 +38,27 @@ exports.getAllDealers = async (req, res, next) => {
 };
 exports.addDealer = async (req, res, next) => {
 	try {
-		const { fullName, address, phoneNumber, userName, dealerImgURL } = req.body;
-		const user = await User.findOne({ userName });
-		const dealer = new Dealer({
-			user: user._id,
-			fullName,
-			address,
-			phoneNumber
+		dealerUpload.single('dealerImageUrl')(req, res, async function(err) {
+			if (err) {
+				console.error(err);
+				return res.status(500).json({ success: false, message: 'Error uploading file' });
+			}
+			const dealerImageUrl = req.file ? req.file.path : undefined;
+			const { fullName, address, phoneNumber, userName } = req.body;
+			const user = await User.findOne({ userName });
+			const accountUser = await User.findOne({ _id: req.user._id }, '-password -pin');
+			const dealer = new Dealer({
+				user: user._id,
+				fullName,
+				address,
+				phoneNumber,
+				dealerImageUrl
+			});
+			dealer.save();
+			res
+				.status(200)
+				.json({ success: true, message: 'dealer add successfully', data: dealer, user: accountUser });
 		});
-		dealer.save();
-		res.status(200).json({ success: true, message: 'dealer add successfully', data: dealer });
 	} catch (error) {
 		next(error);
 	}

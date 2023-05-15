@@ -11,8 +11,8 @@ function AddDelegate() {
   const [userName,setUserName]=useState('');
   const [address,setAddress]=useState('');
   const [phoneNumber,setPhoneNumber]=useState('');
-  const [dealerImgURL,setDealerImgURL]=useState('');
-  const [previewDealerImgURL , setPreviewDealerImgURL] = useState("../default.jpg");
+  const [dealerImageUrl,setDealerImageUrl]=useState('');
+  const [previewDealerImageUrl , setPreviewDealerImageUrl] = useState("../default.jpg");
   const [sendingStatus,setSendingStatus]=useState(false);
 
   const updateImage2 = (e) => {
@@ -20,11 +20,11 @@ function AddDelegate() {
     if (e.target.files[0]) {
 
       //! for preview
-      setPreviewDealerImgURL(URL.createObjectURL(
+      setPreviewDealerImageUrl(URL.createObjectURL(
         e.target.files[0]
       ))
       //! to store it for the backend
-      setDealerImgURL(e.target.files[0]);
+      setDealerImageUrl(e.target.files[0]);
 
     }
 
@@ -32,7 +32,7 @@ function AddDelegate() {
 
   const addDelegate = async () => {
 
-    if(!fullName || !userName || !address || !phoneNumber || !dealerImgURL){
+    if(!fullName || !userName || !address || !phoneNumber || !dealerImageUrl){
 
       alert("all fields are required");
       return;
@@ -44,7 +44,11 @@ function AddDelegate() {
     fd.append('userName',userName);
     fd.append('address',address);
     fd.append('phoneNumber',phoneNumber)
-    fd.append('dealerImgURL', dealerImgURL, dealerImgURL.name);
+    fd.append('dealerImageUrl', dealerImageUrl, dealerImageUrl.name);
+
+    // for (const [key, value] of fd.entries()) {
+    //   console.log(key, value);
+    // }
 
     try {
 
@@ -62,8 +66,8 @@ function AddDelegate() {
       setUserName('');
       setAddress('');
       setPhoneNumber('');
-      setDealerImgURL('');
-      setPreviewDealerImgURL("../default.jpg")
+      setDealerImageUrl('');
+      setPreviewDealerImageUrl("../default.jpg")
 
       //! **********
       console.log(res)
@@ -94,7 +98,7 @@ function AddDelegate() {
                 {/* first col */}
                 <div className="relative w-fit h-fit">
                       <img
-                        src={previewDealerImgURL}
+                        src={previewDealerImageUrl}
                         className="w-[150px] h-[150px] md:w-[200px] md:h-[250px] rounded-md shadow-shadowColor shadow-md"
                       />
 

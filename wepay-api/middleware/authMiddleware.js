@@ -6,16 +6,12 @@ exports.authenticateUser = async (req, res, next) => {
 		const token = req.cookies.token;
 		if (!token) {
 			req.user = { role: 'guest' };
-			res.status(404).json({ message: 'Token not found' });
-			next();
+		} else {
+			const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+			const userId = decodedToken.userId;
+			const user = await User.findById(userId);
+			req.user = user;
 		}
-		const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-		const userId = decodedToken.userId;
-		const user = await User.findById(userId);
-		if (!user) {
-			return res.status(401).json({ message: 'User not found' });
-		}
-		req.user = user;
 		next();
 	} catch (error) {
 		res.status(401).json({ message: 'Invalid or expired token' });

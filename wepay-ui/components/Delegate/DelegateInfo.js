@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DelegateInfo(props) {
+function DelegateInfo( { dealer } ) {
 
   return (
     <div
@@ -9,14 +9,14 @@ function DelegateInfo(props) {
     >
       <div className='w-fit h-fit'>
         <img
-          src={`${props.value.image}`}
+          src='../delegate.svg'
           className="w-[75px] h-[75px] rounded-full bg-white shadow-md"
         />
       </div>
 
-      <div>{props.value.name}</div>
-      <div>{props.value.address}</div>
-      <div>{props.value.number}</div>
+      <div>{dealer.fullName}</div>
+      <div>{dealer.address}</div>
+      <div>{dealer.phoneNumber}</div>
     </div>
   );
 }

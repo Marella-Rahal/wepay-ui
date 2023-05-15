@@ -8,10 +8,11 @@ import {BsFillMoonStarsFill,BsFillSunFill} from 'react-icons/bs';
 import { useTheme } from 'next-themes';
 import axios from 'axios'
 
-const Navbar = () => {
+const Navbar = ( { role } ) => {
 
     const router=useRouter();
 
+    //! logout
     const logout=()=>{
 
         axios.post(`${process.env.server_url}/api/v1.0/auth/logout`,{},{ withCredentials: true }).then(res=>{
@@ -22,7 +23,7 @@ const Navbar = () => {
 
     }
 
-    // logo path and default image path
+    //! logo path and default image path
     const [logoUrl, setLogoUrl] = useState('logo.svg');
     const [defaultImg, setDefaultImg] = useState('default.jpg');
     useEffect(() => {
@@ -38,80 +39,94 @@ const Navbar = () => {
         }
 
     }, [router.asPath])
-    // handle side navbar
+
+    //! handle side navbar
     const [sideNav, setSideNav] = useState(false);
     const handleSideNav = () => {
         setSideNav((prev) => !prev);
     };
+
     //! to avoide hydration mismatch when initialize the theme
     const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useTheme();
     useEffect(() => {
         setMounted(true);
     }, [])
-    //! *********************************************
+
 
   return (
     <>
 
         <div
          className='fixed z-50 w-full bg-textColor2 dark:bg-textColor h-20 pl-4 md:pl-8 flex justify-between items-center border-b-2 border-gray-400'>
+            {
+                role =="guest" ? (
 
-            {/* //todo when the user is not logged in */}
-            {/* <div className='hidden md:flex space-x-3'>
-                <button className='w-[120px]' onClick={()=>{router.push('/signup')}}>اشترك الآن</button>
-                <button className='w-[120px]' onClick={()=>{router.push('/login')}}>تسجيل الدخول</button>
-            </div> */}
-            {/* //todo ***************************** */}
+                    //! when the user is not logged in
+                    <div className='hidden md:flex space-x-3'>
+                        <button className='w-[120px]' onClick={()=>{router.push('/signup')}}>اشترك الآن</button>
+                        <button className='w-[120px]' onClick={()=>{router.push('/login')}}>تسجيل الدخول</button>
+                    </div>
 
-            {/* //! when the user is logged in */}
-            <div className='hidden md:flex space-x-3 lg:space-x-5 items-center'>
-                <img src={defaultImg} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 cursor-pointer' onClick={()=>{router.push('/profile')}}/>
+                ):(
+                    
+                    //! when the user is logged in
+                    <div className='hidden md:flex space-x-3 lg:space-x-5 items-center'>
+                        <img src={defaultImg} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 cursor-pointer' onClick={()=>{router.push('/profile')}}/>
 
-                {
-                    (mounted && theme == 'light') && (
-                        <BsFillMoonStarsFill className='w-10 h-10 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={() => setTheme("dark")}/>
-                    )
-     
-                }
-
-                {
-
-                    (mounted && theme == 'dark') && (
-                        <BsFillSunFill className='w-10 h-10 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={() => setTheme("light")}/>
-                    )
-
-                }
-               
+                        {
+                            (mounted && theme == 'light') && (
+                                <BsFillMoonStarsFill className='w-10 h-10 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={() => setTheme("dark")}/>
+                            )
             
-                <BiLogOut className='w-10 h-10 rounded-full pl-1 pr-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={logout}/>
-                
-                
-            </div>
-            {/* //! ************************** */}
+                        }
 
+                        {
+
+                            (mounted && theme == 'dark') && (
+                                <BsFillSunFill className='w-10 h-10 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={() => setTheme("light")}/>
+                            )
+
+                        }
+                    
+                    
+                        <BiLogOut className='w-10 h-10 rounded-full pl-1 pr-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={logout}/>
+                        
+                        
+                    </div>
+            
+                )
+            }
 
             <div className='hidden md:flex justify-between font-bold text-sm lg:text-base space-x-3 lg:space-x-5'>
 
-                {/* //! when the user logged in */}
+                {
+                    role != "guest" && (
 
-                <div className={
-                    router.asPath=="/dashboard"
-                    ?'text-effectColor hover:cursor-pointe'
-                    :'hover:text-effectColor hover:cursor-pointer'
-                }>
-                    <Link href="/dashboard">إحصائياتي</Link>
-                </div> 
+                        //! when the user logged in
+                        <>
 
-                <div className={
-                    router.asPath=="/shippingAndPayment"
-                    ?'text-effectColor hover:cursor-pointe'
-                    :'hover:text-effectColor hover:cursor-pointer'
-                }>
-                    <Link href="/shippingAndPayment">الدفع والشحن</Link>
-                </div>
-                {/* //! *********************** */}
+                            <div className={
+                                router.asPath=="/dashboard"
+                                ?'text-effectColor hover:cursor-pointe'
+                                :'hover:text-effectColor hover:cursor-pointer'
+                            }>
+                                <Link href="/dashboard">إحصائياتي</Link>
+                            </div> 
 
+                            <div className={
+                                router.asPath=="/shippingAndPayment"
+                                ?'text-effectColor hover:cursor-pointe'
+                                :'hover:text-effectColor hover:cursor-pointer'
+                            }>
+                                <Link href="/shippingAndPayment">الدفع والشحن</Link>
+                            </div>
+
+                        </>
+
+                    )
+                }
+                
             
                 <div className={
                     router.asPath=="/delegates"
@@ -158,9 +173,12 @@ const Navbar = () => {
 
                 <div className='flex flex-col space-y-7 items-center min-h-fit'>
 
-                    {/* //! when the user is logged in */}
-                    <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
-                    {/* //! ******************* */}
+                    {
+                        role != "guest" && (
+                            //! when the user is logged in
+                            <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
+                        )
+                    }
 
                     <div className={
                         router.asPath=="/"
@@ -186,44 +204,54 @@ const Navbar = () => {
                         <Link href='/delegates' onClick={handleSideNav}> الوكلاء</Link>
                     </div>
 
-                    {/* //! when the user logged in */}
-                    <div className={
-                        router.asPath=="/shippingAndPayment"
-                        ?'text-effectColor hover:cursor-pointe'
-                        :'hover:text-effectColor hover:cursor-pointer'
-                    }>
-                        <Link href='/shippingAndPayment' onClick={handleSideNav}>الدفع و الشحن</Link>
-                    </div>
-
-                    <div className={
-                        router.asPath=="/dashboard"
-                        ?'text-effectColor hover:cursor-pointe'
-                        :'hover:text-effectColor hover:cursor-pointer'
-                    }>
-                        <Link href='/dashboard' onClick={handleSideNav}>إحصائياتي</Link>
-                    </div>
-
                     {
-                        (mounted && theme == 'light') && (
-                            <BsFillMoonStarsFill className='w-12 h-12 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={()=>{setTheme('dark');handleSideNav();}}/>
+                        role != "guest" ? (
+
+                            //! when the user logged in
+                            <>
+
+                                <div className={
+                                    router.asPath=="/shippingAndPayment"
+                                    ?'text-effectColor hover:cursor-pointe'
+                                    :'hover:text-effectColor hover:cursor-pointer'
+                                }>
+                                    <Link href='/shippingAndPayment' onClick={handleSideNav}>الدفع و الشحن</Link>
+                                </div>
+
+                                <div className={
+                                    router.asPath=="/dashboard"
+                                    ?'text-effectColor hover:cursor-pointe'
+                                    :'hover:text-effectColor hover:cursor-pointer'
+                                }>
+                                    <Link href='/dashboard' onClick={handleSideNav}>إحصائياتي</Link>
+                                </div>
+
+                                {
+                                    (mounted && theme == 'light') && (
+                                        <BsFillMoonStarsFill className='w-12 h-12 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={()=>{setTheme('dark');handleSideNav();}}/>
+                                    )
+                                }
+
+                                {
+                                    (mounted && theme == 'dark') && (
+                                        <BsFillSunFill className='w-12 h-12 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={()=>{setTheme('light');handleSideNav();}}/>
+                                    )
+                                }
+
+                                <BiLogOut className='w-12 h-12 rounded-full pr-2 pl-1 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={logout}/>
+                            
+                            </>
+
+                        ) : (
+
+                            //! when the user is not logged in
+                            <>
+                                <button className='w-[100px] text-xs' onClick={() => { router.push("/login"); handleSideNav(); }}>تسجيل الدخول</button>
+                                <button className='w-[100px] text-xs' onClick={() => { router.push("/signup"); handleSideNav(); }}>اشترك الآن</button>
+                            </>
+
                         )
                     }
-
-                    {
-                        (mounted && theme == 'dark') && (
-                            <BsFillSunFill className='w-12 h-12 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={()=>{setTheme('light');handleSideNav();}}/>
-                        )
-                    }
-
-                   
-                    <BiLogOut className='w-12 h-12 rounded-full pr-2 pl-1 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={logout}/>
-
-                    {/* //! *********************** */}
-
-                    {/* //todo when the user is not logged in */}
-                    {/* <button className='w-[100px] text-xs' onClick={() => { router.push("/login"); handleSideNav(); }}>تسجيل الدخول</button>
-                    <button className='w-[100px] text-xs' onClick={() => { router.push("/signup"); handleSideNav(); }}>اشترك الآن</button> */}
-                    {/* //todo ************************ */}
                     
                 </div>
 
