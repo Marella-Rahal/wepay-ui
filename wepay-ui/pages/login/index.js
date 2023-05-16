@@ -5,10 +5,13 @@ import NotePopUp, { showPopUpNote } from '../../components/PopUp/NotePopUp';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { ThreeDots } from 'react-loader-spinner';
+import { saveUser } from '../../Redux/Slices/userSlice';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
  
   const router=useRouter();
+  const dispatch=useDispatch();
   const [noteMsg,setNoteMsg]=useState("");  
   const [sendingStatus,setSendingStatus]=useState(false); 
 
@@ -32,6 +35,8 @@ const Login = () => {
         },{
             withCredentials: true
         })
+
+        dispatch(saveUser(res.data.user))
 
         router.replace('/shippingAndPayment');
         

@@ -167,7 +167,7 @@ export const getServerSideProps = wrapper.getServerSideProps( store => async (co
 
     try {
 
-          const res = await axios.get(`${process.env.server_url}/api/v1.0/delegates/getAllDelegates`,{
+          const res = await axios.get(`${process.env.server_url}/api/v1.0/dealers/getAllDealers`,{
             headers: {
               Cookie: cookie,
             },

@@ -11,8 +11,8 @@ function AddDelegate() {
   const [userName,setUserName]=useState('');
   const [address,setAddress]=useState('');
   const [phoneNumber,setPhoneNumber]=useState('');
-  const [dealerImageUrl,setDealerImageUrl]=useState('');
-  const [previewDealerImageUrl , setPreviewDealerImageUrl] = useState("../default.jpg");
+  const [dealerImgURL,setDealerImgURL]=useState('');
+  const [previewDealerImgURL , setPreviewDealerImgURL] = useState("../default.jpg");
   const [sendingStatus,setSendingStatus]=useState(false);
 
   const updateImage2 = (e) => {
@@ -20,11 +20,11 @@ function AddDelegate() {
     if (e.target.files[0]) {
 
       //! for preview
-      setPreviewDealerImageUrl(URL.createObjectURL(
+      setPreviewDealerImgURL(URL.createObjectURL(
         e.target.files[0]
       ))
       //! to store it for the backend
-      setDealerImageUrl(e.target.files[0]);
+      setDealerImgURL(e.target.files[0]);
 
     }
 
@@ -32,19 +32,26 @@ function AddDelegate() {
 
   const addDelegate = async () => {
 
-    if(!fullName || !userName || !address || !phoneNumber || !dealerImageUrl){
+    if(!fullName || !userName || !address || !phoneNumber){
 
       alert("all fields are required");
       return;
 
     }
 
-    const fd=new FormData();
-    fd.append('fullName',fullName);
-    fd.append('userName',userName);
-    fd.append('address',address);
-    fd.append('phoneNumber',phoneNumber)
-    fd.append('dealerImageUrl', dealerImageUrl, dealerImageUrl.name);
+    // if(!fullName || !userName || !address || !phoneNumber || !dealerImgURL){
+
+    //   alert("all fields are required");
+    //   return;
+
+    // }
+
+    // const fd=new FormData();
+    // fd.append('fullName',fullName);
+    // fd.append('userName',userName);
+    // fd.append('address',address);
+    // fd.append('phoneNumber',phoneNumber)
+    // fd.append('dealerImgURL', dealerImgURL, dealerImgURL.name);
 
     // for (const [key, value] of fd.entries()) {
     //   console.log(key, value);
@@ -55,7 +62,7 @@ function AddDelegate() {
       setSendingStatus(true);
 
       const res=await axios.post(`${process.env.server_url}/api/v1.0/dealers/addDealer`,{
-        fd
+        fullName,userName,address,phoneNumber
       },{
         withCredentials:true
       })
@@ -66,8 +73,8 @@ function AddDelegate() {
       setUserName('');
       setAddress('');
       setPhoneNumber('');
-      setDealerImageUrl('');
-      setPreviewDealerImageUrl("../default.jpg")
+      setDealerImgURL('');
+      setPreviewDealerImgURL("../default.jpg")
 
       //! **********
       console.log(res)
@@ -98,7 +105,7 @@ function AddDelegate() {
                 {/* first col */}
                 <div className="relative w-fit h-fit">
                       <img
-                        src={previewDealerImageUrl}
+                        src={previewDealerImgURL}
                         className="w-[150px] h-[150px] md:w-[200px] md:h-[250px] rounded-md shadow-shadowColor shadow-md"
                       />
 
