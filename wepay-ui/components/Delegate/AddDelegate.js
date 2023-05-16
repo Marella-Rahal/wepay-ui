@@ -9,6 +9,7 @@ function AddDelegate() {
 
   const [fullName,setFullName]=useState('');
   const [userName,setUserName]=useState('');
+  const [city,setCity]=useState('');
   const [address,setAddress]=useState('');
   const [phoneNumber,setPhoneNumber]=useState('');
   const [dealerImgURL,setDealerImgURL]=useState('');
@@ -32,39 +33,29 @@ function AddDelegate() {
 
   const addDelegate = async () => {
 
-    if(!fullName || !userName || !address || !phoneNumber){
+    if(!fullName || !userName || !city || !address || !phoneNumber || !dealerImgURL){
 
       alert("all fields are required");
       return;
 
     }
 
-    // if(!fullName || !userName || !address || !phoneNumber || !dealerImgURL){
-
-    //   alert("all fields are required");
-    //   return;
-
-    // }
-
-    // const fd=new FormData();
-    // fd.append('fullName',fullName);
-    // fd.append('userName',userName);
-    // fd.append('address',address);
-    // fd.append('phoneNumber',phoneNumber)
-    // fd.append('dealerImgURL', dealerImgURL, dealerImgURL.name);
-
-    // for (const [key, value] of fd.entries()) {
-    //   console.log(key, value);
-    // }
+    const fd=new FormData();
+    fd.append('fullName',fullName);
+    fd.append('userName',userName);
+    fd.append('city',city);
+    fd.append('address',address);
+    fd.append('phoneNumber',phoneNumber)
+    fd.append('dealerImgURL', dealerImgURL, dealerImgURL.name);
 
     try {
 
       setSendingStatus(true);
 
-      const res=await axios.post(`${process.env.server_url}/api/v1.0/dealers/addDealer`,{
-        fullName,userName,address,phoneNumber
-      },{
-        withCredentials:true
+      const res=await axios.post(`${process.env.server_url}/api/v1.0/dealers/addDealer`,
+        fd
+      ,{
+        withCredentials:true,
       })
 
       setSendingStatus(false);
@@ -127,6 +118,7 @@ function AddDelegate() {
 
                 {/* second  col*/}
                 <div className="w-full md:w-1/2 flex flex-col text-end">
+
                   <div className='flex space-x-2'>
                     <label className="font-bold mb-1 md:mb-2 pr-2 w-1/2">اسم المستخدم</label>
                     <label className="font-bold mb-1 md:mb-2 pr-2 w-1/2">اسم الوكيل</label>
@@ -144,17 +136,26 @@ function AddDelegate() {
                     value={fullName}
                     onChange={e=>setFullName(e.target.value)}></input>
                   </div>
+
+                  <div className='flex space-x-2'>
+                    <label className="font-bold mb-1 md:mb-2 pr-2 mt-2 md:mt-3 w-1/2">العنوان</label>
+                    <label className="font-bold mb-1 md:mb-2 pr-2 mt-2 md:mt-3 w-1/2">المحافظة</label>
+                  </div>
                 
+                  <div className='flex space-x-2'>
+                    <input 
+                    type="text"
+                    className="outline-none border focus:border-textColor w-1/2"
+                    value={address} 
+                    onChange={e=>setAddress(e.target.value)}></input>
+                    <input 
+                    type="text"
+                    className="outline-none border focus:border-textColor w-1/2"
+                    value={city} 
+                    onChange={e=>setCity(e.target.value)}></input>
+                  </div>
 
-                  <label className="font-bold mb-1 md:mb-2 mr-2 mt-2 md:mt-3">عنوانه </label>
-                  <input 
-                  type="text"
-                  placeholder='حمص-الأرمن' 
-                  className="outline-none border focus:border-textColor"
-                  value={address} 
-                  onChange={e=>setAddress(e.target.value)}></input>
-
-                  <label className="font-bold mb-1 md:mb-2 mr-2 mt-2 md:mt-3">رقمه </label>
+                  <label className="font-bold mb-1 md:mb-2 mr-2 mt-2 md:mt-3">رقمه</label>
                   <input 
                   type="number"
                   placeholder='+963' 

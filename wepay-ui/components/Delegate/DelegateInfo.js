@@ -9,13 +9,13 @@ function DelegateInfo( { delegate } ) {
     >
       <div className='w-fit h-fit'>
         <img
-          src='../delegate.svg'
+          src={`${process.env.server_url}/${delegate.dealerImgURL}`}
           className="w-[75px] h-[75px] rounded-full bg-white shadow-md"
         />
       </div>
 
       <div>{delegate.fullName}</div>
-      <div>{delegate.address}</div>
+      <div>{delegate.address}-{delegate.city}</div>
       <div>{delegate.phoneNumber}</div>
     </div>
   );
