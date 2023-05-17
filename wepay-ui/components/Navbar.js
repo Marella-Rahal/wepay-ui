@@ -19,7 +19,7 @@ const Navbar = () => {
     const logout=()=>{
 
         axios.post(`${process.env.server_url}/api/v1.0/auth/logout`,{},{ withCredentials: true }).then(res=>{
-            router.push('/login');
+            router.reload();
         }).catch(error=>{
             console.log(error)
         })

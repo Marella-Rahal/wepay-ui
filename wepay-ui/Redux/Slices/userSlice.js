@@ -16,10 +16,14 @@ export const userSlice=createSlice({
     extraReducers: builder => {
 
         builder.addCase(HYDRATE, (state, action) => {
+
+            console.log("Before Hydration in userSlice : " , action.payload)
+
             if(!action.payload.userSlice.user){
                 return state
             }
             state.user = action.payload.userSlice.user;
+            
         });
 
     }

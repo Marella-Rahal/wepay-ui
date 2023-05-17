@@ -99,7 +99,7 @@ function Delegates( { role } ) {
                     </div>
 
                     <select
-                      name="store"
+                      name="delegates"
                       className="outline-none bg-white text-textColor text-end rounded-lg shadow-cardShadow h-9 px-2"
                     >
                       <option value="">تصنيف الوكلاء حسب المحافظة </option>

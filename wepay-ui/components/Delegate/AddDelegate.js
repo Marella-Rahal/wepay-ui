@@ -4,8 +4,12 @@ import { motion } from 'framer-motion';
 import { BsCamera } from 'react-icons/bs';
 import { ThreeDots } from 'react-loader-spinner'
 import axios from 'axios'
+import { useDispatch } from 'react-redux';
+import { addDelegate } from '../../Redux/Slices/delegatesSlice';
 
 function AddDelegate() {
+
+  const dispatch=useDispatch()
 
   const [fullName,setFullName]=useState('');
   const [userName,setUserName]=useState('');
@@ -31,7 +35,7 @@ function AddDelegate() {
 
   };
 
-  const addDelegate = async () => {
+  const addD = async () => {
 
     if(!fullName || !userName || !city || !address || !phoneNumber || !dealerImgURL){
 
@@ -62,13 +66,13 @@ function AddDelegate() {
 
       setFullName('');
       setUserName('');
+      setCity('');
       setAddress('');
       setPhoneNumber('');
       setDealerImgURL('');
       setPreviewDealerImgURL("../default.jpg")
 
-      //! **********
-      console.log(res)
+      dispatch(addDelegate(res.data.data))
 
     } catch (error) {
 
@@ -148,11 +152,23 @@ function AddDelegate() {
                     className="outline-none border focus:border-textColor w-1/2"
                     value={address} 
                     onChange={e=>setAddress(e.target.value)}></input>
-                    <input 
-                    type="text"
-                    className="outline-none border focus:border-textColor w-1/2"
-                    value={city} 
-                    onChange={e=>setCity(e.target.value)}></input>
+                    <select
+                      name="addDelegate"
+                      className="outline-none border focus:border-textColor w-1/2 text-end rounded-lg pb-[4px]"
+                      value={city}
+                      onChange={e=>setCity(e.target.value)}
+                    >
+                      <option value=""> المحافظة </option>
+                      <option value="حمص">حمص</option>
+                      <option value="حلب">حلب</option>
+                      <option value="حماة">حماة</option>
+                      <option value="اللاذقية">اللاذقية</option>
+                      <option value=" طرطوس">طرطوس </option>
+                      <option value="دير الزور">دير الزور</option>
+                      <option value="الحسكة">الحسكة</option>
+                      <option value="دمشق">دمشق</option>
+                      <option value="إدلب">إدلب</option>
+                    </select>
                   </div>
 
                   <label className="font-bold mb-1 md:mb-2 mr-2 mt-2 md:mt-3">رقمه</label>
@@ -176,7 +192,7 @@ function AddDelegate() {
               </button>
               <button
               disabled={sendingStatus} 
-              className="p-0 w-[75px] h-[35px] flex justify-center items-center" onClick={addDelegate}>
+              className="p-0 w-[75px] h-[35px] flex justify-center items-center" onClick={addD}>
               
               { 
                     !sendingStatus 

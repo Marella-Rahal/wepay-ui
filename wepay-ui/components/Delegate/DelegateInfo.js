@@ -15,7 +15,7 @@ function DelegateInfo( { delegate } ) {
       </div>
 
       <div>{delegate.fullName}</div>
-      <div>{delegate.address}-{delegate.city}</div>
+      <div>{delegate.city}-{delegate.address}</div>
       <div>{delegate.phoneNumber}</div>
     </div>
   );
