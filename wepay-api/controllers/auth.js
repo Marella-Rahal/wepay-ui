@@ -75,6 +75,7 @@ exports.signup = async (req, res, next) => {
 
 		await user.save();
 		const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
+
 		res.setHeader(
 			'set-Cookie',
 			cookie.serialize('token', token, {
@@ -112,6 +113,7 @@ exports.login = async (req, res, next) => {
 		}
 
 		const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
+
 		res.setHeader(
 			'set-Cookie',
 			cookie.serialize('token', token, {
