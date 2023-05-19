@@ -9,7 +9,7 @@ import axios from 'axios';
 import FailToGet from '../components/FailToGet';
 import { wrapper } from '../Redux/Store'
 import { saveUser, selectUser } from '../Redux/Slices/userSlice';
-import { filterByCity, filterByName, saveDelegates, selectDelegates, selectFilteredDelegates } from '../Redux/Slices/delegatesSlice';
+import { filterByCity, filterByCityAndName, filterByName, saveDelegates, selectDelegates, selectFilteredDelegates } from '../Redux/Slices/delegatesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Delegates( { role } ) {
@@ -23,15 +23,17 @@ function Delegates( { role } ) {
   const [nameFilter,setNameFilter]=useState('');
   const [info,setInfo] = useState(delegates);
 
-  // *React-Paginate *********************************************************
+  //* 𝗥𝗲𝗮𝗰𝘁-𝗣𝗮𝗴𝗶𝗻𝗮𝘁𝗲 *********************************************************
 
   const [delegatesPerPage,setDelegatesPerPage]=useState(10);
+
   const [currentPage, setCurrentPage] = useState(0); // Current page state
   const [delegatesDisplayed, setDelegatesDisplayed] = useState( info.slice(0,delegatesPerPage) );
   const [FirstArrow, setFirstArrow] = useState(false);
   const [LastArrow, setLastArrow] = useState(info.length > delegatesPerPage);
 
-  // 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝘀
+  //* 𝗰𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗿𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗹𝗮𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗣𝗮𝗴𝗲 𝗮𝗻𝗱 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝗴𝗮𝘁𝗲𝘀𝗗𝗶𝘀𝗽𝗹𝗮𝘆𝗲𝗱 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝗻𝗲𝘄 𝘀𝗲𝗹𝗲𝗰𝘁𝗲𝗱 𝗱𝗮𝘁𝗮
+
   const handleChange = (data) => {
 
     // 𝗳𝗼𝗿 𝗹𝗲𝗳𝘁 𝗮𝗿𝗿𝗼𝘄
@@ -48,30 +50,49 @@ function Delegates( { role } ) {
 
   };
 
-  // **************************************************************************
+  //* 𝗰𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗿𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗹𝗮𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗣𝗮𝗴𝗲 𝗮𝗻𝗱 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝗴𝗮𝘁𝗲𝘀𝗗𝗶𝘀𝗽𝗹𝗮𝘆𝗲𝗱 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝗻𝗲𝘄 𝗶𝗻𝗳𝗼
 
-  //* 𝘀𝘁𝗼𝗿𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿 𝘃𝗮𝗹𝘂𝗲 𝗶𝗻 𝘂𝘀𝗲𝗦𝘁𝗮𝘁𝗲 𝘃𝗮𝗿𝗶𝗮𝗯𝗹𝗲 𝗮𝗻𝗱 𝗱𝗶𝘀𝗽𝗮𝘁𝗰𝗵𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿𝗶𝗻𝗴 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻  
-  const handleFilterByCity = (e) => {
-
-    setNameFilter('')
-    setCityFilter(e.target.value)
-    dispatch(filterByCity(e.target.value));
-
-  }
-
-  //* 𝘀𝘁𝗼𝗿𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿 𝘃𝗮𝗹𝘂𝗲 𝗶𝗻 𝘂𝘀𝗲𝗦𝘁𝗮𝘁𝗲 𝘃𝗮𝗿𝗶𝗮𝗯𝗹𝗲 𝗮𝗻𝗱 𝗱𝗶𝘀𝗽𝗮𝘁𝗰𝗵𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿𝗶𝗻𝗴 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻
-  const handleFilterByName = (e) => {
-
-    setCityFilter('');
-    setNameFilter(e.target.value);
-    dispatch(filterByName(e.target.value));
-
-  }
-
-  //* 𝗱𝗶𝘀𝗽𝗹𝗮𝘆 𝗮𝗹𝗹 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝗴𝗮𝘁𝗲𝘀 𝘄𝗵𝗲𝗻 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿 𝘀𝘁𝗼𝗽𝘀
   useEffect(()=>{
 
-    setInfo(cityFilter || nameFilter ? filteredDelegates : delegates);
+    setCurrentPage(0);
+
+    setDelegatesDisplayed(info.slice(0,delegatesPerPage))
+
+    setFirstArrow(false);
+
+    setLastArrow(info.length > delegatesPerPage)
+
+  },[info])
+
+  //* 𝗱𝗶𝘀𝗽𝗮𝘁𝗰𝗵𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿𝗶𝗻𝗴 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝘀𝘁𝗮𝘁𝗲 𝘃𝗮𝗹𝘂𝗲 𝗼𝗿 𝗱𝗶𝘀𝗽𝗹𝗮𝘆 𝗮𝗹𝗹 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝗴𝗮𝘁𝗲𝘀 𝘄𝗵𝗲𝗻 𝘁𝗵𝗲 𝘀𝘁𝗮𝘁𝗲 𝗶𝘀 𝗲𝗺𝗽𝘁𝘆 𝗮𝗻𝗱 𝘁𝗵𝗲𝗿𝗲 𝗶𝘀 𝗻𝗼 𝗳𝗶𝗹𝘁𝗲𝗿
+
+  useEffect(()=>{
+
+    if(cityFilter && nameFilter){
+
+      dispatch(filterByCityAndName( { city:cityFilter , fullName:nameFilter } ))
+
+    }else if(nameFilter){
+
+      dispatch(filterByName(nameFilter))
+
+    }else if(cityFilter){
+
+      dispatch(filterByCity(cityFilter))
+
+    }else{
+
+      setInfo(delegates)
+
+    }
+
+  },[cityFilter,nameFilter])
+
+  //* 𝗱𝗶𝘀𝗽𝗹𝗮𝘆 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿𝗲𝗱𝗗𝗲𝗹𝗲𝗴𝗮𝘁𝗲𝘀
+
+  useEffect(()=>{
+
+    setInfo(filteredDelegates);
 
   },[filteredDelegates])
 
@@ -84,23 +105,6 @@ function Delegates( { role } ) {
     setInfo(delegates)
 
   },[delegates])
-
-
-  //* 𝗰𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗿𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗹𝗮𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗣𝗮𝗴𝗲 𝗮𝗻𝗱 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝗴𝗮𝘁𝗲𝘀𝗗𝗶𝘀𝗽𝗹𝗮𝘆𝗲𝗱 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝗻𝗲𝘄 𝗶𝗻𝗳𝗼
-  useEffect(()=>{
-
-    setCurrentPage(0);
-
-    setFirstArrow(false);
-
-    const lastPage = Math.ceil(info.length / delegatesPerPage) - 1 ;
-
-    if( lastPage == 0 ) setLastArrow(false)
-    else setLastArrow(true);
-
-    setDelegatesDisplayed(info.slice(0,delegatesPerPage))
-
-  },[info])
 
   return (
     <>
@@ -158,7 +162,7 @@ function Delegates( { role } ) {
                         placeholder="اسم الوكيل"
                         className="w-full rounded-l-none shadow-cardShadow outline-none focus:border-2 border-effectColor px-3 py-[5px] h-9"
                         value={nameFilter}
-                        onChange={handleFilterByName}
+                        onChange={ (e) => setNameFilter(e.target.value) }
                       />
                     </div>
 
@@ -166,7 +170,7 @@ function Delegates( { role } ) {
                       name="delegates"
                       className="outline-none bg-white text-textColor text-end rounded-lg shadow-cardShadow h-9 px-2"
                       value={cityFilter}
-                      onChange={handleFilterByCity}
+                      onChange={ (e) => setCityFilter(e.target.value) }
                     >
                       <option value="">تصنيف الوكلاء حسب المحافظة </option>
                       <option value="حمص">حمص</option>
@@ -229,8 +233,8 @@ export default Delegates;
 
 export const getServerSideProps = wrapper.getServerSideProps( store => async (context) =>{
 
-      const { req } = context;
-      const cookie = req.headers.cookie;
+    const { req } = context;
+    const cookie = req.headers.cookie;
 
     try {
 

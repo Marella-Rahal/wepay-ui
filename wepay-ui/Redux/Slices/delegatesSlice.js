@@ -21,6 +21,9 @@ export const delegatesSlice=createSlice({
         filterByName:(state,action)=>{
             state.filteredDelegates = state.delegates.filter( d => d.fullName.includes(action.payload) )
         },
+        filterByCityAndName:(state,action)=>{
+            state.filteredDelegates = state.delegates.filter( d => (d.city==action.payload.city) && (d.fullName.includes(action.payload.fullName) ) )
+        }
 
     },
     extraReducers: builder => {
@@ -38,7 +41,7 @@ export const delegatesSlice=createSlice({
     }
 })
 
-export const { saveDelegates , addDelegate , filterByCity , filterByName } = delegatesSlice.actions;
+export const { saveDelegates , addDelegate , filterByCity , filterByName , filterByCityAndName } = delegatesSlice.actions;
 export const selectDelegates = state => state.delegatesSlice.delegates
 export const selectFilteredDelegates = state => state.delegatesSlice.filteredDelegates
 export default delegatesSlice.reducer;
