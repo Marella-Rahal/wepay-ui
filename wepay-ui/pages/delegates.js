@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import DelegateInfo from '../components/Delegate/DelegateInfo';
 import { BiSearchAlt2 } from 'react-icons/bi';
@@ -9,16 +9,24 @@ import axios from 'axios';
 import FailToGet from '../components/FailToGet';
 import { wrapper } from '../Redux/Store'
 import { saveUser, selectUser } from '../Redux/Slices/userSlice';
-import { saveDelegates, selectDelegates } from '../Redux/Slices/delegatesSlice';
-import { useSelector } from 'react-redux';
+import { filterByCity, filterByName, saveDelegates, selectDelegates, selectFilteredDelegates } from '../Redux/Slices/delegatesSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Delegates( { role } ) {
 
-  const info=useSelector(selectDelegates)
+  const dispatch=useDispatch();
+  const user=useSelector(selectUser);
+  const delegates=useSelector(selectDelegates);
+  const filteredDelegates=useSelector(selectFilteredDelegates);
+
+  const [cityFilter,setCityFilter]=useState('');
+  const [nameFilter,setNameFilter]=useState('');
+  const [info,setInfo] = useState(delegates);
 
   // *React-Paginate *********************************************************
 
   const [delegatesPerPage,setDelegatesPerPage]=useState(10);
+  const [currentPage, setCurrentPage] = useState(0); // Current page state
   const [delegatesDisplayed, setDelegatesDisplayed] = useState( info.slice(0,delegatesPerPage) );
   const [FirstArrow, setFirstArrow] = useState(false);
   const [LastArrow, setLastArrow] = useState(info.length > delegatesPerPage);
@@ -34,18 +42,72 @@ function Delegates( { role } ) {
     if ( data.selected == ( Math.ceil(info.length / delegatesPerPage) - 1 ) ) setLastArrow(false);
     else setLastArrow(true);
 
+    setCurrentPage(data.selected)
+
     setDelegatesDisplayed(info.slice(data.selected * delegatesPerPage, data.selected * delegatesPerPage + delegatesPerPage));
 
   };
 
   // **************************************************************************
 
+  //* 𝘀𝘁𝗼𝗿𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿 𝘃𝗮𝗹𝘂𝗲 𝗶𝗻 𝘂𝘀𝗲𝗦𝘁𝗮𝘁𝗲 𝘃𝗮𝗿𝗶𝗮𝗯𝗹𝗲 𝗮𝗻𝗱 𝗱𝗶𝘀𝗽𝗮𝘁𝗰𝗵𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿𝗶𝗻𝗴 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻  
+  const handleFilterByCity = (e) => {
+
+    setNameFilter('')
+    setCityFilter(e.target.value)
+    dispatch(filterByCity(e.target.value));
+
+  }
+
+  //* 𝘀𝘁𝗼𝗿𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿 𝘃𝗮𝗹𝘂𝗲 𝗶𝗻 𝘂𝘀𝗲𝗦𝘁𝗮𝘁𝗲 𝘃𝗮𝗿𝗶𝗮𝗯𝗹𝗲 𝗮𝗻𝗱 𝗱𝗶𝘀𝗽𝗮𝘁𝗰𝗵𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿𝗶𝗻𝗴 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻
+  const handleFilterByName = (e) => {
+
+    setCityFilter('');
+    setNameFilter(e.target.value);
+    dispatch(filterByName(e.target.value));
+
+  }
+
+  //* 𝗱𝗶𝘀𝗽𝗹𝗮𝘆 𝗮𝗹𝗹 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝗴𝗮𝘁𝗲𝘀 𝘄𝗵𝗲𝗻 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿 𝘀𝘁𝗼𝗽𝘀
+  useEffect(()=>{
+
+    setInfo(cityFilter || nameFilter ? filteredDelegates : delegates);
+
+  },[filteredDelegates])
+
+
+  //* 𝗿𝗲𝗺𝗼𝘃𝗲 𝘁𝗵𝗲 𝗳𝗶𝗹𝘁𝗲𝗿𝗶𝗻𝗴 𝗮𝗻𝗱 𝗿𝗲𝘀𝗲𝘁 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝗴𝗮𝘁𝗲𝘀 𝗮𝗳𝘁𝗲𝗿 𝗮𝗱𝗱𝗶𝗻𝗴 𝗮𝗱𝗱𝗶𝗻𝗴 𝗮 𝗻𝗲𝘄 𝗱𝗲𝗹𝗲𝗴𝗮𝘁𝗲 
+  useEffect(()=>{
+
+    setNameFilter('')
+    setCityFilter('');
+    setInfo(delegates)
+
+  },[delegates])
+
+
+  //* 𝗰𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗿𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗹𝗮𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗣𝗮𝗴𝗲 𝗮𝗻𝗱 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝗴𝗮𝘁𝗲𝘀𝗗𝗶𝘀𝗽𝗹𝗮𝘆𝗲𝗱 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝗻𝗲𝘄 𝗶𝗻𝗳𝗼
+  useEffect(()=>{
+
+    setCurrentPage(0);
+
+    setFirstArrow(false);
+
+    const lastPage = Math.ceil(info.length / delegatesPerPage) - 1 ;
+
+    if( lastPage == 0 ) setLastArrow(false)
+    else setLastArrow(true);
+
+    setDelegatesDisplayed(info.slice(0,delegatesPerPage))
+
+  },[info])
+
   return (
     <>
       {
         role.length !== 0 ? (
           <>
-            <Navbar/>
+            <Navbar role={role} user={user}/>
             <div className="pt-28 pb-10 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col space-y-7">
 
                 {/* first section */}
@@ -95,12 +157,16 @@ function Delegates( { role } ) {
                         type="text"
                         placeholder="اسم الوكيل"
                         className="w-full rounded-l-none shadow-cardShadow outline-none focus:border-2 border-effectColor px-3 py-[5px] h-9"
+                        value={nameFilter}
+                        onChange={handleFilterByName}
                       />
                     </div>
 
                     <select
                       name="delegates"
                       className="outline-none bg-white text-textColor text-end rounded-lg shadow-cardShadow h-9 px-2"
+                      value={cityFilter}
+                      onChange={handleFilterByCity}
                     >
                       <option value="">تصنيف الوكلاء حسب المحافظة </option>
                       <option value="حمص">حمص</option>
@@ -133,6 +199,7 @@ function Delegates( { role } ) {
                       <BsChevronRight />
                     )
                   }
+                  forcePage={currentPage} // Set the current active page
                   onPageChange={handleChange}
                   pageRangeDisplayed={1} // Display 1 page buttons on either side of the active page button
                   marginPagesDisplayed={1} // Display 1 page button on either side of the first and last page buttons

@@ -4,7 +4,8 @@ import { HYDRATE } from 'next-redux-wrapper';
 export const delegatesSlice=createSlice({
     name:'delegatesSlice',
     initialState:{
-        delegates:[]
+        delegates:[],
+        filteredDelegates:[]
     },
     reducers:{
 
@@ -12,8 +13,14 @@ export const delegatesSlice=createSlice({
             state.delegates = action.payload
         },
         addDelegate:(state,action)=>{
-            state.delegates = [...state.delegates,action.payload]
-        }
+            state.delegates = [action.payload,...state.delegates]
+        },
+        filterByCity:(state,action)=>{
+            state.filteredDelegates = state.delegates.filter( d => d.city==action.payload );
+        },
+        filterByName:(state,action)=>{
+            state.filteredDelegates = state.delegates.filter( d => d.fullName.includes(action.payload) )
+        },
 
     },
     extraReducers: builder => {
@@ -22,16 +29,16 @@ export const delegatesSlice=createSlice({
 
             console.log("Before Hydration in delegatesSlice : " , action.payload)
 
-            if(!action.payload.delegatesSlice.delegates){
-                return state
-            }
-            state.delegates = action.payload.delegatesSlice.delegates;
+            if(action.payload.delegatesSlice.delegates){
+                state.delegates = action.payload.delegatesSlice.delegates;
+            }   
             
         });
 
     }
 })
 
-export const { saveDelegates , addDelegate } = delegatesSlice.actions;
-export const selectDelegates = state => state.delegatesSlice.delegates 
+export const { saveDelegates , addDelegate , filterByCity , filterByName } = delegatesSlice.actions;
+export const selectDelegates = state => state.delegatesSlice.delegates
+export const selectFilteredDelegates = state => state.delegatesSlice.filteredDelegates
 export default delegatesSlice.reducer;

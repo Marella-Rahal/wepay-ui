@@ -20,6 +20,7 @@ app.use(
 		credentials: true
 	})
 );
+
 app.use(express.json());
 app.use('/uploads', express.static('uploads', { fallthrough: false }));
 app.use(express.urlencoded({ extended: true }));
@@ -38,7 +39,7 @@ app.get('/', (req, res, next) => {
 app.use(ErrorHandler);
 db.on('error', console.error.bind(console, 'connection error : '));
 db.once('open', () => {
-	console.log('connected successfuly ');
+	console.log('connected  successfuly ');
 });
 
 app.listen(5000, () => {

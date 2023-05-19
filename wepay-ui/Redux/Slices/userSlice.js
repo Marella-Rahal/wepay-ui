@@ -19,10 +19,9 @@ export const userSlice=createSlice({
 
             console.log("Before Hydration in userSlice : " , action.payload)
 
-            if(!action.payload.userSlice.user){
-                return state
+            if(action.payload.userSlice.user){
+                state.user = action.payload.userSlice.user;
             }
-            state.user = action.payload.userSlice.user;
             
         });
 

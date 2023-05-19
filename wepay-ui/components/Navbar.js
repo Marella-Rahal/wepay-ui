@@ -7,13 +7,10 @@ import {AiOutlineClose} from 'react-icons/ai';
 import {BsFillMoonStarsFill,BsFillSunFill} from 'react-icons/bs';
 import { useTheme } from 'next-themes';
 import axios from 'axios'
-import { selectUser } from '../Redux/Slices/userSlice';
-import { useSelector } from 'react-redux';
 
-const Navbar = () => {
+const Navbar = ( { role , user } ) => {
 
     const router=useRouter();
-    const user=useSelector(selectUser);
 
     //! logout
     const logout=()=>{
@@ -28,17 +25,17 @@ const Navbar = () => {
 
     //! logo path and default image path
     const [logoUrl, setLogoUrl] = useState('logo.svg');
-    const [defaultImg, setDefaultImg] = useState('default.jpg');
+    const [defaultImg, setDefaultImg] = useState( user?.imgURL?.length == 3 ? 'default.jpg' : `${process.env.server_url}/${user?.imgURL}`);
     useEffect(() => {
 
         if (
             router.asPath == "/login/forgetPassword"
         ) {
             setLogoUrl("../logo.svg");
-            setDefaultImg('../default.jpg');
+            setDefaultImg(user?.imgURL?.length == 3 ? '../default.jpg' : `${process.env.server_url}/${user?.imgURL}`);
         } else {
             setLogoUrl("logo.svg");
-            setDefaultImg('default.jpg');
+            setDefaultImg(user?.imgURL?.length == 3 ? 'default.jpg' : `${process.env.server_url}/${user?.imgURL}`);
         }
 
     }, [router.asPath])
@@ -63,7 +60,7 @@ const Navbar = () => {
         <div
          className='fixed z-50 w-full bg-textColor2 dark:bg-textColor h-20 pl-4 md:pl-8 flex justify-between items-center border-b-2 border-gray-400'>
             {
-                user.role =="guest" ? (
+                role =="guest" ? (
 
                     //! when the user is not logged in
                     <div className='hidden md:flex space-x-3'>
@@ -104,7 +101,7 @@ const Navbar = () => {
             <div className='hidden md:flex justify-between font-bold text-sm lg:text-base space-x-3 lg:space-x-5'>
 
                 {
-                    user.role != "guest" && (
+                    role != "guest" && (
 
                         //! when the user logged in
                         <>
@@ -177,7 +174,7 @@ const Navbar = () => {
                 <div className='flex flex-col space-y-7 items-center min-h-fit'>
 
                     {
-                        user.role != "guest" && (
+                        role != "guest" && (
                             //! when the user is logged in
                             <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
                         )
@@ -208,7 +205,7 @@ const Navbar = () => {
                     </div>
 
                     {
-                        user.role != "guest" ? (
+                        role != "guest" ? (
 
                             //! when the user logged in
                             <>
