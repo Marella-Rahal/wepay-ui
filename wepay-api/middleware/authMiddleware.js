@@ -7,9 +7,6 @@ exports.authenticateUser = async (req, res, next) => {
 		const token = req.cookies.token;
 		if (!token) {
 			req.user = { role: 'guest' };
-			res
-			.status(200)
-			.json({ role: 'guest' });
 		} else {
 			const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
 			const userId = decodedToken.userId;

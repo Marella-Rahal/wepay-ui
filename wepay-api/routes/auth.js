@@ -26,5 +26,5 @@ router.post(
 );
 
 router.post('/updateUserToAdmin', authController.updateUserToAdmin);
-router.get('/getUserInfo', authMiddleware.authenticateUser, authController.getUserInfo);
+router.get('/getUserInfo', authMiddleware.authenticateUser, authMiddleware.haveToken, authController.getUserInfo);
 module.exports = router;

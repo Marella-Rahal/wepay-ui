@@ -62,11 +62,9 @@ export const getServerSideProps = wrapper.getServerSideProps( store => async (co
           });
 
           const data=res.data;
-
-          if( data.role !== "guest" ){
-            store.dispatch(saveUser(data.user))
-          }
-
+          
+          store.dispatch(saveUser(data.user))
+          
           return {
             props : {
               role : data.role
@@ -75,10 +73,22 @@ export const getServerSideProps = wrapper.getServerSideProps( store => async (co
       
     } catch (error) {
 
-          return {
-            props : {
-              role : ""
-            }
+          if(error?.response?.status == 401){
+
+              return {
+                props : {
+                  role : "guest"
+                }
+              }
+
+          }else{
+
+              return {
+                props : {
+                  role : ""
+                }
+              }
+
           }
       
     }
