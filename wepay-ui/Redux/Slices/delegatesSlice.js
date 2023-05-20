@@ -32,7 +32,7 @@ export const delegatesSlice=createSlice({
 
             console.log("Before Hydration in delegatesSlice : " , action.payload)
 
-            if(action.payload.delegatesSlice.delegates){
+            if( action.payload.delegatesSlice.delegates.length !== 0 ){
                 state.delegates = action.payload.delegatesSlice.delegates;
             }   
             
