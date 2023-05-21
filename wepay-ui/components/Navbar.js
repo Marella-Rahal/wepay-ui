@@ -18,7 +18,7 @@ const Navbar = ( { role , user } ) => {
         axios.post(`${process.env.server_url}/api/v1.0/auth/logout`,{},{ withCredentials: true }).then(res=>{
             router.reload();
         }).catch(error=>{
-            console.log(error)
+            console.log(error?.response?.data?.message)
         })
 
     }
@@ -38,7 +38,7 @@ const Navbar = ( { role , user } ) => {
             setDefaultImg(user?.imgURL?.length == 3 ? 'default.jpg' : `${process.env.server_url}/${user?.imgURL}`);
         }
 
-    }, [router.asPath])
+    }, [router.asPath , user?.imgURL])
 
     //! handle side navbar
     const [sideNav, setSideNav] = useState(false);
@@ -72,7 +72,7 @@ const Navbar = ( { role , user } ) => {
                     
                     //! when the user is logged in
                     <div className='hidden md:flex space-x-3 lg:space-x-5 items-center'>
-                        <img src={defaultImg} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 cursor-pointer' onClick={()=>{router.push('/profile')}}/>
+                        <img src={defaultImg} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 dark:shadow-none cursor-pointer' onClick={()=>{router.push('/profile')}}/>
 
                         {
                             (mounted && theme == 'light') && (
@@ -176,7 +176,7 @@ const Navbar = ( { role , user } ) => {
                     {
                         role != "guest" && (
                             //! when the user is logged in
-                            <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
+                            <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 dark:shadow-none cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
                         )
                     }
 

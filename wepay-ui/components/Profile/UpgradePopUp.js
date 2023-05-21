@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup';
 import { motion } from 'framer-motion';
 import UpgradeToSeller from './UpgradeToSeller';
 
-function NotePopUp() {
+function UpgradePopUp() {
  
   return (
     <Popup
@@ -42,4 +42,4 @@ function NotePopUp() {
   );
 }
 
-export default NotePopUp;
+export default UpgradePopUp;

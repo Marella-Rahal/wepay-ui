@@ -206,7 +206,7 @@ const Signup = () => {
   return (
     <>
         <NotePopUp noteMsg={noteMsg}/>
-        <Navbar/>
+        <Navbar role={"guest"} user={{}}/>
         <div className='pt-28 px-4 md:px-8 pb-14 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col space-y-20 items-center md:space-y-0 md:flex-row md:space-x-10 md:justify-between'>
 
             <div className='w-full md:w-1/2 flex items-center justify-center'>
