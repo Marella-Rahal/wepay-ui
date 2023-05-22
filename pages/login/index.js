@@ -34,7 +34,6 @@ const Login = () => {
             pin:pin
         },{
             withCredentials: true,
-            headers : { 'Access-Control-Allow-Origin' : '*' , 'Content-Type' : 'application/json'}
         })
 
         dispatch(saveUser(res.data.user))
