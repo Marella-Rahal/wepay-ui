@@ -186,41 +186,39 @@ const Profile = ( { role } ) => {
 
     e.preventDefault();
 
-    if( newPassword.length!==0 ){
+    if( newPassword.length > 0 && newPassword.length < 8 ){
 
-        if(newPassword.length < 8){
-          setNoteMsg(
-            <h5 className='text-red-600 text-center flex flex-col justify-center items-center'>
-                <span>كلمة المرور الجديدة غير صالحة</span>
-                <span>يجب أن تكون أكثر من 7 أحرف </span>
-            </h5>
-          );
-          showPopUpNote();
-          return;
-        }
-
-        if(newPassword!==confirmPassword){
-          setNoteMsg(
-              <h5 className='text-red-600 text-center'>كلمة المرور غير مطابقة</h5>
-          );
-          showPopUpNote();
-          return;
-        }
+        setNoteMsg(
+          <h5 className='text-red-600 text-center flex flex-col justify-center items-center'>
+              <span>كلمة المرور الجديدة غير صالحة</span>
+              <span>يجب أن تكون أكثر من 7 أحرف </span>
+          </h5>
+        );
+        showPopUpNote();
+        return;
 
     }
 
-    if(newPin.length !==0 ){
+    if( newPassword!==confirmPassword ){
 
-        if(newPin.length !== 4 ){
-          setNoteMsg(
-              <h5 className='text-red-600 text-center flex flex-col justify-center items-center'>
-                  <span> غير صالح pin</span>
-                  <span> يجب أن يكون مؤلف من 4 أرقام </span>   
-              </h5>
-          );
-          showPopUpNote();
-          return;
-        }
+      setNoteMsg(
+        <h5 className='text-red-600 text-center'>كلمة المرور غير مطابقة</h5>
+      );
+      showPopUpNote();
+      return;
+
+    }
+
+    if(newPin.length > 0 && newPin.length !== 4 ){
+
+      setNoteMsg(
+        <h5 className='text-red-600 text-center flex flex-col justify-center items-center'>
+            <span> غير صالح pin</span>
+            <span> يجب أن يكون مؤلف من 4 أرقام </span>   
+        </h5>
+      );
+      showPopUpNote();
+      return;
 
     }
 
@@ -262,6 +260,7 @@ const Profile = ( { role } ) => {
   const [bemoBank, setBemoBank] = useState( user?.bemoBank !== undefined ? user?.bemoBank : '' );
   const [haram, setHaram] = useState( user?.haram !== undefined ? user?.haram : '' );
   const [syriatelCash, setSyriatelCash] = useState( user?.syriatelCash !== undefined ? user?.syriatelCash : '' );
+
   const [enableBemoBank, setEnableBemoBank] = useState(true);
   const [enableHaram, setEnableHaram] = useState(true);
   const [enableSyriatelCash, setEnableSyriatelCash] = useState(true);
@@ -270,11 +269,11 @@ const Profile = ( { role } ) => {
 
     e.preventDefault();
 
-    if( bemoBank.length > 0 && bemoBank.length !== 10 ) {
+    if( bemoBank.length > 0 && bemoBank.length !== 7 ) {
       setNoteMsg(
         <h5 className='text-red-600 text-center flex flex-col justify-center items-center'>
             <span>رقم حساب بنك بيمو غير صالح</span>
-            <span>يجب أن يكون من 10 محارف </span>
+            <span>يجب أن يكون مؤلف من 7 أرقام </span>
         </h5>
       );
       showPopUpNote();
@@ -518,7 +517,6 @@ const Profile = ( { role } ) => {
 
                             <input
                               type="number"
-                              defaultValue={'0987654332'}
                               disabled={enablePhoneNumber}
                               value={phoneNumber}
                               onChange={(e) => setPhoneNumber(e.target.value)}
@@ -627,7 +625,7 @@ const Profile = ( { role } ) => {
                           </div>
 
                           <input
-                            type="text"
+                            type="number"
                             disabled={enableBemoBank}
                             value={bemoBank}
                             onChange={(e) => setBemoBank(e.target.value)}
