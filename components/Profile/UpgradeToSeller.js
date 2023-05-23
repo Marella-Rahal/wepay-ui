@@ -3,24 +3,105 @@ import Popup from 'reactjs-popup';
 import { motion } from 'framer-motion';
 import { BsCamera } from 'react-icons/bs';
 import usePosition from '../../hooks/usePosition';
+import { useState } from 'react';
+import { ThreeDots } from 'react-loader-spinner'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux';
+import { saveUser, selectUser } from '../../Redux/Slices/userSlice'
 
 function UpgradeToSeller({closeFirstPopup}) {
+
+  const [sendingStatus,setSendingStatus]=useState(false);
+  const user=useSelector(selectUser)
+  const dipatch=useDispatch();
   const [coords , error] =usePosition();
+
+  console.log(coords)
   
-  console.log(coords);
+  const [storeName,setStoreName]=useState('');
+  const [storeType,setStoreType]=useState('');
+  const [city,setCity]=useState('');
+  const [address,setAddress]=useState('')
+  const [storeImgURL,setStoreImgURL]=useState('');
+  const [previewStoreImgURL,setPreviewStoreImgURL]=useState('../storePhoto.svg');
 
   const updateImage3 = (e) => {
-    //! for preview
+    
     if (e.target.files[0]) {
-      document.getElementById('imgProfile2').src = URL.createObjectURL(
+      //! for preview
+      setPreviewStoreImgURL(URL.createObjectURL(
         e.target.files[0]
-      );
+      ))
+      //! to store it for the backend
+      setStoreImgURL(e.target.files[0]);
+      
     }
+
   };
+
+  const upgrade = async (close,closeFirstPopup) => {
+
+    if(!storeName || !storeType || !city || !address || !storeImgURL){
+      alert("جميع الحقول مطلوبة")
+      return;
+    }
+
+    if(coords.length !== 0){
+      alert("فشلنا في الحصول على إحداثياتك  , انتظر قليلاً وأعد المحاولة مرة أخرى");
+      return;
+    }
+
+    if( user.Balance < 5000 ){
+
+      alert("لا يوجد في حسابك رصيد كافي")
+      return;
+
+    }
+
+    const fd=new FormData();
+    fd.append('storeName',storeName);
+    fd.append('storeType',storeType);
+    fd.append('city',city);
+    fd.append('address',address);
+    fd.append('coo',coords)
+    fd.append('storeImgURL', storeImgURL, storeImgURL.name);
+
+    try {
+
+      setSendingStatus(true);
+
+      const res=await axios.post(`${process.env.server_url}/api/v1.0/auth/updateUserToSeller`,
+        fd
+      ,{
+        withCredentials:true,
+      })
+
+      setSendingStatus(false);
+
+      setStoreName('');
+      setStoreType('');
+      setCity('');
+      setAddress('');
+      setStoreImgURL('');
+      setPreviewStoreImgURL('../storePhoto.svg')
+
+      dipatch(saveUser(res.data.data.updatedUser))
+
+      closeFirstPopup(); 
+      close();
+      
+    } catch (error) {
+
+      setSendingStatus(false);
+
+      alert(error?.response?.data?.message);
+      
+    }
+  }
 
   return (
     <Popup
-      trigger={<button className="px-4 py-3">متابعة</button>}
+      trigger={<button className="p-0 w-[75px] h-[35px]">متابعة</button>}
       modal
       nested
     >
@@ -41,8 +122,7 @@ function UpgradeToSeller({closeFirstPopup}) {
                       <div className='font-bold text-center mb-2'>صورة المتجر</div>
 
                       <img
-                        src="../storePhoto.svg"
-                        id="imgProfile2"
+                        src={previewStoreImgURL}
                         className="w-[125px] h-[125px] md:w-[200px] md:h-[250px] rounded-md shadow-shadowColor shadow-md"
                       />
 
@@ -66,13 +146,19 @@ function UpgradeToSeller({closeFirstPopup}) {
                 <div className="w-full md:w-1/2 flex flex-col text-end">
 
                     <label className="font-bold mb-1 mr-2">اسم المتجر</label>
-                    <input type="text" className="outline-none border focus:border-textColor py-1"/>
+                    <input 
+                    type="text" 
+                    className="outline-none border focus:border-textColor py-1"
+                    value={storeName}
+                    onChange={(e)=>setStoreName(e.target.value)}/>
 
                     <label className="font-bold mb-1 mr-2 mt-2">نوع المتجر </label>
                     <select 
-                          name='store' 
-                          className='outline-none border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'>
-                              <option value="">تصنيف حسب نوع المتجر</option>
+                    name='store' 
+                    className='outline-none border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'
+                    value={storeType}
+                    onChange={(e)=>setStoreType(e.target.value)}>
+                              <option value="">نوع المتجر</option>
                               <option value="Clothes">ألبسة</option>
                               <option value="Shoes">أحذية</option>
                               <option value="Food">مواد غذائية</option>
@@ -81,14 +167,17 @@ function UpgradeToSeller({closeFirstPopup}) {
                               <option value="Grocery">بقالية</option>
                               <option value="Toaster">محمصة</option>
                               <option value="Bale">بالة</option>
+                              <option value="Fast Food">وجبات سريعة</option>
                               <option value="Others">أخرى</option>
                     </select>
                           
                     <label className="font-bold mb-1 mr-2 mt-2"> المحافظة </label>
                     <select 
-                          name='city' 
-                          className='outline-none border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'>
-                              <option value="">تصنيف حسب المحافظة</option>
+                    name='city' 
+                    className='outline-none border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'
+                    value={city}
+                    onChange={(e)=>setCity(e.target.value)}>
+                              <option value="">المحافظة</option>
                               <option value="Aleppo">حلب</option>
                               <option value="Damascus">دمشق</option>
                               <option value="Homs">حمص</option>
@@ -106,7 +195,9 @@ function UpgradeToSeller({closeFirstPopup}) {
                     </select>
                     
                     <label className="font-bold mb-1 mr-2 mt-2">عنوان المحل </label>
-                    <input type="text" className="outline-none border focus:border-textColor py-1"></input>
+                    <input type="text" className="outline-none border focus:border-textColor py-1"
+                    value={address}
+                    onChange={(e)=>setAddress(e.target.value)}/>
                     
                 </div>
 
@@ -114,10 +205,32 @@ function UpgradeToSeller({closeFirstPopup}) {
 
             {/* two buttons */}
             <div className="w-full flex justify-between">
-              <button className="px-4 py-3" onClick={() => { closeFirstPopup() ; close() } }>
-                إغلاق
+              <button 
+              disabled={sendingStatus} 
+              className="p-0 w-[75px] h-[35px] flex justify-center items-center" onClick={() => { closeFirstPopup() ; close() } }>
+              { 
+                    !sendingStatus 
+                    ? "إغلاق" 
+                    : <ThreeDots
+                        width="30"
+                        color="#ffffff"
+                        visible={true}
+                    /> 
+              }
               </button>
-              <button className="px-4 py-3" onClick={ () => { closeFirstPopup() ; close() } }>حفظ</button>
+              <button 
+              disabled={sendingStatus} 
+              className="p-0 w-[75px] h-[35px] flex justify-center items-center" onClick={()=>upgrade(close,closeFirstPopup)}>
+              { 
+                    !sendingStatus 
+                    ? "حفظ" 
+                    : <ThreeDots
+                        width="30"
+                        color="#ffffff"
+                        visible={true}
+                    /> 
+              }
+              </button>
             </div>
 
           </motion.div>

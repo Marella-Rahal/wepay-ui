@@ -35,7 +35,7 @@ function AddDelegate() {
 
   };
 
-  const addD = async () => {
+  const addD = async (close) => {
 
     if(!fullName || !userName || !city || !address || !phoneNumber || !dealerImgURL){
 
@@ -74,11 +74,13 @@ function AddDelegate() {
 
       dispatch(addDelegate(res.data.data))
 
+      close();
+
     } catch (error) {
 
       setSendingStatus(false);
 
-      alert(error);
+      alert(error?.response?.data?.message);
 
     }
 
@@ -192,7 +194,7 @@ function AddDelegate() {
               </button>
               <button
               disabled={sendingStatus} 
-              className="p-0 w-[75px] h-[35px] flex justify-center items-center" onClick={addD}>
+              className="p-0 w-[75px] h-[35px] flex justify-center items-center" onClick={() => addD(close) }>
               
               { 
                     !sendingStatus 
