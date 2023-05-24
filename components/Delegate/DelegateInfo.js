@@ -9,7 +9,7 @@ function DelegateInfo( { delegate } ) {
     >
       <div className='w-fit h-fit'>
         <img
-          src={`${process.env.server_url}/${delegate.dealerImgURL}`}
+          src={delegate.dealerImgURL}
           className="w-[75px] h-[75px] rounded-full bg-white shadow-md"
         />
       </div>

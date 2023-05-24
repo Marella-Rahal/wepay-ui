@@ -8,32 +8,31 @@ import { ThreeDots } from 'react-loader-spinner'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveUser, selectUser } from '../../Redux/Slices/userSlice'
+import { parseCookies ,setCookie } from 'nookies';
 
-function UpgradeToSeller({closeFirstPopup}) {
+function UpgradeToSeller(props) {
 
-  const [sendingStatus,setSendingStatus]=useState(false);
-  const user=useSelector(selectUser)
   const dipatch=useDispatch();
+  const [sendingStatus,setSendingStatus]=useState(false);
+
+  const cookies = parseCookies();
+  const token = cookies.token;
+
+  const user=useSelector(selectUser)
+
   const [coords , error] =usePosition();
 
   console.log(coords)
-  
-  const [storeName,setStoreName]=useState('');
-  const [storeType,setStoreType]=useState('');
-  const [city,setCity]=useState('');
-  const [address,setAddress]=useState('')
-  const [storeImgURL,setStoreImgURL]=useState('');
-  const [previewStoreImgURL,setPreviewStoreImgURL]=useState('../storePhoto.svg');
 
   const updateImage3 = (e) => {
     
     if (e.target.files[0]) {
       //! for preview
-      setPreviewStoreImgURL(URL.createObjectURL(
+      props.setPreviewStoreImgURL(URL.createObjectURL(
         e.target.files[0]
       ))
       //! to store it for the backend
-      setStoreImgURL(e.target.files[0]);
+      props.setStoreImgURL(e.target.files[0]);
       
     }
 
@@ -41,12 +40,12 @@ function UpgradeToSeller({closeFirstPopup}) {
 
   const upgrade = async (close,closeFirstPopup) => {
 
-    if(!storeName || !storeType || !city || !address || !storeImgURL){
+    if(!props.storeName || !props.storeType || !props.city || !props.address || !props.storeImgURL){
       alert("جميع الحقول مطلوبة")
       return;
     }
 
-    if(coords.length !== 0){
+    if(coords.length == 0){
       alert("فشلنا في الحصول على إحداثياتك  , انتظر قليلاً وأعد المحاولة مرة أخرى");
       return;
     }
@@ -59,12 +58,12 @@ function UpgradeToSeller({closeFirstPopup}) {
     }
 
     const fd=new FormData();
-    fd.append('storeName',storeName);
-    fd.append('storeType',storeType);
-    fd.append('city',city);
-    fd.append('address',address);
+    fd.append('storeName',props.storeName);
+    fd.append('storeType',props.storeType);
+    fd.append('city',props.city);
+    fd.append('address',props.address);
     fd.append('coo',coords)
-    fd.append('storeImgURL', storeImgURL, storeImgURL.name);
+    fd.append('storeImgURL', props.storeImgURL, props.storeImgURL.name);
 
     try {
 
@@ -73,19 +72,23 @@ function UpgradeToSeller({closeFirstPopup}) {
       const res=await axios.post(`${process.env.server_url}/api/v1.0/auth/updateUserToSeller`,
         fd
       ,{
-        withCredentials:true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
 
       setSendingStatus(false);
 
-      setStoreName('');
-      setStoreType('');
-      setCity('');
-      setAddress('');
-      setStoreImgURL('');
-      setPreviewStoreImgURL('../storePhoto.svg')
+      props.setStoreName('');
+      props.setStoreType('');
+      props.setCity('');
+      props.setAddress('');
+      props.setStoreImgURL('');
+      props.setPreviewStoreImgURL('../storePhoto.svg')
 
-      dipatch(saveUser(res.data.data.updatedUser))
+      setCookie(null,'role',res.data.user.role)
+
+      dipatch(saveUser(res.data.user))
 
       closeFirstPopup(); 
       close();
@@ -122,7 +125,7 @@ function UpgradeToSeller({closeFirstPopup}) {
                       <div className='font-bold text-center mb-2'>صورة المتجر</div>
 
                       <img
-                        src={previewStoreImgURL}
+                        src={props.previewStoreImgURL}
                         className="w-[125px] h-[125px] md:w-[200px] md:h-[250px] rounded-md shadow-shadowColor shadow-md"
                       />
 
@@ -149,15 +152,15 @@ function UpgradeToSeller({closeFirstPopup}) {
                     <input 
                     type="text" 
                     className="outline-none border focus:border-textColor py-1"
-                    value={storeName}
-                    onChange={(e)=>setStoreName(e.target.value)}/>
+                    value={props.storeName}
+                    onChange={(e)=>props.setStoreName(e.target.value)}/>
 
                     <label className="font-bold mb-1 mr-2 mt-2">نوع المتجر </label>
                     <select 
                     name='store' 
                     className='outline-none border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'
-                    value={storeType}
-                    onChange={(e)=>setStoreType(e.target.value)}>
+                    value={props.storeType}
+                    onChange={(e)=>props.setStoreType(e.target.value)}>
                               <option value="">نوع المتجر</option>
                               <option value="Clothes">ألبسة</option>
                               <option value="Shoes">أحذية</option>
@@ -175,8 +178,8 @@ function UpgradeToSeller({closeFirstPopup}) {
                     <select 
                     name='city' 
                     className='outline-none border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'
-                    value={city}
-                    onChange={(e)=>setCity(e.target.value)}>
+                    value={props.city}
+                    onChange={(e)=>props.setCity(e.target.value)}>
                               <option value="">المحافظة</option>
                               <option value="Aleppo">حلب</option>
                               <option value="Damascus">دمشق</option>
@@ -196,8 +199,8 @@ function UpgradeToSeller({closeFirstPopup}) {
                     
                     <label className="font-bold mb-1 mr-2 mt-2">عنوان المحل </label>
                     <input type="text" className="outline-none border focus:border-textColor py-1"
-                    value={address}
-                    onChange={(e)=>setAddress(e.target.value)}/>
+                    value={props.address}
+                    onChange={(e)=>props.setAddress(e.target.value)}/>
                     
                 </div>
 
@@ -207,7 +210,7 @@ function UpgradeToSeller({closeFirstPopup}) {
             <div className="w-full flex justify-between">
               <button 
               disabled={sendingStatus} 
-              className="p-0 w-[75px] h-[35px] flex justify-center items-center" onClick={() => { closeFirstPopup() ; close() } }>
+              className="p-0 w-[75px] h-[35px] flex justify-center items-center" onClick={() => { props.closeFirstPopup() ; close() } }>
               { 
                     !sendingStatus 
                     ? "إغلاق" 
@@ -220,7 +223,7 @@ function UpgradeToSeller({closeFirstPopup}) {
               </button>
               <button 
               disabled={sendingStatus} 
-              className="p-0 w-[75px] h-[35px] flex justify-center items-center" onClick={()=>upgrade(close,closeFirstPopup)}>
+              className="p-0 w-[75px] h-[35px] flex justify-center items-center" onClick={()=>upgrade(close,props.closeFirstPopup)}>
               { 
                     !sendingStatus 
                     ? "حفظ" 

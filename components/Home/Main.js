@@ -1,8 +1,13 @@
 import { useRouter } from 'next/router'
 import React from 'react'
+import { parseCookies } from 'nookies';
 
 const Main = () => {
-  const router=useRouter();    
+
+  const router=useRouter();  
+  const cookies = parseCookies();
+  const token = cookies.token
+
   return (
     <div className='bg-bgColor shadow-bgShadow pt-28 pb-14 px-4 md:px-8 w-full flex flex-col space-y-10 items-center md:space-y-0 md:flex-row md:justify-center md:space-x-24'>
         <div>
@@ -21,7 +26,11 @@ const Main = () => {
             تمتع بأمان وسرية عالية في محفظتك    
             </div>
 
-            <button onClick={()=>router.push('/signup')}>اشترك الآن</button>
+            {
+                !token && (
+                    <button onClick={()=>router.push('/signup')}>اشترك الآن</button>
+                )
+            }
 
             <div>
             أو قم بتحميل التطبيق على جهاز الموبايل الخاص بك 

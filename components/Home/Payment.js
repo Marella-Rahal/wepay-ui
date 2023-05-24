@@ -1,8 +1,14 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import {motion} from 'framer-motion'
+import { parseCookies } from 'nookies'
+
 const Payment = () => {
+
   const router=useRouter();
+  const cookies = parseCookies();
+  const token = cookies.token
+
   return (
     <div className='bg-bgColor shadow-bgShadow w-full px-4 md:px-8 py-14 flex flex-col-reverse items-center md:flex-row md:justify-between md:space-x-10 text-end'>
         <motion.div
@@ -18,7 +24,9 @@ const Payment = () => {
 
             <span>او الارسال عن طريق الكود المخصص لكل مستخدم</span>
 
-            <button onClick={()=>router.push('/shippingAndPayment')}>ادفع الآن</button>
+            <button onClick={()=>{
+              token ? router.push('/shippingAndPayment') : router.push('/login')
+            }}>ادفع الآن</button>
 
             <div className='flex'>
                 <img src='../../appleStore.svg'className='cursor-pointer hover:scale-[1.1] w-24'/>

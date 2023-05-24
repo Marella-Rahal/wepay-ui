@@ -8,14 +8,16 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import axios from 'axios';
 import FailToGet from '../components/FailToGet';
 import { wrapper } from '../Redux/Store'
-import { saveUser, selectUser } from '../Redux/Slices/userSlice';
 import { filterByCity, filterByCityAndName, filterByName, saveDelegates, selectDelegates, selectFilteredDelegates } from '../Redux/Slices/delegatesSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { parseCookies } from 'nookies';
 
-function Delegates( { role } ) {
+function Delegates( { success } ) {
 
+  const cookies = parseCookies();
+  const role = cookies.role;
+  
   const dispatch=useDispatch();
-  const user=useSelector(selectUser);
   const delegates=useSelector(selectDelegates);
   const filteredDelegates=useSelector(selectFilteredDelegates);
 
@@ -109,9 +111,9 @@ function Delegates( { role } ) {
   return (
     <>
       {
-        role.length !== 0 ? (
+        success ? (
           <>
-            <Navbar role={role} user={user}/>
+            <Navbar/>
             <div className="pt-28 pb-10 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col space-y-7">
 
                 {/* first section */}
@@ -231,32 +233,19 @@ function Delegates( { role } ) {
 
 export default Delegates;
 
-export const getServerSideProps = wrapper.getServerSideProps( store => async (context) =>{
-
-    const { req } = context;
-    const cookie = req.headers.cookie;
+export const getStaticProps = wrapper.getStaticProps( store => async (context) =>{
 
     try {
 
-          const res = await axios.get(`${process.env.server_url}/api/v1.0/dealers/getAllDealers`,{
-            headers: {
-              Cookie: cookie,
-            },
-          });
+          const res = await axios.get(`${process.env.server_url}/api/v1.0/dealers/getAllDealers`);
 
-          const data=res.data;
-
-          if( data.role !== "guest" ){
-            store.dispatch(saveUser(data.user))
-          }
-
-          if( data.data !== undefined){
-            store.dispatch(saveDelegates(data.data))
+          if( res.data.data !== undefined){
+            store.dispatch(saveDelegates(res.data.data))
           }
           
           return {
             props : {
-              role : data.role
+              success : true
             }
           }
 
@@ -264,7 +253,7 @@ export const getServerSideProps = wrapper.getServerSideProps( store => async (co
 
           return {
             props : {
-              role : ""
+              success : false
             }
           }
 

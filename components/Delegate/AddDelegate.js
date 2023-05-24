@@ -6,10 +6,13 @@ import { ThreeDots } from 'react-loader-spinner'
 import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { addDelegate } from '../../Redux/Slices/delegatesSlice';
+import { parseCookies } from 'nookies';
 
 function AddDelegate() {
 
   const dispatch=useDispatch()
+  const cookies=parseCookies();
+  const token=cookies.token;
 
   const [fullName,setFullName]=useState('');
   const [userName,setUserName]=useState('');
@@ -39,7 +42,7 @@ function AddDelegate() {
 
     if(!fullName || !userName || !city || !address || !phoneNumber || !dealerImgURL){
 
-      alert("all fields are required");
+      alert("جميع الحقول مطلوبة");
       return;
 
     }
@@ -56,10 +59,10 @@ function AddDelegate() {
 
       setSendingStatus(true);
 
-      const res=await axios.post(`${process.env.server_url}/api/v1.0/dealers/addDealer`,
-        fd
-      ,{
-        withCredentials:true,
+      const res=await axios.post(`${process.env.server_url}/api/v1.0/dealers/addDealer`,fd,{
+        headers : {
+          Authorization: `Bearer ${token}`,
+        }
       })
 
       setSendingStatus(false);

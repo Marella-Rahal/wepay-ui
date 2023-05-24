@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import { motion } from 'framer-motion';
 import UpgradeToSeller from './UpgradeToSeller';
 
 function UpgradePopUp() {
+
+  const [storeName,setStoreName]=useState('');
+  const [storeType,setStoreType]=useState('');
+  const [city,setCity]=useState('');
+  const [address,setAddress]=useState('')
+  const [storeImgURL,setStoreImgURL]=useState('');
+  const [previewStoreImgURL,setPreviewStoreImgURL]=useState('../storePhoto.svg');
  
   return (
     <Popup
@@ -33,7 +40,20 @@ function UpgradePopUp() {
               <button className="p-0 w-[75px] h-[35px]" onClick={() => close()}>
                 إغلاق
               </button>
-              <UpgradeToSeller closeFirstPopup={close}/>
+              <UpgradeToSeller 
+              closeFirstPopup={close}
+              storeName={storeName}
+              setStoreName={setStoreName}
+              storeType={storeType}
+              setStoreType={setStoreType}
+              city={city}
+              setCity={setCity}
+              address={address}
+              setAddress={setAddress}
+              storeImgURL={storeImgURL}
+              setStoreImgURL={setStoreImgURL}
+              previewStoreImgURL={previewStoreImgURL}
+              setPreviewStoreImgURL={setPreviewStoreImgURL} />
 
             </div>
 

@@ -5,13 +5,12 @@ import NotePopUp, { showPopUpNote } from '../../components/PopUp/NotePopUp';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { ThreeDots } from 'react-loader-spinner';
-import { saveUser } from '../../Redux/Slices/userSlice';
-import { useDispatch } from 'react-redux';
+import { setCookie } from 'nookies'
 
 const Login = () => {
- 
+
   const router=useRouter();
-  const dispatch=useDispatch();
+
   const [noteMsg,setNoteMsg]=useState("");  
   const [sendingStatus,setSendingStatus]=useState(false); 
 
@@ -32,11 +31,25 @@ const Login = () => {
             email:email,
             password:password,
             pin:pin
-        },{
-            withCredentials: true,
         })
 
-        dispatch(saveUser(res.data.user))
+        // Set the token in the cookie
+        setCookie(null, 'token', res.data.token, {
+            secure: true, // Set to true if using HTTPS
+            sameSite: 'none', // Adjust according to your requirements
+        });
+
+        // Set the imgURL in the cookie
+        setCookie(null, 'imgURL', res.data.imgURL, {
+            secure: true, // Set to true if using HTTPS
+            sameSite: 'none', // Adjust according to your requirements
+        });
+
+        // Set the role in the cookie
+        setCookie(null, 'role', res.data.role, {
+            secure: true, // Set to true if using HTTPS
+            sameSite: 'none', // Adjust according to your requirements
+        });
 
         router.replace('/shippingAndPayment');
         
@@ -69,7 +82,7 @@ const Login = () => {
     <>
 
         <NotePopUp noteMsg={noteMsg}/>
-        <Navbar role={"guest"} user={{}}/>
+        <Navbar/>
         <div className='pt-28 px-4 md:px-8 pb-14 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col space-y-20 items-center md:space-y-0 md:flex-row md:space-x-10 md:justify-between'>
 
             <div className='w-full md:w-1/2 flex items-center justify-center'>

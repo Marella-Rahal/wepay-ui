@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { useQRCode } from 'next-qrcode';
 import { BsCamera } from 'react-icons/bs';
@@ -12,13 +12,19 @@ import FailToGet from '../components/FailToGet';
 import { useDispatch, useSelector } from 'react-redux';
 import NotePopUp ,{ showPopUpNote } from '../components/PopUp/NotePopUp';
 import { ThreeDots } from 'react-loader-spinner'
+import { parseCookies , setCookie } from 'nookies';
 
 const PHONE_REGEX=/^09\d{8}$/
 
-const Profile = ( { role } ) => {
+const Profile = ( { success } ) => {
 
   const dispatch=useDispatch();
+
+  const cookies= parseCookies();
+  const token =cookies.token;
+
   const user=useSelector(selectUser);
+
   const [noteMsg,setNoteMsg]=useState("");  
   const [sendingStatus,setSendingStatus]=useState(false);
   const { SVG } = useQRCode();
@@ -55,7 +61,7 @@ const Profile = ( { role } ) => {
   const [enablePhoneNumber, setEnablePhoneNumber] = useState(true);
 
   const [imgURL, setImgURL] = useState('');
-  const [previewImgURL,setPreviewImgURL] =useState(user?.imgURL?.length == 3 ? 'default.jpg' : `${process.env.server_url}/${user?.imgURL}`)
+  const [previewImgURL,setPreviewImgURL] =useState(user?.imgURL)
 
   const updateImage = (e) => {
     
@@ -153,10 +159,15 @@ const Profile = ( { role } ) => {
       setSendingStatus(true);
 
       const res = await axios.put(`${process.env.server_url}/api/v1.0/auth/updateBasic`,fd,{
-        withCredentials : true
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
 
-      dispatch(saveUser(res.data.data));
+      // Set the imgURL in the cookie
+      setCookie(null, 'imgURL', res.data.user.imgURL );
+
+      dispatch(saveUser(res.data.user));
 
       setImgURL('');
       setEnableFullName(true);
@@ -168,7 +179,7 @@ const Profile = ( { role } ) => {
       
       setSendingStatus(false);
 
-      console.log(error?.response?.data?.message);
+      alert(error?.response?.data?.message);
 
     }
 
@@ -229,11 +240,13 @@ const Profile = ( { role } ) => {
       setSendingStatus(true);
 
       const res = await axios.put(`${process.env.server_url}/api/v1.0/auth/updateSecurity`,{
-        oldPassword : oldPassword ,
-        newPassword : newPassword.length !== 0 ? newPassword : undefined ,
-        newPin : newPin.length !== 0 ? newPin : undefined 
+          oldPassword : oldPassword ,
+          newPassword : newPassword.length !== 0 ? newPassword : undefined ,
+          newPin : newPin.length !== 0 ? newPin : undefined 
       },{
-        withCredentials:true
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
       })
 
       dispatch(saveUser(res.data.user))
@@ -249,7 +262,7 @@ const Profile = ( { role } ) => {
 
       setSendingStatus(false);
 
-      console.log(error?.response?.data?.message);
+      alert(error?.response?.data?.message);
       
     }
 
@@ -307,10 +320,12 @@ const Profile = ( { role } ) => {
       const res = await axios.put(`${process.env.server_url}/api/v1.0/auth/updatePaymentInfo`,{
         bemoBank , haram , syriatelCash
       },{
-        withCredentials:true
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
 
-      dispatch(saveUser(res.data.data));
+      dispatch(saveUser(res.data.user));
 
       setEnableBemoBank(true);
       setEnableHaram(true);
@@ -322,7 +337,7 @@ const Profile = ( { role } ) => {
       
       setSendingStatus(false);
 
-      console.log(error?.response?.data?.message);
+      alert(error?.response?.data?.message);
 
     }
     
@@ -333,10 +348,10 @@ const Profile = ( { role } ) => {
   return (
     <>  
       {
-        role.length !== 0 ? (
+        success ? (
           <>
             <NotePopUp noteMsg={noteMsg}/>
-            <Navbar role={role} user={user}/>
+            <Navbar/>
             <div className="pt-28 pb-10 px-4 md:px-8 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col items-center space-y-10 lg:space-y-0 lg:flex-row lg:space-x-10 lg:justify-between">
 
               <div className="flex flex-col space-y-5 w-full lg:w-[375px]">
@@ -365,7 +380,7 @@ const Profile = ( { role } ) => {
                   </div>
 
                   {
-                    ( role != 'seller' && role != 'admin' ) && (
+                    ( user.role == "user" ) && (
                       <UpgradePopUp />
                     ) 
                   }
@@ -702,24 +717,22 @@ export default Profile;
 
 export const getServerSideProps = wrapper.getServerSideProps( store => async (context) =>{
 
-    const { req } = context;
-    const cookie = req.headers.cookie;
+    const cookies=parseCookies(context);
+    const token=cookies.token;
 
     try {
 
           const res = await axios.get(`${process.env.server_url}/api/v1.0/auth/getUserInfo`,{
             headers: {
-              Cookie: cookie,
+              Authorization: `Bearer ${token}`,
             },
           });
 
-          const data=res.data;
-
-          store.dispatch(saveUser(data.user))
+          store.dispatch(saveUser(res.data.user))
 
           return {
             props : {
-              role : data.role
+              success : true
             }
           }
       
@@ -738,7 +751,7 @@ export const getServerSideProps = wrapper.getServerSideProps( store => async (co
 
               return {
                 props : {
-                  role : ""
+                  success : false
                 }
               }
 

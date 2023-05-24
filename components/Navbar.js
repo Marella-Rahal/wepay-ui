@@ -6,39 +6,36 @@ import {BiLogOut} from 'react-icons/bi';
 import {AiOutlineClose} from 'react-icons/ai';
 import {BsFillMoonStarsFill,BsFillSunFill} from 'react-icons/bs';
 import { useTheme } from 'next-themes';
-import axios from 'axios'
+import { parseCookies , destroyCookie } from 'nookies';
 
-const Navbar = ( { role , user } ) => {
+const Navbar = () => {
 
     const router=useRouter();
+    const cookies = parseCookies();
+    const token = cookies.token;
+    const imgURL = cookies.imgURL;
 
     //! logout
     const logout=()=>{
-
-        axios.post(`${process.env.server_url}/api/v1.0/auth/logout`,{},{ withCredentials: true }).then(res=>{
-            router.reload();
-        }).catch(error=>{
-            console.log(error?.response?.data?.message)
-        })
-
+        destroyCookie(null,'token');
+        destroyCookie(null,'imgURL');
+        destroyCookie(null,'role');
+        router.reload();
     }
 
-    //! logo path and default image path
+    //! logo path
     const [logoUrl, setLogoUrl] = useState('logo.svg');
-    const [defaultImg, setDefaultImg] = useState( user?.imgURL?.length == 3 ? 'default.jpg' : `${process.env.server_url}/${user?.imgURL}`);
     useEffect(() => {
 
         if (
             router.asPath == "/login/forgetPassword"
         ) {
             setLogoUrl("../logo.svg");
-            setDefaultImg(user?.imgURL?.length == 3 ? '../default.jpg' : `${process.env.server_url}/${user?.imgURL}`);
         } else {
             setLogoUrl("logo.svg");
-            setDefaultImg(user?.imgURL?.length == 3 ? 'default.jpg' : `${process.env.server_url}/${user?.imgURL}`);
         }
 
-    }, [router.asPath , user?.imgURL])
+    }, [router.asPath])
 
     //! handle side navbar
     const [sideNav, setSideNav] = useState(false);
@@ -60,7 +57,7 @@ const Navbar = ( { role , user } ) => {
         <div
          className='fixed z-50 w-full bg-textColor2 dark:bg-textColor h-20 pl-4 md:pl-8 flex justify-between items-center border-b-2 border-gray-400'>
             {
-                role =="guest" ? (
+                !token ? (
 
                     //! when the user is not logged in
                     <div className='hidden md:flex space-x-3'>
@@ -72,7 +69,7 @@ const Navbar = ( { role , user } ) => {
                     
                     //! when the user is logged in
                     <div className='hidden md:flex space-x-3 lg:space-x-5 items-center'>
-                        <img src={defaultImg} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 dark:shadow-none cursor-pointer' onClick={()=>{router.push('/profile')}}/>
+                        <img src={imgURL} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 dark:shadow-none cursor-pointer' onClick={()=>{router.push('/profile')}}/>
 
                         {
                             (mounted && theme == 'light') && (
@@ -101,7 +98,7 @@ const Navbar = ( { role , user } ) => {
             <div className='hidden md:flex justify-between font-bold text-sm lg:text-base space-x-3 lg:space-x-5'>
 
                 {
-                    role != "guest" && (
+                    token && (
 
                         //! when the user logged in
                         <>
@@ -174,9 +171,9 @@ const Navbar = ( { role , user } ) => {
                 <div className='flex flex-col space-y-7 items-center min-h-fit'>
 
                     {
-                        role != "guest" && (
+                        token && (
                             //! when the user is logged in
-                            <img src={defaultImg} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 dark:shadow-none cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
+                            <img src={imgURL} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 dark:shadow-none cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
                         )
                     }
 
@@ -205,7 +202,7 @@ const Navbar = ( { role , user } ) => {
                     </div>
 
                     {
-                        role != "guest" ? (
+                        token ? (
 
                             //! when the user logged in
                             <>

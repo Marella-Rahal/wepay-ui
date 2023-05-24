@@ -3,17 +3,16 @@ import React, { useState } from 'react'
 import Navbar from '../components/Navbar';
 import {motion} from 'framer-motion';
 import axios from 'axios';
-import { useDispatch } from 'react-redux'
-import { saveUser } from '../Redux/Slices/userSlice';
 import NotePopUp , {showPopUpNote} from '../components/PopUp/NotePopUp';
 import { ThreeDots } from 'react-loader-spinner'
 import { useRouter } from 'next/router';
+import { setCookie } from 'nookies'
+
 const EMAIL_REGEX=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const PHONE_REGEX=/^09\d{8}$/
 
 const Signup = () => {
 
-  const dispatch=useDispatch();
   const router=useRouter();
   const [noteMsg,setNoteMsg]=useState("");  
   const [sendingStatus,setSendingStatus]=useState(false);
@@ -157,11 +156,25 @@ const Signup = () => {
             phoneNumber:phoneNumber,
             password:password,
             pin:pin
-        },{
-            withCredentials: true
         })
 
-        dispatch(saveUser(res.data.user))
+        // Set the token in the cookie
+        setCookie(null, 'token', res.data.token, {
+            secure: true, // Set to true if using HTTPS
+            sameSite: 'none', // Adjust according to your requirements
+        });
+
+        // Set the imgURL in the cookie
+        setCookie(null, 'imgURL', res.data.imgURL, {
+            secure: true, // Set to true if using HTTPS
+            sameSite: 'none', // Adjust according to your requirements
+        });
+
+        // Set the role in the cookie
+        setCookie(null, 'role', res.data.role, {
+            secure: true, // Set to true if using HTTPS
+            sameSite: 'none', // Adjust according to your requirements
+        });
 
         router.replace('/shippingAndPayment');
 
@@ -206,7 +219,7 @@ const Signup = () => {
   return (
     <>
         <NotePopUp noteMsg={noteMsg}/>
-        <Navbar role={"guest"} user={{}}/>
+        <Navbar/>
         <div className='pt-28 px-4 md:px-8 pb-14 bg-bgColor shadow-bgShadow w-full min-h-screen flex flex-col space-y-20 items-center md:space-y-0 md:flex-row md:space-x-10 md:justify-between'>
 
             <div className='w-full md:w-1/2 flex items-center justify-center'>
