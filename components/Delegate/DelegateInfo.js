@@ -10,7 +10,7 @@ function DelegateInfo( { delegate } ) {
       <div className='w-fit h-fit'>
         <img
           src={delegate.dealerImgURL}
-          className="w-[75px] h-[75px] rounded-full bg-white shadow-md"
+          className="w-[75px] h-[75px] rounded-lg bg-white shadow-md"
         />
       </div>
 
