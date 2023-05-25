@@ -73,7 +73,7 @@ const Navbar = () => {
 
                         {
                             (mounted && theme == 'light') && (
-                                <BsFillMoonStarsFill className='w-10 h-10 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={() => setTheme("dark")}/>
+                                <BsFillMoonStarsFill className='w-10 h-10 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor self-center' onClick={() => setTheme("dark")}/>
                             )
             
                         }
@@ -81,13 +81,13 @@ const Navbar = () => {
                         {
 
                             (mounted && theme == 'dark') && (
-                                <BsFillSunFill className='w-10 h-10 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={() => setTheme("light")}/>
+                                <BsFillSunFill className='w-10 h-10 rounded-full p-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor self-center' onClick={() => setTheme("light")}/>
                             )
 
                         }
                     
                     
-                        <BiLogOut className='w-10 h-10 rounded-full pl-1 pr-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor' onClick={logout}/>
+                        <BiLogOut className='w-10 h-10 rounded-full pl-1 pr-2 shadow-md shadow-gray-400 cursor-pointer hover:scale-[1.1] hover:text-effectColor self-center' onClick={logout}/>
                         
                         
                     </div>
