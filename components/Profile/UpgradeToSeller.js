@@ -77,7 +77,12 @@ function UpgradeToSeller(props) {
         },
       })
 
-      setSendingStatus(false);
+      setCookie(null,'role',res.data.user.role, {
+        secure: true, // Set to true if using HTTPS
+        sameSite: 'none', // Adjust according to your requirements
+      })
+
+      dipatch(saveUser(res.data.user))
 
       props.setStoreName('');
       props.setStoreType('');
@@ -86,9 +91,7 @@ function UpgradeToSeller(props) {
       props.setStoreImgURL('');
       props.setPreviewStoreImgURL('../storePhoto.svg')
 
-      setCookie(null,'role',res.data.user.role)
-
-      dipatch(saveUser(res.data.user))
+      setSendingStatus(false);
 
       closeFirstPopup(); 
       close();

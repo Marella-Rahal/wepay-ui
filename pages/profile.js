@@ -165,7 +165,10 @@ const Profile = ( { success } ) => {
       })
 
       // Set the imgURL in the cookie
-      setCookie(null, 'imgURL', res.data.user.imgURL );
+      setCookie(null, 'imgURL', res.data.user.imgURL, {
+        secure: true, // Set to true if using HTTPS
+        sameSite: 'none', // Adjust according to your requirements
+      });
 
       dispatch(saveUser(res.data.user));
 

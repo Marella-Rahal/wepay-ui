@@ -65,7 +65,7 @@ function AddDelegate() {
         }
       })
 
-      setSendingStatus(false);
+      dispatch(addDelegate(res.data.data))
 
       setFullName('');
       setUserName('');
@@ -75,7 +75,7 @@ function AddDelegate() {
       setDealerImgURL('');
       setPreviewDealerImgURL("../default.jpg")
 
-      dispatch(addDelegate(res.data.data))
+      setSendingStatus(false);
 
       close();
 
