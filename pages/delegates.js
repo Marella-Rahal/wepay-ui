@@ -233,7 +233,7 @@ function Delegates( { success } ) {
 
 export default Delegates;
 
-export const getStaticProps = wrapper.getStaticProps( store => async (context) =>{
+export const getServerSideProps = wrapper.getServerSideProps( store => async (context) =>{
 
     try {
 
