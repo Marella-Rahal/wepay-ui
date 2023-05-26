@@ -10,254 +10,358 @@ import ShippingBimo from '../components/ShippingAndPayment/ShippingBimo';
 import ShippingSyriatel from '../components/ShippingAndPayment/ShippingSyriatel';
 import WithdrawBimo from '../components/ShippingAndPayment/WithdrawBimo';
 import ShippingHaram from '../components/ShippingAndPayment/ShippingHaram';
+import { parseCookies ,setCookie } from 'nookies';
+import axios from 'axios';
+import FailToGet from '../components/FailToGet'
+import Lottie from "lottie-react";
+import emptyResult from "../public/empty.json";
 
-const ShippingAndPayment = () => {
+const ShippingAndPayment = (props) => {
+
+  const [actions,setActions]=useState(props.actions)
+  const [shippingActions,setShippingActions]=useState([])
+  const [withdrawActions,setWithdrawActions]=useState([])
+
   const [shippingAndPaymentInfo,setShippingAndPaymentInfo]=useState('transfer');
   const [typeOfShipping,setTypeOfShipping]=useState('general');
   const [typeOfWithdraw,setTypeOfWithdraw]=useState('general');
 
   return (
-    <>
-        <Navbar/>
-        <div className='pt-28 pb-14 px-4 md:px-8 w-full min-h-screen bg-bgColor shadow-bgShadow flex flex-col space-y-10'>
+    <>  
+        {
+          props.success ? (
+            <>
+              <Navbar/>
+              <div className='pt-28 pb-14 px-4 md:px-8 w-full min-h-screen bg-bgColor shadow-bgShadow flex flex-col space-y-10'>
 
-          {/* //!first section */}
-          <div className='flex flex-col-reverse items-center md:flex-row md:space-x-10'>
+                {/* //!first section */}
+                <div className='flex flex-col-reverse items-center md:flex-row md:space-x-10'>
 
-            {/* //!left section */}
+                  {/* //!left section */}
 
-            <div className='w-full md:w-1/2 xl:w-2/3 rounded-lg shadow-cardShadow mt-10 md:mt-0 p-5 flex md:min-h-[532px]'>
+                  <div className='w-full md:w-1/2 xl:w-2/3 rounded-lg shadow-cardShadow mt-10 md:mt-0 p-5 flex md:min-h-[532px]'>
 
-                {
-                  shippingAndPaymentInfo == 'transfer' && (
+                      {
+                        shippingAndPaymentInfo == 'transfer' && (
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                        transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex justify-end'>
+                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                              transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex justify-end'>
 
-                          <Transfer/>
+                                <Transfer/>
 
-                        </motion.div>
+                              </motion.div>
 
-                  )
-                }
+                        )
+                      }
 
-                {/* //! end of transfer section */}
+                      {/* //! end of transfer section */}
 
-                {
-                  ( shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'general' ) && (
+                      {
+                        ( shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'general' ) && (
 
-                      <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                      transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
+                            <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
 
-                        <span className='w-[90%] md:w-[50%]'>اختر طريقة الشحن المستخدمة</span>
+                              <span className='w-[90%] md:w-[50%]'>اختر طريقة الشحن المستخدمة</span>
 
-                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('haram')}>شركة الهرم للحوالات المالية</button>
-                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('syriatel')}>Syriatel Cash سيرياتيل كاش </button>
-                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('bimo')}>بنك بيمو السعودي الفرنسي</button>
+                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('haram')}>شركة الهرم للحوالات المالية</button>
+                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('syriatel')}>Syriatel Cash سيرياتيل كاش </button>
+                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('bimo')}>بنك بيمو السعودي الفرنسي</button>
 
-                      </motion.div>
+                            </motion.div>
 
-                  )
-                }
+                        )
+                      }
 
-                {
-                  (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'haram') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full">
+                      {
+                        (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'haram') && (
+                          <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                          transition={{ ease: "easeInOut", duration: 1 }} className="w-full">
 
-                      <ShippingHaram setTypeOfShipping={setTypeOfShipping}/>  
+                            <ShippingHaram setTypeOfShipping={setTypeOfShipping}/>  
 
-                    </motion.div>
-                  )
-                }
+                          </motion.div>
+                        )
+                      }
 
-                {
-                  (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'syriatel') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
+                      {
+                        (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'syriatel') && (
+                          <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                          transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
 
-                      <ShippingSyriatel setTypeOfShipping={setTypeOfShipping}/>
+                            <ShippingSyriatel setTypeOfShipping={setTypeOfShipping}/>
 
-                    </motion.div>
-                  )
-                }
+                          </motion.div>
+                        )
+                      }
 
-                {
-                  (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'bimo') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
+                      {
+                        (shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'bimo') && (
+                          <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                          transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
 
-                      <ShippingBimo setTypeOfShipping={setTypeOfShipping}/>
+                            <ShippingBimo setTypeOfShipping={setTypeOfShipping}/>
 
-                    </motion.div>
-                  )
-                }
+                          </motion.div>
+                        )
+                      }
 
-                {/* //! end of shipping section */}
+                      {/* //! end of shipping section */}
 
-                {
-                  ( shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'general' ) && (
+                      {
+                        ( shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'general' ) && (
 
-                      <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                      transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
+                            <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
 
-                        <span className='w-[90%] md:w-[50%]'>اختر طريقة السحب المستخدمة</span>
+                              <span className='w-[90%] md:w-[50%]'>اختر طريقة السحب المستخدمة</span>
 
-                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('haram')}>شركة الهرم للحوالات المالية</button>
-                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('syriatel')}>Syriatel Cash سيرياتيل كاش </button>
-                        <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('bimo')}>بنك بيمو السعودي الفرنسي</button>
+                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('haram')}>شركة الهرم للحوالات المالية</button>
+                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('syriatel')}>Syriatel Cash سيرياتيل كاش </button>
+                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('bimo')}>بنك بيمو السعودي الفرنسي</button>
 
-                      </motion.div>
+                            </motion.div>
 
-                  )
-                }
+                        )
+                      }
 
-                {
-                  (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'haram') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
+                      {
+                        (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'haram') && (
+                          <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                          transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
 
-                      <WithdrawHaram setTypeOfWithdraw={setTypeOfWithdraw}/>                     
+                            <WithdrawHaram setTypeOfWithdraw={setTypeOfWithdraw}/>                     
 
-                    </motion.div>
-                  )
-                }
+                          </motion.div>
+                        )
+                      }
 
-                {
-                  (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'syriatel') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
+                      {
+                        (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'syriatel') && (
+                          <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                          transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
 
-                      <WithdrawSyriatel setTypeOfWithdraw={setTypeOfWithdraw}/>
+                            <WithdrawSyriatel setTypeOfWithdraw={setTypeOfWithdraw}/>
 
-                    </motion.div>
-                  )
-                }
+                          </motion.div>
+                        )
+                      }
 
-                {
-                  (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'bimo') && (
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                    transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
+                      {
+                        (shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'bimo') && (
+                          <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                          transition={{ ease: "easeInOut", duration: 1 }} className="w-full flex justify-end">
 
-                      <WithdrawBimo setTypeOfWithdraw={setTypeOfWithdraw}/>
+                            <WithdrawBimo setTypeOfWithdraw={setTypeOfWithdraw}/>
 
-                    </motion.div>
-                  )
-                }
+                          </motion.div>
+                        )
+                      }
 
-                {/* //! end of withdraw section */}
+                      {/* //! end of withdraw section */}
 
-            </div>    
+                  </div>    
 
-            {/* //!right section */}
+                  {/* //!right section */}
 
-            <TotalCash>
+                  <TotalCash balance={props.balance} totalIncome={props.totalIncome} totalPayment={props.totalPayment}>
 
-                  <div className={shippingAndPaymentInfo=="transfer"?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':"text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center"} 
-                  onClick={()=>setShippingAndPaymentInfo("transfer")}>
-                            الدفع و التحويل 
-                  </div>
+                        <div className={shippingAndPaymentInfo=="transfer"?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':"text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center"} 
+                        onClick={()=>setShippingAndPaymentInfo("transfer")}>
+                                  الدفع و التحويل 
+                        </div>
 
-                  <div className={shippingAndPaymentInfo=='shipping'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'} 
-                  onClick={()=>setShippingAndPaymentInfo("shipping")}>
-                            شحن الرصيد 
-                  </div>
+                        <div className={shippingAndPaymentInfo=='shipping'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'} 
+                        onClick={()=>setShippingAndPaymentInfo("shipping")}>
+                                  شحن الرصيد 
+                        </div>
 
-                  <div className={shippingAndPaymentInfo=='withdraw'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'}
-                  onClick={()=>setShippingAndPaymentInfo("withdraw")}>
-                            سحب الرصيد 
-                  </div>
+                        <div className={shippingAndPaymentInfo=='withdraw'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'}
+                        onClick={()=>setShippingAndPaymentInfo("withdraw")}>
+                                  سحب الرصيد 
+                        </div>
 
-            </TotalCash>
+                  </TotalCash>
 
-          </div>
+                </div>
 
-          {/* //! second section */}
+                {/* //! second section */}
 
-          <div className='w-full flex items-center'>
-                <div className='w-1/2 h-[1px] bg-effectColor'/>
-                <img src="logo.svg"/>
-                <div className='w-1/2 h-[1px] bg-effectColor'/>
-          </div>
+                <div className='w-full flex items-center'>
+                      <div className='w-1/2 h-[1px] bg-effectColor'/>
+                      <img src="logo.svg"/>
+                      <div className='w-1/2 h-[1px] bg-effectColor'/>
+                </div>
 
-          {/* //!third section */}
+                {/* //!third section */}
 
-          <div className='w-full flex flex-col space-y-10'>
+                <div className='w-full flex flex-col space-y-10'>
 
-                {
-                  shippingAndPaymentInfo == 'transfer' && (
-                    <>
+                      {
+                        shippingAndPaymentInfo == 'transfer' && (
+                          <>
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }} className='self-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات الدفع والتحويل</motion.div>
+                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                                  transition={{ ease: "easeInOut", duration: 1 }} className='self-end text-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات الدفع والتحويل</motion.div>
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
+                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                                  transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
 
-                            <Activity type="دفع لمتجر" msg="دفع لمتجر أبو عبدو ماركت" value="1000000000000" date="02:30 PM 31/12/2023"/>
-                            <Activity type="دفع لمتجر" msg="دفع لمتجر أبو عبدو ماركت" value="1000000000000" date="02:30 PM 31/12/2023"/>
-                            <Activity type="تحويل" msg=" تحويل لحساب آخر" value="1000000000000" date="02:30 PM 31/12/2023"/>
-                            <Activity type="تحويل" msg="تحويل لحساب آخر" value="1000000000000" date="02:30 PM 31/12/2023"/>
-                            <Activity type="دفع لمتجر" msg="دفع لمتجر أبو عبدو ماركت" value="1000000000000" date="02:30 PM 31/12/2023"/>
+                                  {
+                                      ( actions.length !== 0 ) ? (
 
-                        </motion.div>
+                                        actions.map((action,index)=>{
+                                          const formattedDate= new Date(action.createdAt).toLocaleString();
+                                          return <Activity key={index} type={action.senderAction} msg={action.senderDetails} value={action.amountValue} date={formattedDate}/>
+                                        })
 
-                    </>
-                  )
-                }
+                                      ) : (
 
-                {
-                  ( shippingAndPaymentInfo == 'shipping' ) && (
-                    <>
+                                        <div className='flex justify-center items-center'>
+                                          <Lottie animationData={emptyResult} loop={true} />
+                                        </div>
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }} className='self-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات الشحن</motion.div>
+                                      )
+                                  }
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
+                              </motion.div>
 
-                            <Activity type="شحن" msg=" شحن رصيد الحساب " value="1000000000000" date="02:30 PM 31/12/2023"/>
-                            <Activity type="شحن" msg="شحن رصيد الحساب" value="1000000000000" date="02:30 PM 31/12/2023"/>
-                            <Activity type="شحن" msg=" شحن رصيد الحساب" value="1000000000000" date="02:30 PM 31/12/2023"/>
-                            <Activity type="شحن" msg="شحن رصيد الحساب" value="1000000000000" date="02:30 PM 31/12/2023"/>
-                            <Activity type="شحن" msg="شحن رصيد الحساب" value="1000000000000" date="02:30 PM 31/12/2023"/>
+                          </>
+                        )
+                      }
 
-                        </motion.div>
-                    
-                    </>
-                  )
-                }
+                      {
+                        ( shippingAndPaymentInfo == 'shipping' ) && (
+                          <>
 
-                {
-                  ( shippingAndPaymentInfo == "withdraw" ) && (
+                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                                  transition={{ ease: "easeInOut", duration: 1 }} className='self-end text-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات الشحن</motion.div>
 
-                    <>
+                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                                  transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }} className='self-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات السحب</motion.div>
+                                  {
+                                      ( shippingActions.length !== 0 ) ? (
 
-                        <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
+                                        shippingActions.map((action,index)=>{
+                                          const formattedDate= new Date(action.createdAt).toLocaleString();
+                                          return <Activity key={index} type={action.senderAction} msg={action.senderDetails} value={action.amountValue} date={formattedDate}/>
+                                        })
 
-                          <Activity type="سحب" msg=" سحب رصيد الحساب " value="1000000000000" date="02:30 PM 31/12/2023"/>
-                          <Activity type="سحب" msg="سحب رصيد الحساب" value="1000000000000" date="02:30 PM 31/12/2023"/>
-                          <Activity type="سحب" msg=" سحب رصيد الحساب" value="1000000000000" date="02:30 PM 31/12/2023"/>
-                          <Activity type="سحب" msg="سحب رصيد الحساب" value="1000000000000" date="02:30 PM 31/12/2023"/>
-                          <Activity type="سحب" msg="سحب رصيد الحساب" value="1000000000000" date="02:30 PM 31/12/2023"/>
+                                      ) : (
 
-                        </motion.div>
+                                        <div className='flex justify-center items-center'>
+                                          <Lottie animationData={emptyResult} loop={true} />
+                                        </div>
 
-                    </>
+                                      )
+                                  }
 
-                  )
-                }
+                              </motion.div>
+                          
+                          </>
+                        )
+                      }
 
+                      {
+                        ( shippingAndPaymentInfo == "withdraw" ) && (
 
-          </div>
+                          <>
 
-        </div>
+                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                                  transition={{ ease: "easeInOut", duration: 1 }} className='self-end text-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات السحب</motion.div>
+
+                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
+                                  transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
+
+                                  {
+                                      ( withdrawActions.length !== 0 ) ? (
+
+                                        withdrawActions.map((action,index)=>{
+                                          const formattedDate= new Date(action.createdAt).toLocaleString();
+                                          return <Activity key={index} type={action.senderAction} msg={action.senderDetails} value={action.amountValue} date={formattedDate}/>
+                                        })
+
+                                      ) : (
+
+                                        <div className='flex justify-center items-center'>
+                                          <Lottie animationData={emptyResult} loop={true} />
+                                        </div>
+
+                                      )
+                                  }
+
+                              </motion.div>
+
+                          </>
+
+                        )
+                      }
+
+
+                </div>
+
+              </div>
+            </>
+          ) : (
+            <FailToGet/>
+          )
+        }
     </>
   )
 }
 
 export default ShippingAndPayment
+
+export const getServerSideProps= async (context) =>{
+
+    const cookies=parseCookies(context);
+    const token=cookies.token;
+
+    try {
+
+          const res = await axios.get(`${process.env.server_url}/api/v1.0/transaction/getShipping`,{
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          setCookie(context, 'role', res.data.role, {
+            path:'/',
+            secure:true,
+            sameSite:'none'
+          })
+
+          return {
+            props : {
+              success : true ,
+              balance : res.data.balance ,
+              totalPayment : res.data.totalPayment ,
+              totalIncome : res.data.totalIncome ,
+              actions : res.data.actions !== undefined ? res.data.actions : [] 
+            }
+          }
+  
+    } catch (error) {
+
+          if(error?.response?.status == 401){
+
+            return {
+              redirect: {
+                destination: '/login',
+                permanent: false, // Set to false if it's a temporary redirect
+              },
+            }
+
+          }else{
+
+              return {
+                props : {
+                  success : false
+                }
+              }
+
+          }
+      
+    }
+}

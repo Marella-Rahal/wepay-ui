@@ -731,6 +731,18 @@ export const getServerSideProps = wrapper.getServerSideProps( store => async (co
             },
           });
 
+          setCookie(context, 'imgURL', res.data.user.imgURL, {
+            path:'/',
+            secure:true,
+            sameSite:'none'
+          })
+
+          setCookie(context, 'role', res.data.user.role, {
+            path:'/',
+            secure:true,
+            sameSite:'none'
+          })
+
           store.dispatch(saveUser(res.data.user))
 
           return {

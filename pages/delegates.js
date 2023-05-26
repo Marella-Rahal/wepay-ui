@@ -11,6 +11,8 @@ import { wrapper } from '../Redux/Store'
 import { filterByCity, filterByCityAndName, filterByName, saveDelegates, selectDelegates, selectFilteredDelegates } from '../Redux/Slices/delegatesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { parseCookies } from 'nookies';
+import Lottie from "lottie-react";
+import emptyResult from "../public/empty.json";
 
 function Delegates( { success } ) {
 
@@ -191,9 +193,15 @@ function Delegates( { success } ) {
                 <div className="flex flex-wrap justify-evenly mx-4 md:mx-8">
 
                   {
-                      delegatesDisplayed.map((value, index) => {
-                        return <DelegateInfo delegate={value} key={index} />;
-                      })
+                      (delegatesDisplayed.length !== 0) ? (
+                        delegatesDisplayed.map((value, index) => {
+                          return <DelegateInfo delegate={value} key={index} />;
+                        })
+                      ) : (
+                        <div className='flex justify-center items-center'>
+                          <Lottie animationData={emptyResult} loop={true} />
+                        </div>
+                      )
                   }
 
                 </div>
