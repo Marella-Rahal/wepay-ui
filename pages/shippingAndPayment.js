@@ -15,22 +15,114 @@ import axios from 'axios';
 import FailToGet from '../components/FailToGet'
 import Lottie from "lottie-react";
 import emptyResult from "../public/empty.json";
+import { ThreeDots } from 'react-loader-spinner'
 
 const ShippingAndPayment = (props) => {
 
-  const [actions,setActions]=useState(props.actions)
-  const [shippingActions,setShippingActions]=useState([])
-  const [withdrawActions,setWithdrawActions]=useState([])
+  const cookies = parseCookies();
+  const token = cookies.token;
+  const [sendingStatus,setSendingStatus]=useState(false);
 
   const [shippingAndPaymentInfo,setShippingAndPaymentInfo]=useState('transfer');
   const [typeOfShipping,setTypeOfShipping]=useState('general');
   const [typeOfWithdraw,setTypeOfWithdraw]=useState('general');
+
+  const [actions,setActions]=useState(props.actions)
+  const [shippingActions,setShippingActions]=useState()
+  const [withdrawActions,setWithdrawActions]=useState()
+
+  const getShippingActions = async () => {
+
+    if(shippingActions === undefined){
+
+      try {
+      
+        setSendingStatus(true);
+
+        const res= await axios.get(`${process.env.server_url}/api/v1.0/transaction/getActions?actionType=deposit`, {
+          headers : {
+            Authorization : `Bearer ${token}`
+          }
+        })
+  
+        const info = res.data.data;
+  
+        info !== undefined ? setShippingActions(info.slice(0,5)) : setShippingActions([]) ;
+  
+        setShippingAndPaymentInfo("shipping");
+
+        setSendingStatus(false);
+  
+      } catch (error) {
+
+        setSendingStatus(false);
+  
+        alert(error?.response?.data?.message)
+        
+      }
+
+    }else{
+
+      setShippingAndPaymentInfo("shipping")
+
+    }
+
+  }
+
+  const getWithdrawActions = async () => {
+
+    if(withdrawActions === undefined){
+
+      try {
+      
+        setSendingStatus(true);
+
+        const res= await axios.get(`${process.env.server_url}/api/v1.0/transaction/getActions?actionType=withdraw`, {
+          headers : {
+            Authorization : `Bearer ${token}`
+          }
+        })
+  
+        const info = res.data.data;
+  
+        info !== undefined ? setWithdrawActions(info.slice(0,5)) : setWithdrawActions([]) ;
+  
+        setShippingAndPaymentInfo("withdraw");
+
+        setSendingStatus(false);
+  
+      } catch (error) {
+
+        setSendingStatus(false);
+  
+        alert(error?.response?.data?.message)
+        
+      }
+
+    }else{
+
+      setShippingAndPaymentInfo("withdraw")
+
+    }
+
+  }
 
   return (
     <>  
         {
           props.success ? (
             <>
+              { 
+                sendingStatus && (
+                  <div className='fixed z-[100] w-full h-full bg-black/30 flex justify-center items-center'>
+                    <ThreeDots
+                      width="75"
+                      color="white"
+                      visible={true}
+                    /> 
+                  </div>
+                )
+              }
               <Navbar/>
               <div className='pt-28 pb-14 px-4 md:px-8 w-full min-h-screen bg-bgColor shadow-bgShadow flex flex-col space-y-10'>
 
@@ -172,12 +264,12 @@ const ShippingAndPayment = (props) => {
                         </div>
 
                         <div className={shippingAndPaymentInfo=='shipping'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'} 
-                        onClick={()=>setShippingAndPaymentInfo("shipping")}>
+                        onClick={getShippingActions}>
                                   شحن الرصيد 
                         </div>
 
                         <div className={shippingAndPaymentInfo=='withdraw'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'}
-                        onClick={()=>setShippingAndPaymentInfo("withdraw")}>
+                        onClick={getWithdrawActions}>
                                   سحب الرصيد 
                         </div>
 
