@@ -337,7 +337,7 @@ const ShippingAndPayment = (props) => {
 
                                         shippingActions.map((action,index)=>{
                                           const formattedDate= new Date(action.createdAt).toLocaleString();
-                                          return <Activity key={index} type={action.senderAction} msg={action.senderDetails} value={action.amountValue} date={formattedDate}/>
+                                          return <Activity key={index} type={action.reciverAction} msg={action.reciverDetails} value={action.amountValue} date={formattedDate}/>
                                         })
 
                                       ) : (
