@@ -16,12 +16,16 @@ import FailToGet from '../components/FailToGet'
 import Lottie from "lottie-react";
 import emptyResult from "../public/empty.json";
 import { ThreeDots } from 'react-loader-spinner'
+import NotePopUp from '../components/PopUp/NotePopUp'
+import { wrapper } from '../Redux/Store';
+import { saveUser } from '../Redux/Slices/userSlice';
 
 const ShippingAndPayment = (props) => {
 
   const cookies = parseCookies();
   const token = cookies.token;
   const [sendingStatus,setSendingStatus]=useState(false);
+  const [noteMsg,setNoteMsg]=useState("");  
 
   const [shippingAndPaymentInfo,setShippingAndPaymentInfo]=useState('transfer');
   const [typeOfShipping,setTypeOfShipping]=useState('general');
@@ -123,6 +127,7 @@ const ShippingAndPayment = (props) => {
                   </div>
                 )
               }
+              <NotePopUp noteMsg={noteMsg}/>
               <Navbar/>
               <div className='pt-28 pb-14 px-4 md:px-8 w-full min-h-screen bg-bgColor shadow-bgShadow flex flex-col space-y-10'>
 
@@ -137,9 +142,9 @@ const ShippingAndPayment = (props) => {
                         shippingAndPaymentInfo == 'transfer' && (
 
                               <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                              transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex justify-end'>
+                              transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex justify-center'>
 
-                                <Transfer/>
+                                <Transfer setSendingStatus={setSendingStatus} setNoteMsg={setNoteMsg} setActions={setActions}/>
 
                               </motion.div>
 
@@ -152,13 +157,13 @@ const ShippingAndPayment = (props) => {
                         ( shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'general' ) && (
 
                             <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
+                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 md:space-y-20 items-center text-center font-semibold'>
 
                               <span className='w-[90%] md:w-[50%]'>اختر طريقة الشحن المستخدمة</span>
 
-                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('haram')}>شركة الهرم للحوالات المالية</button>
-                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('syriatel')}>Syriatel Cash سيرياتيل كاش </button>
-                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfShipping('bimo')}>بنك بيمو السعودي الفرنسي</button>
+                              <button className='w-[90%] md:w-[80%] md:py-5' onClick={()=>setTypeOfShipping('haram')}>شركة الهرم للحوالات المالية</button>
+                              <button className='w-[90%] md:w-[80%] md:py-5' onClick={()=>setTypeOfShipping('syriatel')}>Syriatel Cash سيرياتيل كاش </button>
+                              <button className='w-[90%] md:w-[80%] md:py-5' onClick={()=>setTypeOfShipping('bimo')}>بنك بيمو السعودي الفرنسي</button>
 
                             </motion.div>
 
@@ -204,13 +209,13 @@ const ShippingAndPayment = (props) => {
                         ( shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'general' ) && (
 
                             <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col justify-between space-y-10 items-center text-center font-semibold'>
+                            transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 md:space-y-20 items-center text-center font-semibold'>
 
                               <span className='w-[90%] md:w-[50%]'>اختر طريقة السحب المستخدمة</span>
 
-                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('haram')}>شركة الهرم للحوالات المالية</button>
-                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('syriatel')}>Syriatel Cash سيرياتيل كاش </button>
-                              <button className='w-[90%] md:w-[50%] md:py-5' onClick={()=>setTypeOfWithdraw('bimo')}>بنك بيمو السعودي الفرنسي</button>
+                              <button className='w-[90%] md:w-[80%] md:py-5' onClick={()=>setTypeOfWithdraw('haram')}>شركة الهرم للحوالات المالية</button>
+                              <button className='w-[90%] md:w-[80%] md:py-5' onClick={()=>setTypeOfWithdraw('syriatel')}>Syriatel Cash سيرياتيل كاش </button>
+                              <button className='w-[90%] md:w-[80%] md:py-5' onClick={()=>setTypeOfWithdraw('bimo')}>بنك بيمو السعودي الفرنسي</button>
 
                             </motion.div>
 
@@ -256,7 +261,7 @@ const ShippingAndPayment = (props) => {
 
                   {/* //!right section */}
 
-                  <TotalCash balance={props.balance} totalIncome={props.totalIncome} totalPayment={props.totalPayment}>
+                  <TotalCash>
 
                         <div className={shippingAndPaymentInfo=="transfer"?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':"text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center"} 
                         onClick={()=>setShippingAndPaymentInfo("transfer")}>
@@ -405,7 +410,7 @@ const ShippingAndPayment = (props) => {
 
 export default ShippingAndPayment
 
-export const getServerSideProps= async (context) =>{
+export const getServerSideProps = wrapper.getServerSideProps( store => async (context) =>{
 
     const cookies=parseCookies(context);
     const token=cookies.token;
@@ -418,18 +423,23 @@ export const getServerSideProps= async (context) =>{
             },
           });
 
-          setCookie(context, 'role', res.data.role, {
+          setCookie(context, 'role', res.data.user.role, {
             path:'/',
             secure:true,
             sameSite:'none'
           })
 
+          setCookie(context, 'imgURL',res.data.user.imgURL, {
+            path:'/',
+            secure:true,
+            sameSite:'none'
+          })
+
+          store.dispatch(saveUser(res.data.user))
+
           return {
             props : {
               success : true ,
-              balance : res.data.balance ,
-              totalPayment : res.data.totalPayment ,
-              totalIncome : res.data.totalIncome ,
               actions : res.data.actions !== undefined ? res.data.actions : [] 
             }
           }
@@ -456,4 +466,4 @@ export const getServerSideProps= async (context) =>{
           }
       
     }
-}
+})
