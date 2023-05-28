@@ -95,8 +95,6 @@ const ShippingHaram = (props) => {
             }
         })
 
-        console.log(res.data)
-
         props.setShippingActions( (prev) => [res.data.activity,...prev.slice(0,4)] );
             
         dispatch(saveUser(res.data.user));
