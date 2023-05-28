@@ -175,7 +175,7 @@ const ShippingAndPayment = (props) => {
                           <motion.div initial={{opacity:0}} animate={{opacity:1}}
                           transition={{ ease: "easeInOut", duration: 1 }} className="w-full">
 
-                            <ShippingHaram setTypeOfShipping={setTypeOfShipping}/>  
+                            <ShippingHaram setTypeOfShipping={setTypeOfShipping} setSendingStatus={setSendingStatus} setNoteMsg={setNoteMsg} setShippingActions={setShippingActions}/>  
 
                           </motion.div>
                         )
