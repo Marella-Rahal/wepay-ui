@@ -85,10 +85,13 @@ const ShippingSyriatel = (props) => {
         <div className='flex flex-col space-y-5 w-full xl:w-fit'>
 
             {/* //! one */}
-            <div className='flex flex-col space-y-3'>
+            <div className='flex flex-col space-y-2'>
+                
                 <div className='text-effectColor text-md md:text-lg'>   سيرياتيل كاش - syriatel cash</div>
 
                 <diV>: بيانات استقبال الرصيد</diV>
+
+                <div>اسم المستقبل : علي حسن الديوب</div>
 
                 <div>رقم المستقبل : 0912345678</div>
 

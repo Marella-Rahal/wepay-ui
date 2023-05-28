@@ -130,11 +130,10 @@ const ShippingHaram = (props) => {
                 <div className='text-effectColor text-md md:text-lg'>شركة الهرم للحوالات المالية</div>
 
                 <div>: بيانات استقبال الرصيد  </div>
-
-                <div className='flex flex-col space-y-1'>
-                    <div>اسم المستقبل : علي حسن الديوب</div>
-                    <div>عنوان المستقبل : حمص</div>
-                </div>
+                
+                <div>اسم المستقبل : علي حسن الديوب</div>
+                
+                <div>عنوان المستقبل : حمص</div>
 
                 <div>رقم المستقبل : 0987654321</div>
                 
