@@ -34,7 +34,7 @@ const ShippingBimo = (props) => {
     }
 
     if( accountID.length !== 7 ){
-      setNoteMsg(
+      props.setNoteMsg(
         <h5 className='text-red-600 text-center flex flex-col justify-center items-center'>
             <span>رقم حساب بنك بيمو غير صالح</span>
             <span>يجب أن يكون مؤلف من 7 أرقام </span>
