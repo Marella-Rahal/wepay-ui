@@ -124,7 +124,8 @@ const ShippingSyriatel = (props) => {
                 <input 
                 type="number" 
                 required
-                max={250000}
+                min={100}
+                max={1000000}
                 value={amountValue}
                 onChange={e=>setAmountValue(e.target.value)} 
                 className='outline-none shadow-lg text-start'/>

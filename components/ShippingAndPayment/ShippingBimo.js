@@ -121,6 +121,8 @@ const ShippingBimo = (props) => {
                 <input 
                 type="number" 
                 required
+                min={100}
+                max={2000000}
                 value={amountValue}
                 onChange={e=>setAmountValue(e.target.value)} 
                 className='outline-none shadow-lg text-start'/>

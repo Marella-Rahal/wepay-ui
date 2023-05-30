@@ -118,7 +118,8 @@ const WithdrawSyriatel = (props) => {
                     <input 
                     type="number" 
                     required
-                    max={250000}
+                    min={100}
+                    max={1000000}
                     value={amountValue}
                     onChange={e=>setAmountValue(e.target.value)} 
                     className='outline-none shadow-lg w-1/2 text-start'/>

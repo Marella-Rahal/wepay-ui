@@ -186,14 +186,14 @@ const Transfer = (props) => {
                     <input 
                     type="number" 
                     required
-                    max={2000000}
+                    min={100}
                     value={confirmAmountValue}
                     onChange={(e) => setConfirmAmountValue(e.target.value) } 
                     className='w-1/2 outline-none shadow-lg text-start'/>
                     <input 
                     type="number" 
                     required
-                    max={2000000}
+                    min={100}
                     value={amountValue}
                     onChange={(e) => setAmountValue(e.target.value) } 
                     className='w-1/2 outline-none shadow-lg text-start'/>

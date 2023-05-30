@@ -196,6 +196,7 @@ const ShippingHaram = (props) => {
                     <input 
                     type="number" 
                     required
+                    min={5000}
                     max={2000000}
                     value={amountValue}
                     onChange={e => setAmountValue(e.target.value)} 
