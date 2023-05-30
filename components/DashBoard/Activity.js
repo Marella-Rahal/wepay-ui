@@ -13,7 +13,7 @@ const Activity = (props) => {
                         props.status ? (
                             <>
                                 <span>تمت بنجاح</span>
-                                <IoCheckmarkDoneCircle className='text-effectColor text-[18px]'/>
+                                <IoCheckmarkDoneCircle className='text-[18px]'/>
                             </>
                         ) : (
                             <>
