@@ -69,6 +69,14 @@ const ShippingSyriatel = (props) => {
         setProcessNumber('');
 
         props.setSendingStatus(false);
+ 
+        props.setNoteMsg(
+            <h5 className='text-red-600 text-center flex flex-col justify-center items-center'>
+                <span> {res.data.message} </span>   
+            </h5>
+          );
+  
+        showPopUpNote();
         
     } catch (error) {
 
