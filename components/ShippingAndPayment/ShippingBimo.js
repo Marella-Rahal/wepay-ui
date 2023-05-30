@@ -96,7 +96,7 @@ const ShippingBimo = (props) => {
 
               <div className='text-effectColor text-md md:text-lg'>بنك بيمو السعودي الفرنسي</div>
 
-                <diV>: بيانات استقبال الرصيد</diV>
+                <diV>: بيانات المستقبل</diV>
 
                 <div>اسم المستقبل : علي حسن الديوب</div>
 

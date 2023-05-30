@@ -97,7 +97,7 @@ const ShippingSyriatel = (props) => {
                 
                 <div className='text-effectColor text-md md:text-lg'>   سيرياتيل كاش - syriatel cash</div>
 
-                <diV>: بيانات استقبال الرصيد</diV>
+                <diV>: بيانات المستقبل </diV>
 
                 <div>اسم المستقبل : علي حسن الديوب</div>
 

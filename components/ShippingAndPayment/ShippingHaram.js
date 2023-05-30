@@ -137,7 +137,7 @@ const ShippingHaram = (props) => {
 
                 <div className='text-effectColor text-md md:text-lg'>شركة الهرم للحوالات المالية</div>
 
-                <div>: بيانات استقبال الرصيد  </div>
+                <div>: بيانات المستقبل  </div>
                 
                 <div>اسم المستقبل : علي حسن الديوب</div>
                 
