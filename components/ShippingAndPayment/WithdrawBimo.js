@@ -128,7 +128,7 @@ const WithdrawBimo = (props) => {
 
             {/* //! four */}
             <div className='flex flex-col space-y-3'>
-              <label className='text-effectColor pr-2'>رمز ال PIN</label>
+              <label className='text-effectColor pr-2'>PIN رمز ال</label>
               <input 
               type="number" 
               required

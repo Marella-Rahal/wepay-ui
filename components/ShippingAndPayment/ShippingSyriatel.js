@@ -120,7 +120,18 @@ const ShippingSyriatel = (props) => {
 
             {/* //! three */}
             <div className='flex flex-col space-y-3'>
-                <label className='text-effectColor pr-2'>قيمة المبلغ  المرسل</label>
+                <label className='text-effectColor pr-2'>رقم عملية التحويل</label>
+                <input 
+                type="number" 
+                required
+                value={processNumber}
+                onChange={e=>setProcessNumber(e.target.value)} 
+                className='outline-none shadow-lg text-start'/>
+            </div>
+
+            {/* //! four */}
+            <div className='flex flex-col space-y-3'>
+                <label className='text-effectColor pr-2'>قيمة المبلغ  المرسل بدون عمولة</label>
                 <input 
                 type="number" 
                 required
@@ -128,17 +139,6 @@ const ShippingSyriatel = (props) => {
                 max={1000000}
                 value={amountValue}
                 onChange={e=>setAmountValue(e.target.value)} 
-                className='outline-none shadow-lg text-start'/>
-            </div>
-
-            {/* //! four */}
-            <div className='flex flex-col space-y-3'>
-                <label className='text-effectColor pr-2'>رقم عملية التحويل</label>
-                <input 
-                type="number" 
-                required
-                value={processNumber}
-                onChange={e=>setProcessNumber(e.target.value)} 
                 className='outline-none shadow-lg text-start'/>
             </div>
 

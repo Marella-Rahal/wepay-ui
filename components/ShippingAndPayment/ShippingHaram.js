@@ -192,7 +192,7 @@ const ShippingHaram = (props) => {
                     onChange={e => setSenderPhone(e.target.value)} 
                     className='outline-none shadow-lg text-start'/>
 
-                    <label className='pr-2'>قيمة المبلغ المرسل</label>
+                    <label className='pr-2'>قيمة المبلغ المرسل بدون عمولة</label>
                     <input 
                     type="number" 
                     required

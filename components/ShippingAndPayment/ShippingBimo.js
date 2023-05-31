@@ -117,6 +117,17 @@ const ShippingBimo = (props) => {
 
             {/* //! three */}
             <div className='flex flex-col space-y-3'>
+                <label className='text-effectColor pr-2'>رقم حساب بنك بيمو للمرسل</label>
+                <input 
+                type="number" 
+                required
+                value={accountID}
+                onChange={e=>setAccountID(e.target.value)} 
+                className='outline-none shadow-lg text-start'/>
+            </div>
+
+            {/* //! four */}
+            <div className='flex flex-col space-y-3'>
                 <label className='text-effectColor pr-2'>قيمة المبلغ المرسل بدون عمولة</label>
                 <input 
                 type="number" 
@@ -125,17 +136,6 @@ const ShippingBimo = (props) => {
                 max={2000000}
                 value={amountValue}
                 onChange={e=>setAmountValue(e.target.value)} 
-                className='outline-none shadow-lg text-start'/>
-            </div>
-
-            {/* //! four */}
-            <div className='flex flex-col space-y-3'>
-                <label className='text-effectColor pr-2'>رقم حساب بنك بيمو للمرسل</label>
-                <input 
-                type="number" 
-                required
-                value={accountID}
-                onChange={e=>setAccountID(e.target.value)} 
                 className='outline-none shadow-lg text-start'/>
             </div>
 

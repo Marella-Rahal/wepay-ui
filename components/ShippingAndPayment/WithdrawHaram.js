@@ -127,7 +127,7 @@ const WithdrawHaram = (props) => {
             <div className='w-full flex flex-col space-y-3'>
 
                 <div className='w-full flex space-x-5 items-center text-effectColor'>
-                    <label className='w-1/2 pr-2'>قيمة المبلغ</label>
+                    <label className='w-1/2 pr-2'>قيمة المبلغ المراد سحبه مع مراعاة العمولة</label>
                     <label className='w-1/2 pr-2'>اسم المستقبل</label>
                 </div>
 
