@@ -104,7 +104,7 @@ const WithdrawBimo = (props) => {
 
             {/* //! two */}
             <div className='flex flex-col space-y-3'>
-                <label className='text-effectColor pr-2'>رقم حساب بنك بيمو </label>
+                <label className='text-effectColor pr-2'> رقم حساب بنك بيمو للمستقبل </label>
                 <input 
                 type="number" 
                 required
@@ -115,7 +115,7 @@ const WithdrawBimo = (props) => {
 
             {/* //! three */}
             <div className='flex flex-col space-y-3'>
-                <label className='text-effectColor pr-2'>قيمة المبلغ المراد سحبه مع مراعاة العمولة</label>
+                <label className='text-effectColor pr-2'>قيمة المبلغ المراد سحبه </label>
                 <input 
                 type="number" 
                 required

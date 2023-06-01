@@ -128,7 +128,7 @@ const ShippingBimo = (props) => {
 
             {/* //! four */}
             <div className='flex flex-col space-y-3'>
-                <label className='text-effectColor pr-2'>قيمة المبلغ المرسل بدون عمولة</label>
+                <label className='text-effectColor pr-2'>قيمة المبلغ المرسل </label>
                 <input 
                 type="number" 
                 required

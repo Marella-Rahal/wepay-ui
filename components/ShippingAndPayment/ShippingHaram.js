@@ -18,6 +18,7 @@ const ShippingHaram = (props) => {
 
   const [senderName,setSenderName]=useState('');
   const [senderPhone,setSenderPhone]=useState(user?.haram !== undefined ? user?.haram : '');
+  const [senderCity,setSenderCity]=useState('');
   const [processNumber,setProcessNumber]=useState('');
   const [amountValue,setAmountValue]=useState('')  
   const [processImageUrl,setProcessImageUrl]=useState('')
@@ -80,6 +81,7 @@ const ShippingHaram = (props) => {
     const fd=new FormData();
     fd.append('senderName',senderName);
     fd.append('senderPhone',senderPhone);
+    fd.append('senderCity',senderCity);
     fd.append('amountValue',amountValue);
     fd.append('processNumber',processNumber);
     fd.append('processImageUrl',processImageUrl,processImageUrl.name);
@@ -101,6 +103,7 @@ const ShippingHaram = (props) => {
 
         setSenderName('');
         setSenderPhone(user?.haram !== undefined ? user?.haram : '');
+        setSenderCity('');
         setAmountValue('');
         setProcessNumber('');
         setProcessImageUrl('');
@@ -130,7 +133,7 @@ const ShippingHaram = (props) => {
     onSubmit={shippingHaram}
     className='w-full flex flex-col space-y-5 md:space-y-10 justify-between items-end text-end text-sm'>
 
-        <div className='w-full flex flex-col space-y-5'>
+        <div className='w-full flex flex-col space-y-3'>
 
             {/* //! one */}
             <div className='flex flex-col space-y-1'>
@@ -140,17 +143,19 @@ const ShippingHaram = (props) => {
                 <div>: بيانات المستقبل  </div>
                 
                 <div>اسم المستقبل : علي حسن الديوب</div>
-                
-                <div>عنوان المستقبل : حمص</div>
 
                 <div>رقم المستقبل : 0987654321</div>
+                
+                <div>عنوان المستقبل : حمص</div>
                 
             </div>
 
             {/* //! two */}
             <div className='w-full flex flex-col-reverse md:flex-row'>
 
-                <div className='md:w-1/2 md:pr-3 pt-3 md:py-3 text-effectColor md:border-r-[1px] border-effectColor flex flex-col space-y-3'>
+                <div className='md:w-1/2 md:pr-3 pt-3 md:py-3 text-effectColor md:border-r-[1px] border-effectColor flex flex-col'>
+                    
+                    
 
                     <label className='w-full pr-2'>رقم عملية الإرسال</label>
                     <input 
@@ -158,23 +163,23 @@ const ShippingHaram = (props) => {
                     required
                     value={processNumber}
                     onChange={e => setProcessNumber(e.target.value)} 
-                    className='outline-none shadow-lg text-start'/>
+                    className='outline-none shadow-lg text-start my-1'/>
 
                     <label className='w-full pr-2'>صورة الوصل</label>
 
-                    <label htmlFor='imgHaram' className='bg-[gray] text-textColor2 shadow-lg rounded-lg px-3 py-2 cursor-pointer text-center'>رفع ملف</label>
+                    <label htmlFor='imgHaram' className='bg-[gray] text-textColor2 shadow-lg rounded-lg px-3 py-2 cursor-pointer text-center my-1'> رفع ملف</label>
                     <input 
                     accept="image/*" 
                     type='file' 
                     className='hidden' 
                     id="imgHaram" onChange={updateImage}/>
 
-                    <img src={previewProcessImageUrl} className='self-center w-[150px] h-[200px] md:w-[100px] md:h-[90px]'/>
+                    <img src={previewProcessImageUrl} className='self-center w-[150px] h-[200px] md:w-[100px] md:h-[125px] mt-1'/>
 
 
                 </div>
 
-                <div className='md:w-1/2 md:pl-3 md:py-3 text-effectColor flex flex-col space-y-3'>
+                <div className='md:w-1/2 md:pl-3 md:py-3 text-effectColor flex flex-col space-y-1'>
 
                     <label className='w-full pr-2'>اسم المرسل</label>
                     <input 
@@ -192,7 +197,31 @@ const ShippingHaram = (props) => {
                     onChange={e => setSenderPhone(e.target.value)} 
                     className='outline-none shadow-lg text-start'/>
 
-                    <label className='pr-2'>قيمة المبلغ المرسل بدون عمولة</label>
+                    <label className='pr-2'>عنوان المرسل</label>
+                    <select 
+                    name='city' 
+                    className='outline-none shadow-lg bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'
+                    required
+                    value={senderCity}
+                    onChange={(e)=>setSenderCity(e.target.value)}>
+                              <option value="">المحافظة</option>
+                              <option value="Aleppo">حلب</option>
+                              <option value="Damascus">دمشق</option>
+                              <option value="Homs">حمص</option>
+                              <option value="Hama">حماة</option>
+                              <option value="Latakia">اللاذقية</option>
+                              <option value="Deir ez-Zor">دير الزور</option>
+                              <option value="As-Suwayda">السويداء</option>
+                              <option value="Ar-Raqqah">الرقة</option>
+                              <option value="Al-Hasakah">الحسكة</option>
+                              <option value="Damascus countryside">ريف دمشق</option>
+                              <option value="Daraa">درعا</option>
+                              <option value="Idlib">إدلب</option>
+                              <option value="Tartus">طرطوس</option>
+                              <option value="Quneitra">القنيطرة</option>
+                    </select>
+
+                    <label className='pr-2'>قيمة المبلغ المرسل </label>
                     <input 
                     type="number" 
                     required

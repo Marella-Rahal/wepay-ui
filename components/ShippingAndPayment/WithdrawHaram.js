@@ -116,9 +116,9 @@ const WithdrawHaram = (props) => {
 
                 <div>اسم المرسل : علي حسن الديوب</div>
 
-                <div>عنوان المستقبل : حمص</div>
-
                 <div>رقم المرسل : 0912345678</div>
+
+                <div>عنوان المرسل : حمص</div>
 
             </div>
 
@@ -127,43 +127,14 @@ const WithdrawHaram = (props) => {
             <div className='w-full flex flex-col space-y-3'>
 
                 <div className='w-full flex space-x-5 items-center text-effectColor'>
-                    <label className='w-1/2 pr-2'>قيمة المبلغ المراد سحبه مع مراعاة العمولة</label>
+                    <label className='w-1/2 pr-2'> عنوان المستقبل</label>
                     <label className='w-1/2 pr-2'>اسم المستقبل</label>
                 </div>
 
                 <div className='w-full flex space-x-5 items-center'>
-                    <input 
-                    type="number" 
-                    required
-                    min={5000}
-                    max={2000000}
-                    value={amountValue}
-                    onChange={e => setAmountValue(e.target.value)} 
-                    className='outline-none shadow-lg w-1/2 text-start'/>
-                    <input 
-                    type="text" 
-                    required
-                    value={reciverName}
-                    onChange={e => setReciverName(e.target.value)}
-                    className='outline-none shadow-lg w-1/2'/>
-                </div>
-
-            </div>
-
-            {/* //! three */}
-
-            <div className='w-full flex flex-col space-y-3'>
-
-                <div className='w-full flex space-x-5 items-center text-effectColor'>
-                    <label className='w-1/2 pr-2'>وجهة الحوالة</label>
-                    <label className='w-1/2 pr-2'>رقم هاتف المستقبل</label>
-                </div>
-
-                <div className='w-full flex space-x-5 items-center'>
-
                     <select 
                     name='city' 
-                    className='outline-none shadow-lg w-1/2 border focus:border-textColor bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'
+                    className='outline-none shadow-lg w-1/2 bg-textColor2 text-textColor text-end rounded-lg px-3 py-1'
                     required
                     value={reciverCity}
                     onChange={(e)=>setReciverCity(e.target.value)}>
@@ -183,6 +154,36 @@ const WithdrawHaram = (props) => {
                               <option value="Tartus">طرطوس</option>
                               <option value="Quneitra">القنيطرة</option>
                     </select>
+                    
+                    <input 
+                    type="text" 
+                    required
+                    value={reciverName}
+                    onChange={e => setReciverName(e.target.value)}
+                    className='outline-none shadow-lg w-1/2'/>
+                </div>
+
+            </div>
+
+            {/* //! three */}
+
+            <div className='w-full flex flex-col space-y-3'>
+
+                <div className='w-full flex space-x-5 items-center text-effectColor'>
+                    <label className='w-1/2 pr-2'>قيمة المبلغ المراد سحبه </label>
+                    <label className='w-1/2 pr-2'>رقم المستقبل</label>
+                </div>
+
+                <div className='w-full flex space-x-5 items-center'>
+
+                    <input 
+                    type="number" 
+                    required
+                    min={5000}
+                    max={2000000}
+                    value={amountValue}
+                    onChange={e => setAmountValue(e.target.value)} 
+                    className='outline-none shadow-lg w-1/2 text-start'/>
 
                     <input 
                     type="number" 
