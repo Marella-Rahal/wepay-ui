@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 function DelegateInfo( { delegate } ) {
@@ -7,10 +8,15 @@ function DelegateInfo( { delegate } ) {
       className="w-[190px] h-[240px] rounded-lg bg-effectColor text-center text-white flex flex-col items-center justify-center space-y-2 p-2 mx-[14px] my-7"
       style={{ boxShadow: '1px 1px 7px 5px rgba(0,0,0,0.15)' }}
     >
-      <div className='w-fit h-fit'>
-        <img
-          src={delegate.dealerImgURL}
-          className="w-[75px] h-[75px] rounded-lg bg-white shadow-md"
+      <div className='w-fit h-fit rounded-lg'>
+        <Image
+        src={delegate.dealerImgURL}
+        placeholder='blur'
+        blurDataURL={delegate.dealerImgURL}
+        loading="lazy"
+        width={75}
+        height={75}
+        className="rounded-lg bg-white shadow-md"
         />
       </div>
 
