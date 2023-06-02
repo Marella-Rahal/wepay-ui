@@ -69,7 +69,7 @@ const Navbar = () => {
                     
                     //! when the user is logged in
                     <div className='hidden md:flex space-x-3 lg:space-x-5 items-center'>
-                        <img src={imgURL} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 dark:shadow-none cursor-pointer' onClick={()=>{router.push('/profile')}}/>
+                        <img src={imgURL} className='rounded-full w-14 h-14 shadow-md shadow-gray-400 dark:shadow-none dark:border-[1px] dark:border-bgColor cursor-pointer' onClick={()=>{router.push('/profile')}}/>
 
                         {
                             (mounted && theme == 'light') && (
@@ -173,7 +173,7 @@ const Navbar = () => {
                     {
                         token && (
                             //! when the user is logged in
-                            <img src={imgURL} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 dark:shadow-none cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
+                            <img src={imgURL} className='rounded-full w-20 h-20 shadow-md shadow-gray-400 dark:shadow-none dark:border-[1px] dark:border-bgColor cursor-pointer' onClick={() => { router.push("/profile"); handleSideNav(); }}/>
                         )
                     }
 
