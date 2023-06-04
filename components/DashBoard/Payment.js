@@ -4,7 +4,7 @@ import {useRouter} from 'next/router';
 const Payment = (props) => {
   const router=useRouter()  
   return (
-    <div className='rounded-xl shadow-cardShadow px-3 py-5 flex flex-col space-y-10 w-full md:justify-between md:h-60 md:w-[350px] text-[12px] xs:text-sm my-5 md:mx-3'>
+    <div className='rounded-xl shadow-cardShadow px-3 py-5 flex flex-col space-y-10 w-full md:justify-between md:h-60 md:w-[350px] text-[12px] xs:text-sm text-textColor dark:text-textColor2 my-5 md:mx-3'>
 
         <div className='flex flex-col space-y-3'>
 

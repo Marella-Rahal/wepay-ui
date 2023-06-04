@@ -4,7 +4,7 @@ import React from 'react'
 const StatisticPayment = (props) => {
   const router=useRouter();  
   return (
-        <div className='px-2 py-4 text-[12px] xs:text-sm rounded-lg shadow-cardShadow flex flex-col-reverse items-center md:flex-row md:space-x-3 md:justify-between text-center md:h-40'>
+        <div className='px-2 py-4 text-[12px] xs:text-sm text-textColor dark:text-textColor2 rounded-lg shadow-cardShadow flex flex-col-reverse items-center md:flex-row md:space-x-3 md:justify-between text-center md:h-40'>
             <div className='flex flex-col space-y-3 mt-3 md:mt-0'>
                 {
                     (props.type != "قسط شهري" ) && (

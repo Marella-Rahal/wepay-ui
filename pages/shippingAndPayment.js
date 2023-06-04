@@ -132,7 +132,7 @@ const ShippingAndPayment = (props) => {
               <div className='pt-28 pb-14 px-4 md:px-8 w-full min-h-screen bg-bgColor shadow-bgShadow flex flex-col space-y-10'>
 
                 {/* //!first section */}
-                <div className='flex flex-col-reverse items-center md:flex-row md:space-x-10'>
+                <div className='flex flex-col-reverse md:flex-row md:space-x-10'>
 
                   {/* //!left section */}
 

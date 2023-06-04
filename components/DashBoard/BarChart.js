@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables);

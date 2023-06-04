@@ -1,11 +1,37 @@
 import React from 'react';
+import { useState } from 'react';
 import {AiFillCaretDown} from 'react-icons/ai';
 
-const DateClassification = () => {
-  return (
-    <div className='relative group w-fit text-[12px] md:text-base'>
+const DateClassification = (props) => {
+  
+  const [visible,setVisible]=useState(false);
 
-        <div className='p-2 rounded-lg shadow-cardShadow flex space-x-3 items-end cursor-pointer group-hover:scale-[1.05]'>
+  const handleDateFilter = (filterType) => {
+
+    const sortedData=[...props.filtered];
+
+    if(filterType == 'NTO'){
+      
+      sortedData.sort( (a,b)=> new Date(b.createdAt) - new Date(a.createdAt) )
+      
+    }else{
+
+      sortedData.sort( (a,b)=> new Date(a.createdAt) - new Date(b.createdAt) )
+
+    }
+
+    props.setFiltered( sortedData );
+
+    setVisible(false);
+
+  }
+
+  
+
+  return (
+    <div className='relative w-fit text-[12px] md:text-base select-none'>
+
+        <div onClick={ () => setVisible(prev=>!prev) } className='p-2 rounded-lg shadow-cardShadow flex space-x-3 items-end cursor-pointer hover:scale-[1.05]'>
 
           <div>
             <AiFillCaretDown className='w-4 h-4 md:w-5 md:h-5'/>
@@ -14,9 +40,9 @@ const DateClassification = () => {
         
         </div>
 
-        <div className='hidden group-hover:flex absolute bg-textColor2 rounded-md flex-col font-bold text-center'>
-            <div className='p-3 rounded-t-md cursor-pointer text-textColor hover:bg-textColor hover:text-textColor2 border-b-[1px] border-textColor'>من الأحدث إلى الأقدم</div>
-            <div className='p-3 rounded-b-md cursor-pointer text-textColor hover:bg-textColor hover:text-textColor2'>من الأقدم إلى الأحدث</div>
+        <div className={` ${ visible ? 'flex' : 'hidden' } absolute bg-textColor2 rounded-md flex-col text-sm font-semibold text-center`}>
+            <div className='p-3 rounded-t-md cursor-pointer text-textColor hover:bg-textColor hover:text-textColor2 border-b-[1px] border-textColor' onClick={()=>handleDateFilter("NTO")}>من الأحدث إلى الأقدم</div>
+            <div className='p-3 rounded-b-md cursor-pointer text-textColor hover:bg-textColor hover:text-textColor2' onClick={()=>handleDateFilter("OTN")}>من الأقدم إلى الأحدث</div>
         </div>
 
     </div>

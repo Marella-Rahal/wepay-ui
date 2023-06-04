@@ -7,7 +7,8 @@ const TotalCash = ({children}) => {
   const user = useSelector(selectUser);
 
   return (
-    <div className='w-full md:w-1/2 xl:w-1/3 shadow-cardShadow rounded-lg p-5 flex flex-col space-y-10 text-center font-bold'>
+    <div className='w-full md:w-1/2 xl:w-1/3 shadow-cardShadow rounded-lg p-5 flex flex-col justify-between space-y-10 text-center font-bold'>
+      
             <div className='flex pb-5 border-b-[1px] border-effectColor'>
 
                 <div className='h-24 px-2 w-1/2 flex flex-col justify-center space-y-3 border-r-[1px] border-effectColor text-[12px] xs:text-sm'>

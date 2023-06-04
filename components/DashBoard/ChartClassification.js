@@ -1,49 +1,36 @@
+import axios from 'axios';
+import { parseCookies } from 'nookies';
 import React from 'react';
+import { useState } from 'react';
 import {AiFillCaretDown} from 'react-icons/ai';
 
-const yearlyData = {
+const ChartClassification = (props) => {
 
-    labels: [
-      "Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec",
-    ],
-    datasets: [
-      {
-        label:"إجمالي الصرف خلال هذا الشهر ",
-        data:[
-          200,30,40,60,20,35,20,30,40,60,20,35,
-        ],
-        backgroundColor:["#3fb37f","#8488ED"],
-        hoverBackgroundColor:["#29b23d","#565bd0"],
-        borderRadius:10,
-      }
-    ]
-  
-}
+  const cookies=parseCookies();
+  const token=cookies.token;
+  const [visible,setVisible]=useState(false);
 
-const monthlyData = {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1 to get the actual month
+  const numberOfDays = new Date(currentYear, currentMonth, 0).getDate();
 
-    labels: [
-      "1","2","3","4","5","6","7","8","9","10","11","12",
-      "13","14","15","16","17","18","19","20","21","22",
-      "23","24","25","26","27","28","29","30","31"
-    ],
+  const [monthlyData,setMonthlyData]=useState({
+
+    labels: Array.from({ length: numberOfDays }, (_, index) => (index + 1).toString()),
     datasets: [
       {
         label:"إجمالي الصرف خلال هذا اليوم ",
-        data:[
-          20,320,400,600,20,35,20,30,40,20,2,30,
-          20,320,400,600,20,35,20,30,40,20,2,30,
-          20,320,400,600,20,35,20,
-        ],
+        data:Array(numberOfDays).fill(0),
         backgroundColor:["#3fb37f","#8488ED"],
         hoverBackgroundColor:["#29b23d","#565bd0"],
         borderRadius:10,
       }
     ]
   
-}
+  });
 
-const dailyData ={
+  const [dailyData,setDailyData]=useState({
 
     labels: [
         "12 AM","1 AM","2 AM","3 AM","4 AM","5 AM","6 AM","7 AM","8 AM","9 AM","10 AM","11 AM",
@@ -52,23 +39,118 @@ const dailyData ={
       datasets: [
         {
           label:"إجمالي الصرف خلال هذه الساعة ",
-          data:[
-            20,40,10,0,10,350,200,25,40,30,20,35,
-            20,40,10,0,10,350,200,25,40,30,20,35,
-          ],
+          data:Array(24).fill(0),
           backgroundColor:["#3fb37f","#8488ED"],
           hoverBackgroundColor:["#29b23d","#565bd0"],
           borderRadius:10,
         }
       ]
+  
+  });
 
-}
+  const [monthly,setMonthly]=useState(false);
+  const [daily,setDaily]=useState(false);
 
-const ChartClassification = (props) => {
+  const getCurrentYearData = () => {
+
+      setVisible(false);
+      props.setChartClass(props.yearlyData);
+
+  }
+
+  const getCurrentMonthData = async ()=>{
+
+        setVisible(false);
+
+        if(!monthly){
+
+            try {
+
+              props.setChartStatus(true);
+    
+              const res= await axios.get(`${process.env.server_url}/api/v1.0/transaction/getDaysChart`, {
+                  headers : {
+                      Authorization : `Bearer ${token}`
+                  }
+              })
+    
+              res.data.chartData.forEach( element => {
+                monthlyData.datasets[0].data[element._id - 1] = element.totalAmount
+              });
+    
+              props.setChartClass(monthlyData);
+    
+              props.setChartStatus(false);
+
+              setMonthly(true);
+            
+            } catch (error) {
+    
+              props.setChartStatus(false);
+    
+              alert(error?.response?.data?.message)
+              
+            }
+
+        }else{
+
+            props.setChartClass(monthlyData);
+
+        }
+
+        
+
+  }
+
+  const getCurrentDayData = async ()=>{
+
+        setVisible(false);
+
+        if(!daily){
+
+            try {
+
+              props.setChartStatus(true);
+    
+              const res= await axios.get(`${process.env.server_url}/api/v1.0/transaction/getHoursChart`, {
+                  headers : {
+                      Authorization : `Bearer ${token}`
+                  }
+              })
+    
+              res.data.chartData.forEach( element => {
+                dailyData.datasets[0].data[element._id + 3 >= 24 ? (element._id + 3) - 24 : element._id + 3 ] = element.totalAmount
+              });
+    
+              props.setChartClass(dailyData);
+    
+              props.setChartStatus(false);
+
+              setDaily(true);
+            
+            
+            } catch (error) {
+    
+              props.setChartStatus(false);
+    
+              alert(error?.response?.data?.message)
+              
+            }
+
+        }else{
+
+          props.setChartClass(dailyData);
+
+        }
+
+        
+
+  }
+
   return (
-        <div className='relative group w-fit text-[12px] md:text-base'>
+        <div className='relative w-fit text-[12px] md:text-base select-none mb-3'>
 
-            <div className='p-2 rounded-lg shadow-cardShadow flex space-x-3 items-end cursor-pointer group-hover:scale-[1.05]'>
+            <div onClick={ () => setVisible(prev=>!prev) } className='p-2 rounded-lg shadow-cardShadow flex space-x-3 items-end cursor-pointer hover:scale-[1.05]'>
                 <div>
                   <AiFillCaretDown className='w-4 h-4 md:w-5 md:h-5'/>
                 </div>
@@ -76,12 +158,15 @@ const ChartClassification = (props) => {
                  
             </div>
 
-            <div className='hidden group-hover:flex absolute bg-textColor2 rounded-md flex-col font-bold text-center'>
-                <div className='p-3 rounded-t-md cursor-pointer text-textColor hover:bg-textColor hover:text-textColor2 border-b-[1px] border-textColor' onClick={()=>props.setChartClass(yearlyData)}>السنة الحالية</div>
+            <div className={`${ visible ? 'flex' : 'hidden' } absolute bg-textColor2 rounded-md flex-col text-sm font-semibold text-center`}>
+                <div className='p-3 rounded-t-md cursor-pointer text-textColor hover:bg-textColor hover:text-textColor2 border-b-[1px] border-textColor' 
+                onClick={getCurrentYearData}>السنة الحالية</div>
 
-                <div className='p-3 border-b-[1px] border-textColor cursor-pointer text-textColor hover:bg-textColor hover:text-textColor2' onClick={()=>props.setChartClass(monthlyData)}>الشهر الحالي</div>
+                <div className='p-3 border-b-[1px] border-textColor cursor-pointer text-textColor hover:bg-textColor hover:text-textColor2' 
+                onClick={getCurrentMonthData}>الشهر الحالي</div>
 
-                <div className='p-3 rounded-b-md cursor-pointer text-textColor hover:bg-textColor hover:text-textColor2' onClick={()=>props.setChartClass(dailyData)}>اليوم الحالي</div>
+                <div className='p-3 rounded-b-md cursor-pointer text-textColor hover:bg-textColor hover:text-textColor2' 
+                onClick={getCurrentDayData}>اليوم الحالي</div>
             </div>
 
         </div>
