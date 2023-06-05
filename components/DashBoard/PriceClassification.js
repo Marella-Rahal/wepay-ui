@@ -12,11 +12,11 @@ const PriceClassification = (props) => {
     
         if(filterType == 'HTL'){
           
-          sortedData.sort( (a,b)=> b.amountValue - a.amountValue )
+          sortedData.sort( (a,b)=> ( props.type == 'action' ? b.amountValue : b.paymentValue ) - ( props.type == 'action' ? a.amountValue : a.paymentValue ) )
           
         }else{
     
-          sortedData.sort( (a,b)=> a.amountValue - b.amountValue )
+          sortedData.sort( (a,b)=> ( props.type == 'action' ? a.amountValue : a.paymentValue ) - ( props.type == 'action' ? b.amountValue : b.paymentValue ) )
     
         }
     

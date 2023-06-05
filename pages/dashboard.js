@@ -15,31 +15,14 @@ import { parseCookies, setCookie } from 'nookies';
 import axios from 'axios';
 import { saveUser, selectUser } from '../Redux/Slices/userSlice';
 import FailToGet from '../components/FailToGet';
-import NotePopUp from '../components/PopUp/NotePopUp';
+import NotePopUp, { showPopUpNote } from '../components/PopUp/NotePopUp';
 import Lottie from "lottie-react";
 import emptyResult from "../public/empty.json";
 import { useSelector } from 'react-redux';
 import { ThreeDots } from 'react-loader-spinner';
-import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import ReactPaginate from 'react-paginate';
 import { useEffect } from 'react';
+import ReactPaginateComponent from '../components/DashBoard/ReactPaginateComponent';
 
-const yearlyData ={
-
-    labels: [
-      "Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec",
-    ],
-    datasets: [
-      {
-        label:"إجمالي الصرف خلال هذا الشهر ",
-        data:Array(12).fill(0),
-        backgroundColor:["#3fb37f","#8488ED"],
-        hoverBackgroundColor:["#29b23d","#565bd0"],
-        borderRadius:10,
-      }
-    ]
-  
-  }
 const Dashboard = (props) => {
 
     const cookies = parseCookies();
@@ -49,7 +32,7 @@ const Dashboard = (props) => {
     const [chartStatus,setChartStatus]=useState(false);
     const [noteMsg,setNoteMsg]=useState("");
 
-    //todo to visulize the data on chart
+    //* to visulize the data on chart
     const [yearlyData,setYearlyData]=useState({
 
         labels: [
@@ -73,18 +56,21 @@ const Dashboard = (props) => {
         return yearlyData
     });
 
-    //todo what type of payment are displayed
+    //* what type of payment are displayed
     const [typeOfPayment,setTypeOfPayment]=useState('allPayment');
-    //todo what type of atctivity are displayed
+    //* what type of atctivity are displayed
     const [typeOfAct,setTypeOfAct]=useState('allOperation');
-    //todo what info are displayed 
+    //* what info are displayed 
    const [dashboardInfo,setDashboardInfo]=useState("statistic");
 
+    //! statistic *************************************************************
 
     const [statistic,setStatistic]=useState({
         lastActivities : props.lastActivities,
         lastPayments : props.lastPayments
     });
+
+    //! actions ***************************************************************
 
     const [allActions,setAllActions]=useState();
     const [filteredActions,setFilteredActions]=useState([]);
@@ -163,7 +149,7 @@ const Dashboard = (props) => {
         
     }
 
-    //* 𝗥𝗲𝗮𝗰𝘁-𝗣𝗮𝗴𝗶𝗻𝗮𝘁𝗲 *********************************************************
+    //* 𝗥𝗲𝗮𝗰𝘁-𝗣𝗮𝗴𝗶𝗻𝗮𝘁𝗲 𝗳𝗼𝗿 𝗔𝗰𝘁𝗶𝗼𝗻𝘀 *********************************************************
 
     const [activityPerPage,setActivityPerPage]=useState(5);
 
@@ -172,7 +158,7 @@ const Dashboard = (props) => {
     const [FirstArrow, setFirstArrow] = useState(false);
     const [LastArrow, setLastArrow] = useState(filteredActions.length > activityPerPage);
 
-    //* 𝗰𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗿𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗹𝗮𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗣𝗮𝗴𝗲 𝗮𝗻𝗱 𝘁𝗵𝗲 𝗱𝗲𝗹𝗲𝗴𝗮𝘁𝗲𝘀𝗗𝗶𝘀𝗽𝗹𝗮𝘆𝗲𝗱 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝗻𝗲𝘄 𝘀𝗲𝗹𝗲𝗰𝘁𝗲𝗱 𝗱𝗮𝘁𝗮
+    //* 𝗰𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗿𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗹𝗮𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗣𝗮𝗴𝗲 𝗮𝗻𝗱 𝘁𝗵𝗲 𝗮𝗰𝘁𝗶𝘃𝗶𝘁𝘆𝗗𝗶𝘀𝗽𝗹𝗮𝘆𝗲𝗱 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝗻𝗲𝘄 𝘀𝗲𝗹𝗲𝗰𝘁𝗲𝗱 𝗱𝗮𝘁𝗮
 
     const handleChange = (data) => {
 
@@ -190,7 +176,7 @@ const Dashboard = (props) => {
 
     };
 
-    //* 𝗰𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗿𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗹𝗮𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗣𝗮𝗴𝗲 𝗮𝗻𝗱 𝘁𝗵𝗲 activityDisplayed 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝗻𝗲𝘄 𝗶𝗻𝗳𝗼
+    //* 𝗰𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗿𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗹𝗮𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗣𝗮𝗴𝗲 𝗮𝗻𝗱 𝘁𝗵𝗲 𝗮𝗰𝘁𝗶𝘃𝗶𝘁𝘆𝗗𝗶𝘀𝗽𝗹𝗮𝘆𝗲𝗱 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝗻𝗲𝘄 𝗶𝗻𝗳𝗼
 
     useEffect(()=>{
 
@@ -204,7 +190,191 @@ const Dashboard = (props) => {
 
     },[filteredActions])
 
-    //*************************************************************************/
+
+    //! payments ***************************************************************
+
+    const [allPayments,setAllPayments]=useState();
+    const [filteredPayments,setFilteredPayments]=useState([]);
+    const [paymentType,setPaymentType]=useState('');
+    const [paymentValue,setPaymentValue]=useState('');
+    const [paymentDate,setPaymentDate]=useState('');
+    const [paymentInfo,setPaymentInfo]=useState('');
+    const [isPayable,setIsPayable]=useState('');
+    const [isMonthlyPayable,setIsMonthlyPayable]=useState('');
+    const [paymentForCode,setPaymentForCode]=useState('');
+
+    console.log(allPayments ,filteredPayments)
+
+    const getAllPayments = async () => {
+
+        if(allPayments === undefined){
+
+            try {
+
+                setSendingStatus(true);
+
+                const res= await axios.get(`${process.env.server_url}/api/v1.0/payment/getAllPayments`, {
+                    headers : {
+                        Authorization : `Bearer ${token}`
+                    }
+                })
+
+                res.data.data !== undefined ? setAllPayments(res.data.data) : setAllPayments([])
+
+                setDashboardInfo('payment')
+
+                setSendingStatus(false);
+                
+            } catch (error) {
+
+                setSendingStatus(false);
+
+                alert(error?.response?.data?.message)  
+
+            }
+
+        }else{
+
+            setDashboardInfo("payment");
+
+        }
+    }
+
+    const addPayment = async (e) => {
+
+        e.preventDefault();
+
+        if(isPayable && paymentForCode.length!== 6){
+            setNoteMsg(
+                <h5 className='text-red-600 text-center flex flex-col justify-center items-center'>
+                    <span>  كود تحويل غير صالح </span>
+                    <span> يجب أن يكون مؤلف من 6 أرقام </span>   
+                </h5>
+            );
+            showPopUpNote();
+            return ;
+        }
+
+        try {
+
+            setSendingStatus(true);
+
+            const res= await axios.post(`${process.env.server_url}/api/v1.0/payment/addPayment`,{
+                paymentType,paymentValue,paymentDate,paymentInfo,
+                isPayable : isPayable ? 1 : 0 , isMonthlyPayable : isMonthlyPayable ? 1 : 0 , paymentForCode : isPayable ? paymentForCode : undefined
+            }, {
+                headers : {
+                    Authorization : `Bearer ${token}`
+                }
+            })
+
+            setStatistic( prev => ({ 
+                ...prev ,
+                lastPayments : res.data.lastPayments
+            }))
+
+            if(allPayments !== undefined){
+
+                setAllPayments( prev => [ res.data.data , ...prev ] );
+                setDashboardInfo('payment');
+                setSendingStatus(false);
+
+            }else{
+                getAllPayments()
+            }
+
+            setPaymentType('');
+            setPaymentValue('');
+            setPaymentDate('');
+            setPaymentInfo('');
+            setIsPayable('');
+            setIsMonthlyPayable('');
+            setPaymentForCode('');
+
+            
+        } catch (error) {
+
+            setSendingStatus(false);
+
+            alert(error?.response?.data?.message) 
+            
+        }
+    }
+    
+    const handleFilteredPayments = (filterType) => {
+
+        if(filterType == 'debt'){
+
+            setFilteredPayments( allPayments.filter( a => a.paymentType == 'دين' ) );
+
+        }else if(filterType == 'monthlyPayment'){
+
+            setFilteredPayments( allPayments.filter( a => a.paymentType == 'قسط شهري' ) );
+            
+        }else if(filterType == 'storeDebt'){
+
+            setFilteredPayments( allPayments.filter( a => a.paymentType == 'دين لمتجر' ) );
+
+        }else if(filterType == 'otherPayment'){
+
+            setFilteredPayments( allPayments.filter( a => a.paymentType == 'مدفوعات أخرى' ) );
+
+        }else {
+
+            setFilteredPayments( allPayments );
+
+        }
+
+        setTypeOfPayment(filterType);
+        
+    }
+
+    useEffect(()=>{
+
+        allPayments !== undefined ? handleFilteredPayments('allPayment') : '' 
+
+    },[allPayments])
+
+    //* 𝗥𝗲𝗮𝗰𝘁-𝗣𝗮𝗴𝗶𝗻𝗮𝘁𝗲 𝗳𝗼𝗿 𝗣𝗮𝘆𝗺𝗲𝗻𝘁𝘀 *********************************************************
+
+    const [paymentPerPage,setPaymentPerPage]=useState(5);
+
+    const [currentPageForPayment, setCurrentPageForPayment] = useState(0); // Current page state
+    const [paymentDisplayed, setPaymentDisplayed] = useState( filteredPayments.slice(0,paymentPerPage) );
+    const [FirstArrowForPayment, setFirstArrowForPayment] = useState(false);
+    const [LastArrowForPayment, setLastArrowForPayment] = useState(filteredPayments.length > paymentPerPage);
+
+    //* 𝗰𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗿𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗹𝗮𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗣𝗮𝗴𝗲 𝗮𝗻𝗱 𝘁𝗵𝗲 𝗽𝗮𝘆𝗺𝗲𝗻𝘁𝗗𝗶𝘀𝗽𝗹𝗮𝘆𝗲𝗱 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝗻𝗲𝘄 𝘀𝗲𝗹𝗲𝗰𝘁𝗲𝗱 𝗱𝗮𝘁𝗮
+
+    const handleChangeForPayment = (data) => {
+
+        // 𝗳𝗼𝗿 𝗹𝗲𝗳𝘁 𝗮𝗿𝗿𝗼𝘄
+        if ( data.selected == 0 ) setFirstArrowForPayment(false);
+        else setFirstArrowForPayment(true);
+
+        // 𝗳𝗼𝗿 𝗿𝗶𝗴𝗵𝘁 𝗮𝗿𝗿𝗼𝘄
+        if ( data.selected == ( Math.ceil(filteredPayments.length / paymentPerPage) - 1 ) ) setLastArrowForPayment(false);
+        else setLastArrowForPayment(true);
+
+        setCurrentPageForPayment(data.selected)
+
+        setPaymentDisplayed(filteredPayments.slice(data.selected * paymentPerPage, data.selected * paymentPerPage + paymentPerPage));
+
+    };
+
+    //* 𝗰𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗶𝗿𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗹𝗮𝘀𝘁𝗔𝗿𝗿𝗼𝘄 , 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗣𝗮𝗴𝗲 𝗮𝗻𝗱 𝘁𝗵𝗲 𝗽𝗮𝘆𝗺𝗲𝗻𝘁𝗗𝗶𝘀𝗽𝗹𝗮𝘆𝗲𝗱 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘁𝗵𝗲 𝗻𝗲𝘄 𝗶𝗻𝗳𝗼
+
+    useEffect(()=>{
+
+        setCurrentPageForPayment(0);
+
+        setPaymentDisplayed(filteredPayments.slice(0,paymentPerPage))
+
+        setFirstArrowForPayment(false);
+
+        setLastArrowForPayment(filteredPayments.length > paymentPerPage)
+
+    },[filteredPayments])
  
   return (
     <>
@@ -262,7 +432,7 @@ const Dashboard = (props) => {
                                 </div>
 
                                 <div className={dashboardInfo=='payment'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'}
-                                onClick={()=>setDashboardInfo("payment")}>
+                                onClick={getAllPayments}>
                                         المدفوعات المستحقة
                                 </div>
 
@@ -325,12 +495,13 @@ const Dashboard = (props) => {
                                         {
                                             statistic.lastPayments.length !== 0 ? (
                                                 statistic.lastPayments.map((payment,index)=>{
-                                                    const formattedDate= new Date(payment.createdAt).toLocaleString();
+                                                    const formattedDate= new Date(payment.paymentDate).toLocaleDateString();
                                                     return <StatisticPayment
-                                                            key={index} 
-                                                            type={payment.paymentType} 
-                                                            msg={payment.paymentInfo} 
-                                                            value={payment.paymentValue} 
+                                                            key={index}  
+                                                            paymentInfo={payment.paymentInfo} 
+                                                            paymentValue={payment.paymentValue}
+                                                            isPayable={payment.isPayable}
+                                                            isMonthlyPayable={payment.isMonthlyPayable} 
                                                             date={formattedDate}/>
                                                 })
                                                 
@@ -344,7 +515,7 @@ const Dashboard = (props) => {
                                         <div className='flex space-x-3 justify-between'>
                                             {
                                                 statistic.lastPayments.length !== 0 && (
-                                                    <button className='text-[12px] xs:text-base p-1 px-3' onClick={()=>setDashboardInfo("payment")}>عرض الكل</button>
+                                                    <button className='text-[12px] xs:text-base p-1 px-3' onClick={getAllPayments}>عرض الكل</button>
                                                 )
                                             }
                                             <button className='text-[12px] xs:text-base p-1 px-3' onClick={()=>setDashboardInfo("addPayment")}>إضافة المزيد</button>
@@ -389,9 +560,9 @@ const Dashboard = (props) => {
                                     {/* ********************* */}
                                     <div className='w-full flex items-center justify-between space-x-5 text-textColor dark:text-textColor2'>
 
-                                        <PriceClassification setFiltered={setFilteredActions} filtered={filteredActions}/>
+                                        <PriceClassification setFiltered={setFilteredActions} filtered={filteredActions} type={'action'}/>
                                         
-                                        <DateClassification setFiltered={setFilteredActions} filtered={filteredActions}/>
+                                        <DateClassification setFiltered={setFilteredActions} filtered={filteredActions} type={'action'}/>
                                         
                                     </div>
                                     {/* *********************** */}
@@ -422,27 +593,13 @@ const Dashboard = (props) => {
                                     
                                     </div>
 
-                                    <ReactPaginate
-                                        breakLabel={<span>...</span>}
-                                        nextLabel={
-                                            LastArrow && (
-                                            <BsChevronRight />
-                                            )
-                                        }
-                                        forcePage={currentPage} // Set the current active page
-                                        onPageChange={handleChange}
-                                        pageRangeDisplayed={1} // Display 1 page buttons on either side of the active page button
-                                        marginPagesDisplayed={1} // Display 1 page button on either side of the first and last page buttons
-                                        pageCount={ Math.ceil(filteredActions.length / activityPerPage) }
-                                        previousLabel={
-                                            FirstArrow && (
-                                            <BsChevronLeft />
-                                            )
-                                        }
-                                        containerClassName="flex items-center justify-center space-x-1 md:space-x-3 pt-3 text-[grey] dark:text-white"
-                                        pageClassName="text-[grey] bg-textColor2 text-sm flex items-center justify-center rounded-lg px-3 py-2 select-none"
-                                        activeClassName="text-[white] bg-gradient-to-b from-gradientTo to-gradientTo"
-                                    />
+                                    <ReactPaginateComponent
+                                    type='action'
+                                    FirstArrow={FirstArrow}
+                                    LastArrow={LastArrow}
+                                    currentPage={currentPage}
+                                    handleChange={handleChange}
+                                    pageCount={ Math.ceil(filteredActions.length / activityPerPage) }/>
                                     
                                 </motion.div>
                             )
@@ -460,17 +617,17 @@ const Dashboard = (props) => {
                                     <div dir='rtl' className='w-full h-20 rounded-lg text-[12px] md:text-sm overflow-x-auto XScrollbar flex items-center justify-between font-bold'>
 
 
-                                        <div className={typeOfPayment=="allPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[100px]"} onClick={()=>setTypeOfPayment("allPayment")}> كل الدفوعات </div>
+                                        <div className={typeOfPayment=="allPayment"?'p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[100px]"} onClick={()=>handleFilteredPayments("allPayment")}> كل المدفوعات </div>
 
                                         
-                                        <div className={typeOfPayment=="debt"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[100px]"} onClick={()=>setTypeOfPayment("debt")}> الديون</div>
+                                        <div className={typeOfPayment=="debt"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[100px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[100px]"} onClick={()=>handleFilteredPayments("debt")}> الديون</div>
 
-                                        <div className={typeOfPayment=="monthlyPayment"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>setTypeOfPayment("monthlyPayment")}> الأقساط الشهرية</div>
+                                        <div className={typeOfPayment=="monthlyPayment"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>handleFilteredPayments("monthlyPayment")}> الأقساط الشهرية</div>
 
 
-                                        <div className={typeOfPayment=="storeDebt"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>setTypeOfPayment("storeDebt")}>ديون المتاجر  </div>
+                                        <div className={typeOfPayment=="storeDebt"?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>handleFilteredPayments("storeDebt")}>ديون المتاجر  </div>
 
-                                        <div className={typeOfPayment=='otherPayment'?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>setTypeOfPayment("otherPayment")}>مدفوعات أخرى  </div>
+                                        <div className={typeOfPayment=='otherPayment'?'mr-3 p-2 rounded-lg shadow-cardShadow text-textColor2 cursor-pointer bg-gradient-to-b from-gradientFrom to-gradientTo min-w-[120px]':"mr-3 p-2 rounded-lg shadow-cardShadow cursor-pointer hover:border-[1px] border-effectColor min-w-[120px]"} onClick={()=>handleFilteredPayments("otherPayment")}>مدفوعات أخرى  </div>
 
                         
 
@@ -483,29 +640,51 @@ const Dashboard = (props) => {
                                     {/* ********************* */}
                                     <div className='w-full flex items-center justify-between space-x-5 text-textColor dark:text-textColor2'>
 
-                                        <PriceClassification/>
+                                        <PriceClassification setFiltered={setFilteredPayments} filtered={filteredPayments} type={'payment'}/>
 
                                         <button className='hidden md:flex' onClick={()=>setDashboardInfo("addPayment")}>إضافة مدفوعات أخرى</button>
 
-                                        <DateClassification/>
+                                        <DateClassification setFiltered={setFilteredPayments} filtered={filteredPayments} type={'payment'}/>
 
 
                                     </div>
                                     {/* *********************** */}
-                                    <div className='w-full flex flex-col md:flex-row md:justify-evenly md:flex-wrap'>
+                                    <div dir='rtl' className='w-full flex flex-col md:flex-row md:justify-evenly md:flex-wrap'>
 
-
-                                        <Payment type="دين" value="1000000000000000" name="دين لغيث عثمان" date="31/12/2023"/>
-                                        <Payment type="قسط شهري" value="1000000000000000" name="دين لغيث عثمان" date="دفع كل شهر/ متبقي 3 أيام"/>
-                                        <Payment type="دين" value="1000000000000000" name="دين لغيث عثمان" date="31/12/2023"/>
-                                        <Payment type="دين" value="1000000000000000" name="دين لغيث عثمان" date="31/12/2023"/>
-                                        <Payment type="دين" value="1000000000000000" name="دين لغيث عثمان" date="31/12/2023"/>
-                                        <Payment type="دين" value="1000000000000000" name="دين لغيث عثمان" date="31/12/2023"/>
-                                        <Payment type="دين" value="1000000000000000" name="دين لغيث عثمان" date="31/12/2023"/>
-                                        
-                                        
+                                        {
+                                            filteredPayments.length !== 0 ? (
+                                                paymentDisplayed.map((payment,index)=>{
+                                                    const formattedDate= new Date(payment.paymentDate).toLocaleDateString();
+                                                    return <Payment
+                                                            key={index}
+                                                            id={payment._id}
+                                                            setSendingStatus={setSendingStatus}
+                                                            setStatistic={setStatistic}
+                                                            setAllPayments={setAllPayments} 
+                                                            paymentType={payment.paymentType} 
+                                                            paymentInfo={payment.paymentInfo} 
+                                                            paymentValue={payment.paymentValue} 
+                                                            isPayable={payment.isPayable}
+                                                            isMonthlyPayable={payment.isMonthlyPayable}
+                                                            date={formattedDate}/>
+                                                })
+                                                
+                                            ) : (
+                                                <div className='flex justify-center items-center'>
+                                                    <Lottie animationData={emptyResult} loop={true} />
+                                                </div>
+                                            )
+                                        }
 
                                     </div>
+
+                                    <ReactPaginateComponent
+                                    type='payment'
+                                    FirstArrow={FirstArrowForPayment}
+                                    LastArrow={LastArrowForPayment}
+                                    currentPage={currentPageForPayment}
+                                    handleChange={handleChangeForPayment}
+                                    pageCount={ Math.ceil(filteredPayments.length / paymentPerPage) }/>
 
                                 </motion.div>
                             )
@@ -516,7 +695,7 @@ const Dashboard = (props) => {
                         {
                             ( dashboardInfo == 'addPayment' ) && (
                                 <motion.form initial={{opacity:0}} animate={{opacity:1}}
-                                transition={{ ease: "easeInOut", duration: 1 }} className="flex flex-col space-y-10 text-end text-effectColor" onSubmit={(e)=>e.preventDefault()}>
+                                transition={{ ease: "easeInOut", duration: 1 }} className="flex flex-col space-y-10 text-end text-effectColor" onSubmit={addPayment}>
 
                                     {/* //! one */}
                                     <div className='self-end pb-2 border-b-[2px] border-effectColor'>
@@ -532,13 +711,25 @@ const Dashboard = (props) => {
 
                                         <div className='w-full flex space-x-5 justify-evenly'>
 
-                                            <input type="number" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow text-start'/>
+                                            <input 
+                                            type="number" 
+                                            required
+                                            min={1}
+                                            value={paymentValue}
+                                            onChange={(e) => setPaymentValue(e.target.value) } 
+                                            className='w-1/2 md:w-1/3 outline-none shadow-cardShadow text-start'/>
 
-                                            <select name='typeOfPayment' className='bg-white text-end text-textColor rounded-lg px-3 py-2 w-1/2 md:w-1/3 outline-none shadow-cardShadow'>
-                                                <option value="otherPayment">مدفوعات أخرى</option>
-                                                <option value="debt">دين</option>
-                                                <option value="monthlyPayment">قسط شهري</option>
-                                                <option value="storeDebt">دين لمتجر</option>
+                                            <select 
+                                            name='typeOfPayment'
+                                            required
+                                            value={paymentType}
+                                            onChange={(e) => setPaymentType(e.target.value) } 
+                                            className='bg-white text-end text-textColor rounded-lg px-3 py-2 w-1/2 md:w-1/3 outline-none shadow-cardShadow'>
+                                                <option value="">نوع الدفعة</option>
+                                                <option value="دين">دين</option>
+                                                <option value="قسط شهري">قسط شهري</option>
+                                                <option value="دين لمتجر">دين لمتجر</option>
+                                                <option value="مدفوعات أخرى">مدفوعات أخرى</option>
                                             </select>
                                             
                                         </div>
@@ -554,13 +745,109 @@ const Dashboard = (props) => {
 
                                         <div className='w-full flex space-x-5 justify-evenly'>
 
-                                            <input type="text" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow'/>
+                                            <input 
+                                            type="text" 
+                                            required
+                                            value={paymentInfo}
+                                            onChange={(e) => setPaymentInfo(e.target.value) } 
+                                            className='w-1/2 md:w-1/3 outline-none shadow-cardShadow'/>
 
-                                            <input type="date" required className='w-1/2 md:w-1/3 outline-none shadow-cardShadow'/>
+                                            <input 
+                                            type="date" 
+                                            required
+                                            value={paymentDate}
+                                            onChange={(e) => setPaymentDate(e.target.value) } 
+                                            className='w-1/2 md:w-1/3 outline-none shadow-cardShadow'/>
                                             
                                         </div>
 
                                     </div>
+
+                                    {/* //!four */}
+                                    <div className='flex flex-col space-y-3'>
+
+                                        <div className='w-full flex space-x-5 justify-evenly items-center'>
+                                            <label className='w-1/2 md:w-1/3 pr-2'> قابلة للدفع على أقساط شهرية؟؟ </label>
+                                            <label className='w-1/2 md:w-1/3 pr-2'> قابلة للدفع عن طريق موقعنا؟؟ </label>
+                                        </div>
+
+                                        <div className='w-full flex space-x-5 justify-evenly'>
+
+                                            {/* **** */}
+                                            <div className='flex space-x-2 w-1/2 md:w-1/3 pr-3'>
+
+                                                <div className='w-1/2 flex justify-end items-center space-x-2'>
+                                                    <label htmlFor='monthlyNo' className='text-textColor dark:text-textColor2'>لا</label>
+                                                    <input 
+                                                    id="monthlyNo"
+                                                    type='radio'
+                                                    name="monthlyPayable"
+                                                    required
+                                                    value={isMonthlyPayable}
+                                                    onChange={() => setIsMonthlyPayable(false) }
+                                                    className='w-3 h-3'/>
+                                                </div>
+                                                
+                                                <div className='w-1/2 flex justify-end items-center space-x-2'>
+                                                    <label htmlFor='monthlyYes' className='text-textColor dark:text-textColor2'>نعم</label>
+                                                    <input
+                                                    id="monthlyYes" 
+                                                    type='radio'
+                                                    name="monthlyPayable"
+                                                    required
+                                                    value={isMonthlyPayable}
+                                                    onChange={() => setIsMonthlyPayable(true) }
+                                                    className='w-3 h-3'/>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            {/* **** */}
+                                            <div className='flex space-x-2 w-1/2 md:w-1/3 pr-3'>
+
+                                                <div className='w-1/2 flex justify-end items-center space-x-2'>
+                                                    <label htmlFor='payableNo' className='text-textColor dark:text-textColor2'>لا</label>
+                                                    <input 
+                                                    id="payableNo"
+                                                    type='radio'
+                                                    name="payable"
+                                                    required
+                                                    value={isPayable}
+                                                    onChange={() => setIsPayable(false) }
+                                                    className='w-3 h-3'/>
+                                                </div>
+                                                
+                                                <div className='w-1/2 flex justify-end items-center space-x-2'>
+                                                    <label htmlFor='payableYes' className='text-textColor dark:text-textColor2'>نعم</label>
+                                                    <input
+                                                    id="payableYes" 
+                                                    type='radio'
+                                                    name="payable"
+                                                    required
+                                                    value={isPayable}
+                                                    onChange={() => setIsPayable(true) }
+                                                    className='w-3 h-3'/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    {/* //!five */}
+                                    {
+                                        isPayable && (
+                                            <div className='w-1/2 self-center flex flex-col space-y-3'>
+                                                <label className='text-center'>الرجاء إدخال كود التحويل</label>
+                                                <input 
+                                                type="number" 
+                                                required
+                                                value={paymentForCode}
+                                                onChange={(e) => setPaymentForCode(e.target.value) } 
+                                                className='outline-none shadow-lg text-start'/>      
+                                            </div>
+                                        )
+                                    }
 
                                     <button className='self-center w-1/2 md:w-1/4'>إدخال</button>
 

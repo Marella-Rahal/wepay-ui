@@ -12,11 +12,11 @@ const DateClassification = (props) => {
 
     if(filterType == 'NTO'){
       
-      sortedData.sort( (a,b)=> new Date(b.createdAt) - new Date(a.createdAt) )
+      sortedData.sort( (a,b)=> ( props.type == 'action' ? new Date(b.createdAt) : new Date(b.paymentDate) ) - ( props.type == 'action' ? new Date(a.createdAt) : new Date(a.paymentDate) ) )
       
     }else{
 
-      sortedData.sort( (a,b)=> new Date(a.createdAt) - new Date(b.createdAt) )
+      sortedData.sort( (a,b)=> ( props.type == 'action' ? new Date(a.createdAt) : new Date(a.paymentDate) ) - ( props.type == 'action' ? new Date(b.createdAt) : new Date(b.paymentDate) ) )
 
     }
 
