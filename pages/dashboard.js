@@ -199,11 +199,8 @@ const Dashboard = (props) => {
     const [paymentValue,setPaymentValue]=useState('');
     const [paymentDate,setPaymentDate]=useState('');
     const [paymentInfo,setPaymentInfo]=useState('');
-    const [isPayable,setIsPayable]=useState('');
-    const [isMonthlyPayable,setIsMonthlyPayable]=useState('');
+    const [isPayable,setIsPayable]=useState(0);
     const [paymentForCode,setPaymentForCode]=useState('');
-
-    console.log(allPayments ,filteredPayments)
 
     const getAllPayments = async () => {
 
@@ -244,7 +241,7 @@ const Dashboard = (props) => {
 
         e.preventDefault();
 
-        if(isPayable && paymentForCode.length!== 6){
+        if(isPayable == 1 && paymentForCode.length!== 6){
             setNoteMsg(
                 <h5 className='text-red-600 text-center flex flex-col justify-center items-center'>
                     <span>  كود تحويل غير صالح </span>
@@ -261,7 +258,7 @@ const Dashboard = (props) => {
 
             const res= await axios.post(`${process.env.server_url}/api/v1.0/payment/addPayment`,{
                 paymentType,paymentValue,paymentDate,paymentInfo,
-                isPayable : isPayable ? 1 : 0 , isMonthlyPayable : isMonthlyPayable ? 1 : 0 , paymentForCode : isPayable ? paymentForCode : undefined
+                isPayable , isMonthlyPayable : paymentType == 'قسط شهري' ? 1 : 0 , paymentForCode : isPayable == 1 ? paymentForCode : undefined
             }, {
                 headers : {
                     Authorization : `Bearer ${token}`
@@ -283,12 +280,13 @@ const Dashboard = (props) => {
                 getAllPayments()
             }
 
+            console.log(res.data)
+
             setPaymentType('');
             setPaymentValue('');
             setPaymentDate('');
             setPaymentInfo('');
-            setIsPayable('');
-            setIsMonthlyPayable('');
+            setIsPayable(0);
             setPaymentForCode('');
 
             
@@ -767,65 +765,55 @@ const Dashboard = (props) => {
                                     <div className='flex flex-col space-y-3'>
 
                                         <div className='w-full flex space-x-5 justify-evenly items-center'>
-                                            <label className='w-1/2 md:w-1/3 pr-2'> قابلة للدفع على أقساط شهرية؟؟ </label>
-                                            <label className='w-1/2 md:w-1/3 pr-2'> قابلة للدفع عن طريق موقعنا؟؟ </label>
+                                            {
+                                                isPayable == 1 && (
+                                                    <label className='w-1/2 md:w-1/3 pr-2'>الرجاء إدخال كود التحويل</label>
+                                                )
+                                            }
+                                            <label className={`w-1/2 md:w-1/3 pr-2 ${ isPayable == 0 ? 'text-center' : '' } `}> قابلة للدفع عن طريق موقعنا؟؟ </label>
                                         </div>
 
                                         <div className='w-full flex space-x-5 justify-evenly'>
 
                                             {/* **** */}
-                                            <div className='flex space-x-2 w-1/2 md:w-1/3 pr-3'>
 
-                                                <div className='w-1/2 flex justify-end items-center space-x-2'>
-                                                    <label htmlFor='monthlyNo' className='text-textColor dark:text-textColor2'>لا</label>
+                                            {
+                                                isPayable == 1 && (
+                                                    
                                                     <input 
-                                                    id="monthlyNo"
-                                                    type='radio'
-                                                    name="monthlyPayable"
+                                                    type="number" 
                                                     required
-                                                    value={isMonthlyPayable}
-                                                    onChange={() => setIsMonthlyPayable(false) }
-                                                    className='w-3 h-3'/>
-                                                </div>
-                                                
-                                                <div className='w-1/2 flex justify-end items-center space-x-2'>
-                                                    <label htmlFor='monthlyYes' className='text-textColor dark:text-textColor2'>نعم</label>
-                                                    <input
-                                                    id="monthlyYes" 
-                                                    type='radio'
-                                                    name="monthlyPayable"
-                                                    required
-                                                    value={isMonthlyPayable}
-                                                    onChange={() => setIsMonthlyPayable(true) }
-                                                    className='w-3 h-3'/>
-                                                </div>
-                                                
-                                            </div>
+                                                    value={paymentForCode}
+                                                    onChange={(e) => setPaymentForCode(e.target.value) } 
+                                                    className='w-1/2 md:w-1/3 outline-none shadow-cardShadow text-start'/>      
+                                                    
+                                                )
+                                            }
                                             
                                             {/* **** */}
                                             <div className='flex space-x-2 w-1/2 md:w-1/3 pr-3'>
 
-                                                <div className='w-1/2 flex justify-end items-center space-x-2'>
+                                                <div className={`w-1/2 flex ${ isPayable == 0 ? 'justify-center' : 'justify-end' }  items-center space-x-2`}>
                                                     <label htmlFor='payableNo' className='text-textColor dark:text-textColor2'>لا</label>
                                                     <input 
                                                     id="payableNo"
                                                     type='radio'
                                                     name="payable"
                                                     required
-                                                    value={isPayable}
-                                                    onChange={() => setIsPayable(false) }
+                                                    checked={isPayable == 0 ? true : false}
+                                                    onChange={() => setIsPayable(0) }
                                                     className='w-3 h-3'/>
                                                 </div>
                                                 
-                                                <div className='w-1/2 flex justify-end items-center space-x-2'>
+                                                <div className={`w-1/2 flex ${ isPayable == 0 ? 'justify-center' : 'justify-end' } items-center space-x-2`}>
                                                     <label htmlFor='payableYes' className='text-textColor dark:text-textColor2'>نعم</label>
                                                     <input
                                                     id="payableYes" 
                                                     type='radio'
                                                     name="payable"
                                                     required
-                                                    value={isPayable}
-                                                    onChange={() => setIsPayable(true) }
+                                                    checked={isPayable == 1 ? true : false}
+                                                    onChange={() => setIsPayable(1) }
                                                     className='w-3 h-3'/>
                                                 </div>
                                             </div>
@@ -833,21 +821,6 @@ const Dashboard = (props) => {
                                         </div>
 
                                     </div>
-
-                                    {/* //!five */}
-                                    {
-                                        isPayable && (
-                                            <div className='w-1/2 self-center flex flex-col space-y-3'>
-                                                <label className='text-center'>الرجاء إدخال كود التحويل</label>
-                                                <input 
-                                                type="number" 
-                                                required
-                                                value={paymentForCode}
-                                                onChange={(e) => setPaymentForCode(e.target.value) } 
-                                                className='outline-none shadow-lg text-start'/>      
-                                            </div>
-                                        )
-                                    }
 
                                     <button className='self-center w-1/2 md:w-1/4'>إدخال</button>
 
