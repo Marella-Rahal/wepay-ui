@@ -48,9 +48,6 @@ const ChartClassification = (props) => {
   
   });
 
-  const [monthly,setMonthly]=useState(false);
-  const [daily,setDaily]=useState(false);
-
   const getCurrentYearData = () => {
 
       setVisible(false);
@@ -62,7 +59,7 @@ const ChartClassification = (props) => {
 
         setVisible(false);
 
-        if(!monthly){
+        if(!props.monthly){
 
             try {
 
@@ -82,7 +79,7 @@ const ChartClassification = (props) => {
     
               props.setChartStatus(false);
 
-              setMonthly(true);
+              props.setMonthly(true);
             
             } catch (error) {
     
@@ -106,7 +103,7 @@ const ChartClassification = (props) => {
 
         setVisible(false);
 
-        if(!daily){
+        if(!props.daily){
 
             try {
 
@@ -126,7 +123,7 @@ const ChartClassification = (props) => {
     
               props.setChartStatus(false);
 
-              setDaily(true);
+              props.setDaily(true);
             
             
             } catch (error) {

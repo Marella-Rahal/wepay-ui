@@ -29,10 +29,10 @@ const Dashboard = (props) => {
     const token = cookies.token;
     const user=useSelector(selectUser);
     const [sendingStatus,setSendingStatus]=useState(false);
-    const [chartStatus,setChartStatus]=useState(false);
     const [noteMsg,setNoteMsg]=useState("");
 
     //* to visulize the data on chart
+    const [chartStatus,setChartStatus]=useState(false);
     const [yearlyData,setYearlyData]=useState({
 
         labels: [
@@ -49,6 +49,8 @@ const Dashboard = (props) => {
         ]
       
     });
+    const [monthly,setMonthly]=useState(false);
+    const [daily,setDaily]=useState(false);
     const [chartClass,setChartClass]=useState(()=>{
         props?.chartData?.forEach( element => {
             yearlyData.datasets[0].data[element._id - 1] = element.totalAmount
@@ -89,14 +91,8 @@ const Dashboard = (props) => {
                     }
                 })
 
-                if(res.data.data !== undefined){
-                    setAllActions(res.data.data);
-                    setFilteredActions(res.data.data);
-                }else{
-                    setAllActions([]);
-                    setFilteredActions([]);
-                }
-        
+                res.data.data !== undefined ? setAllActions(res.data.data) : setAllActions([]);
+
                 setDashboardInfo("activity");
 
                 setSendingStatus(false);
@@ -148,6 +144,12 @@ const Dashboard = (props) => {
         setTypeOfAct(filterType);
         
     }
+
+    useEffect(()=>{
+
+        allActions !== undefined ? handleFilteredActions('allOperation') : '' 
+
+    },[allActions])
 
     //* 𝗥𝗲𝗮𝗰𝘁-𝗣𝗮𝗴𝗶𝗻𝗮𝘁𝗲 𝗳𝗼𝗿 𝗔𝗰𝘁𝗶𝗼𝗻𝘀 *********************************************************
 
@@ -280,8 +282,6 @@ const Dashboard = (props) => {
                 getAllPayments()
             }
 
-            console.log(res.data)
-
             setPaymentType('');
             setPaymentValue('');
             setPaymentDate('');
@@ -410,7 +410,14 @@ const Dashboard = (props) => {
                                     </div>          
                                     )
                                 }
-                                <ChartClassification yearlyData={yearlyData} setChartClass={setChartClass} setChartStatus={setChartStatus}/>
+                                <ChartClassification
+                                daily={daily}
+                                setDaily={setDaily} 
+                                monthly={monthly}
+                                setMonthly={setMonthly} 
+                                yearlyData={yearlyData} 
+                                setChartClass={setChartClass} 
+                                setChartStatus={setChartStatus}/>
                                 <BarChart data={chartClass}/>
                             
 
@@ -658,13 +665,21 @@ const Dashboard = (props) => {
                                                             id={payment._id}
                                                             setSendingStatus={setSendingStatus}
                                                             setStatistic={setStatistic}
-                                                            setAllPayments={setAllPayments} 
+                                                            setAllPayments={setAllPayments}
+                                                            setAllActions={setAllActions}
+                                                            setDaily={setDaily}
+                                                            setMonthly={setMonthly}
+                                                            yearlyData={yearlyData}
+                                                            setChartClass={setChartClass} 
                                                             paymentType={payment.paymentType} 
                                                             paymentInfo={payment.paymentInfo} 
-                                                            paymentValue={payment.paymentValue} 
+                                                            paymentValue={payment.paymentValue}
+                                                            date={formattedDate} 
                                                             isPayable={payment.isPayable}
+                                                            paidStatus={payment.paidStatus}
                                                             isMonthlyPayable={payment.isMonthlyPayable}
-                                                            date={formattedDate}/>
+                                                            daysDiff={ payment.daysDiff !== undefined ? payment.daysDiff : '' }
+                                                            />
                                                 })
                                                 
                                             ) : (
