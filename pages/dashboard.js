@@ -679,6 +679,8 @@ const Dashboard = (props) => {
                                                             paidStatus={payment.paidStatus}
                                                             isMonthlyPayable={payment.isMonthlyPayable}
                                                             daysDiff={ payment.daysDiff !== undefined ? payment.daysDiff : '' }
+                                                            numberOfMonthsLeft={ payment.numberOfMonthsLeft !== undefined ? payment.numberOfMonthsLeft : '' }
+                                                            monthlyValue={ payment.monthlyValue !== undefined ? payment.monthlyValue : '' }
                                                             />
                                                 })
                                                 

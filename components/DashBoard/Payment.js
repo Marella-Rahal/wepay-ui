@@ -142,39 +142,35 @@ const Payment = (props) => {
             </span>
 
             {
-                    ( props.isPayable == 1 && props.isMonthlyPayable == 1 ) && (
+                props.isMonthlyPayable == 0 && (
+                    <span className='text-effectColor'>
+                        {
+                            props.isPayable == 1 ? 'دفع لمرة واحدة عبر موقعنا' : 'دفع لمرة واحدة كاش'
+                        }
+                    </span>
+                    
+                )
+            }
+
+            {
+                    ( props.isMonthlyPayable == 1 && props.isPayable == 1 ) && (
                         <span className='text-effectColor'>
                             {
-                                !props.paidStatus ? `دفع كل شهر / متبقي ${props.daysDiff} يوم  لنهاية الشهر` : 'دفع كل شهر / تم الدفع هذا الشهر'
+                                !props.paidStatus ? `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي`: `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`
                             }
                         </span>
                     )
             }  
-            {
-                    ( props.isPayable == 1 && props.isMonthlyPayable == 0 ) && (
-                        <span className='text-effectColor'>
-                            {
-                                !props.paidStatus ? 'دفع لمرة واحدة عبر موقعنا' : 'تم الدفع'
-                            }
-                        </span>
-                    )
-            } 
+            
 
             {
-                    ( props.isPayable == 0 && props.isMonthlyPayable == 1 ) && (
+                    ( props.isMonthlyPayable == 1 && props.isPayable == 0 ) && (
                         <span className='text-effectColor'>
-                            {`دفع كل شهر / متبقي ${props.daysDiff} يوم  لنهاية الشهر`}
+                            {`تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي`}
                         </span>
                     )
             }
 
-            {
-                    ( props.isPayable == 0 && props.isMonthlyPayable == 0 ) && (
-                        <span className='text-effectColor'>
-                        دفع لمرة واحدة كاش
-                        </span>
-                    )
-            }
 
         </div>
 
