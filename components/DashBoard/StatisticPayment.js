@@ -136,60 +136,80 @@ const StatisticPayment = (props) => {
                 </div>
 
                 {
-                    ( props.isPayable == 1 && !props.paidStatus ) && (
-                        <button className='text-[12px] xs:text-sm p-1 px-3 self-center md:self-end md:hidden' onClick={payNow}>
-                        {
-                            props.isMonthlyPayable == 1 ? 'دفع القسط الشهري' : 'ادفع الآن'
-                        }    
-                        </button>
-                    )
-                }
+                    ( new Date() <= new Date(props.date) ) ? (
+                        <>
+                            {
+                                ( props.isPayable == 1 && !props.paidStatus ) && (
+                                    <button className='text-[12px] xs:text-sm p-1 px-3 self-center md:self-end md:hidden' onClick={payNow}>
+                                    {
+                                        props.isMonthlyPayable == 1 ? 'دفع القسط الشهري' : 'ادفع الآن'
+                                    }    
+                                    </button>
+                                )
+                            }
 
-                {
-                    ( props.isPayable == 1 && props.paidStatus ) && (
-                        <span className='text-effectColor flex md:hidden'>
-                            {`تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`}
+                            {
+                                ( props.isPayable == 1 && props.paidStatus ) && (
+                                    <span className='text-effectColor flex md:hidden'>
+                                        {`تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`}
+                                    </span>
+                                )
+                            }
+                            {
+                                props.isPayable == 0  && (
+                                    <span className='text-effectColor flex md:hidden'>
+                                    {
+                                        props.isMonthlyPayable == 1 ? `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي` : 'دفع لمرة واحدة يدوياً'
+                                    }
+                                    </span>
+                                )
+                            }
+                        </>
+                    ) : (
+                        <span className='text-red-400 flex md:hidden'>
+                        لقد تجاوزت آخر موعد للدفع
                         </span>
                     )
                 }
-                {
-                    props.isPayable == 0  && (
-                        <span className='text-effectColor flex md:hidden'>
-                        {
-                            props.isMonthlyPayable == 1 ? `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي` : 'دفع لمرة واحدة يدوياً'
-                        }
-                        </span>
-                    )
-                }
+                
                           
             </div>
 
             <div className='flex flex-col space-y-3 md:text-end'>
 
                 <div>{props.paymentInfo}</div>
-                
                 {
-                    ( props.isPayable == 1 && !props.paidStatus ) && (
-                        <button className='text-[12px] xs:text-sm p-1 px-3 self-center md:self-end hidden md:flex' onClick={payNow}>
-                        {
-                            props.isMonthlyPayable == 1 ? 'دفع القسط الشهري' : 'ادفع الآن'
-                        }
-                        </button>
-                    )
-                }
-                {
-                    ( props.isPayable == 1 && props.paidStatus ) && (
-                        <span className='text-effectColor hidden md:flex'>
-                            {`تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`}
-                        </span>
-                    )
-                }
-                {
-                    props.isPayable == 0  && (
-                        <span className='text-effectColor hidden md:flex'>
-                        {
-                            props.isMonthlyPayable == 1 ? `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي` : 'دفع لمرة واحدة يدوياً'
-                        }
+                    ( new Date() <= new Date(props.date) ) ? (
+                        <>
+                            {
+                                ( props.isPayable == 1 && !props.paidStatus ) && (
+                                    <button className='text-[12px] xs:text-sm p-1 px-3 self-center md:self-end hidden md:flex' onClick={payNow}>
+                                    {
+                                        props.isMonthlyPayable == 1 ? 'دفع القسط الشهري' : 'ادفع الآن'
+                                    }
+                                    </button>
+                                )
+                            }
+                            {
+                                ( props.isPayable == 1 && props.paidStatus ) && (
+                                    <span className='text-effectColor hidden md:flex'>
+                                        {`تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`}
+                                    </span>
+                                )
+                            }
+                            {
+                                props.isPayable == 0  && (
+                                    <span className='text-effectColor hidden md:flex'>
+                                    {
+                                        props.isMonthlyPayable == 1 ? `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي` : 'دفع لمرة واحدة يدوياً'
+                                    }
+                                    </span>
+                                )
+                            }
+                        </>
+                    ) : (
+                        <span className='text-red-400 hidden md:flex'>
+                        لقد تجاوزت آخر موعد للدفع
                         </span>
                     )
                 }

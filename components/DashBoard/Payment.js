@@ -142,42 +142,54 @@ const Payment = (props) => {
             </span>
 
             {
-                props.isMonthlyPayable == 0 && (
-                    <span className='text-effectColor'>
+                ( new Date() <= new Date(props.date) ) ? (
+                    <>
+
                         {
-                            props.isPayable == 1 ? 'دفع لمرة واحدة عبر موقعنا' : 'دفع لمرة واحدة يدوياً'
+                            props.isMonthlyPayable == 0 && (
+                                <span className='text-effectColor'>
+                                    {
+                                        props.isPayable == 1 ? 'دفع لمرة واحدة عبر موقعنا' : 'دفع لمرة واحدة يدوياً'
+                                    }
+                                </span>
+                                
+                            )
                         }
+
+                        {
+                                ( props.isMonthlyPayable == 1 && props.isPayable == 1 ) && (
+                                    <span className='text-effectColor'>
+                                        {
+                                            !props.paidStatus ? `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي`: `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`
+                                        }
+                                    </span>
+                                )
+                        }  
+                        
+
+                        {
+                                ( props.isMonthlyPayable == 1 && props.isPayable == 0 ) && (
+                                    <span className='text-effectColor'>
+                                        {`تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي`}
+                                    </span>
+                                )
+                        }
+
+                    </>
+                ) : (
+                    <span className='text-red-400'>
+                    لقد تجاوزت آخر موعد للدفع
                     </span>
-                    
                 )
-            }
-
-            {
-                    ( props.isMonthlyPayable == 1 && props.isPayable == 1 ) && (
-                        <span className='text-effectColor'>
-                            {
-                                !props.paidStatus ? `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي`: `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`
-                            }
-                        </span>
-                    )
-            }  
-            
-
-            {
-                    ( props.isMonthlyPayable == 1 && props.isPayable == 0 ) && (
-                        <span className='text-effectColor'>
-                            {`تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي`}
-                        </span>
-                    )
             }
 
 
         </div>
 
-        <div className={ props.isPayable == 0 || props.paidStatus ? 'flex justify-center' : 'flex justify-center space-x-3 md:justify-between' }>
+        <div className={ props.isPayable == 0 || props.paidStatus || ( new Date() > new Date(props.date) ) ? 'flex justify-center' : 'flex justify-between space-x-3' }>
             <button className='py-1 px-3' onClick={deletePayment}>حذف الدفعة</button>
             {
-               ( props.isPayable == 1 && !props.paidStatus ) && (
+               ( props.isPayable == 1 && !props.paidStatus && ( new Date() <= new Date(props.date) ) ) && (
                     <button className='py-1 px-3' onClick={payNow}>ادفع الآن</button>
                )
             }
