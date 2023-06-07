@@ -502,12 +502,26 @@ const Dashboard = (props) => {
                                                 statistic.lastPayments.map((payment,index)=>{
                                                     const formattedDate= new Date(payment.paymentDate).toLocaleDateString();
                                                     return <StatisticPayment
-                                                            key={index}  
+                                                            key={index}
+                                                            id={payment._id}
+                                                            setSendingStatus={setSendingStatus}
+                                                            setStatistic={setStatistic}
+                                                            setAllPayments={setAllPayments}
+                                                            setAllActions={setAllActions}
+                                                            setDaily={setDaily}
+                                                            setMonthly={setMonthly}
+                                                            yearlyData={yearlyData}
+                                                            setChartClass={setChartClass}  
                                                             paymentInfo={payment.paymentInfo} 
                                                             paymentValue={payment.paymentValue}
+                                                            date={formattedDate}
                                                             isPayable={payment.isPayable}
-                                                            isMonthlyPayable={payment.isMonthlyPayable} 
-                                                            date={formattedDate}/>
+                                                            paidStatus={payment.paidStatus}
+                                                            isMonthlyPayable={payment.isMonthlyPayable}
+                                                            daysDiff={ payment.daysDiff !== undefined ? payment.daysDiff : '' }
+                                                            numberOfMonthsLeft={ payment.numberOfMonthsLeft !== undefined ? payment.numberOfMonthsLeft : '' }
+                                                            monthlyValue={ payment.monthlyValue !== undefined ? payment.monthlyValue : '' } 
+                                                            />
                                                 })
                                                 
                                             ) : (

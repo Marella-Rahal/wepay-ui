@@ -145,7 +145,7 @@ const Payment = (props) => {
                 props.isMonthlyPayable == 0 && (
                     <span className='text-effectColor'>
                         {
-                            props.isPayable == 1 ? 'دفع لمرة واحدة عبر موقعنا' : 'دفع لمرة واحدة كاش'
+                            props.isPayable == 1 ? 'دفع لمرة واحدة عبر موقعنا' : 'دفع لمرة واحدة يدوياً'
                         }
                     </span>
                     
