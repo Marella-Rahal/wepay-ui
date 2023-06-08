@@ -160,7 +160,7 @@ const Payment = (props) => {
                                 ( props.isMonthlyPayable == 1 && props.isPayable == 1 ) && (
                                     <span className='text-effectColor'>
                                         {
-                                            !props.paidStatus ? `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي`: `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`
+                                            !props.paidStatus ? `عدد الأشهر المتبقية ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي`: `عدد الأشهر المتبقية ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`
                                         }
                                     </span>
                                 )
@@ -170,7 +170,7 @@ const Payment = (props) => {
                         {
                                 ( props.isMonthlyPayable == 1 && props.isPayable == 0 ) && (
                                     <span className='text-effectColor'>
-                                        {`تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي`}
+                                        {`عدد الأشهر المتبقية ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي`}
                                     </span>
                                 )
                         }

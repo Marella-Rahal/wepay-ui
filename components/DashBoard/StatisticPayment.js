@@ -151,7 +151,7 @@ const StatisticPayment = (props) => {
                             {
                                 ( props.isPayable == 1 && props.paidStatus ) && (
                                     <span className='text-effectColor flex md:hidden'>
-                                        {`تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`}
+                                        {`عدد الأشهر المتبقية ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`}
                                     </span>
                                 )
                             }
@@ -159,7 +159,7 @@ const StatisticPayment = (props) => {
                                 props.isPayable == 0  && (
                                     <span className='text-effectColor flex md:hidden'>
                                     {
-                                        props.isMonthlyPayable == 1 ? `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي` : 'دفع لمرة واحدة يدوياً'
+                                        props.isMonthlyPayable == 1 ? `عدد الأشهر المتبقية ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي` : 'دفع لمرة واحدة يدوياً'
                                     }
                                     </span>
                                 )
@@ -193,7 +193,7 @@ const StatisticPayment = (props) => {
                             {
                                 ( props.isPayable == 1 && props.paidStatus ) && (
                                     <span className='text-effectColor hidden md:flex'>
-                                        {`تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`}
+                                        {`عدد الأشهر المتبقية ${props.numberOfMonthsLeft} شهر / قيمة القسط   ${props.monthlyValue} / تم الدفع هذا الشهر`}
                                     </span>
                                 )
                             }
@@ -201,7 +201,7 @@ const StatisticPayment = (props) => {
                                 props.isPayable == 0  && (
                                     <span className='text-effectColor hidden md:flex'>
                                     {
-                                        props.isMonthlyPayable == 1 ? `تقسيط لمدة ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي` : 'دفع لمرة واحدة يدوياً'
+                                        props.isMonthlyPayable == 1 ? `عدد الأشهر المتبقية ${props.numberOfMonthsLeft} شهر / قيمة القسط  ${props.monthlyValue} / ${props.daysDiff} يوم لنهاية وقت القسط الحالي` : 'دفع لمرة واحدة يدوياً'
                                     }
                                     </span>
                                 )
