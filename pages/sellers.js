@@ -151,35 +151,35 @@ const Sellers = () => {
                     name='store' 
                     className='outline-none bg-textColor2 text-textColor text-end rounded-lg shadow-cardShadow w-1/2 h-9 pr-2'>
                         <option value="">تصنيف حسب نوع المتجر</option>
-                        <option value="Clothes">ألبسة</option>
-                        <option value="Shoes">أحذية</option>
-                        <option value="Food">مواد غذائية</option>
-                        <option value="Gold">صاغة</option>
-                        <option value="Cleaning materials">مواد تنظيف</option>
-                        <option value="Grocery">بقالية</option>
-                        <option value="Toaster">محمصة</option>
-                        <option value="Bale">بالة</option>
-                        <option value="Others">أخرى</option>
+                        <option value="ألبسة">ألبسة</option>
+                        <option value="أحذية">أحذية</option>
+                        <option value="مواد غذائية">مواد غذائية</option>
+                        <option value="صاغة">صاغة</option>
+                        <option value="مواد تنظيف">مواد تنظيف</option>
+                        <option value="بقالية">بقالية</option>
+                        <option value="محمصة">محمصة</option>
+                        <option value="بالة">بالة</option>
+                        <option value="أخرى">أخرى</option>
                     </select>
                     
                     <select 
                     name='city' 
                     className='outline-none bg-textColor2 text-textColor text-end rounded-lg shadow-cardShadow w-1/2 h-9 pr-2'>
                         <option value="">تصنيف حسب المحافظة</option>
-                        <option value="Aleppo">حلب</option>
-                        <option value="Damascus">دمشق</option>
-                        <option value="Homs">حمص</option>
-                        <option value="Hama">حماة</option>
-                        <option value="Latakia">اللاذقية</option>
-                        <option value="Deir ez-Zor">دير الزور</option>
-                        <option value="As-Suwayda">السويداء</option>
-                        <option value="Ar-Raqqah">الرقة</option>
-                        <option value="Al-Hasakah">الحسكة</option>
-                        <option value="Damascus countryside">ريف دمشق</option>
-                        <option value="Daraa">درعا</option>
-                        <option value="Idlib">إدلب</option>
-                        <option value="Tartus">طرطوس</option>
-                        <option value="Quneitra">القنيطرة</option>
+                        <option value="حلب">حلب</option>
+                        <option value="دمشق">دمشق</option>
+                        <option value="حمص">حمص</option>
+                        <option value="حماة">حماة</option>
+                        <option value="اللاذقية">اللاذقية</option>
+                        <option value="دير الزور">دير الزور</option>
+                        <option value="السويداء">السويداء</option>
+                        <option value="الرقة">الرقة</option>
+                        <option value="الحسكة">الحسكة</option>
+                        <option value="ريف دمشق">ريف دمشق</option>
+                        <option value="درعا">درعا</option>
+                        <option value="إدلب">إدلب</option>
+                        <option value="طرطوس">طرطوس</option>
+                        <option value="القنيطرة">القنيطرة</option>
                     </select>
 
                 </div>

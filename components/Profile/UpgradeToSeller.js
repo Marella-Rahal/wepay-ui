@@ -165,16 +165,15 @@ function UpgradeToSeller(props) {
                     value={props.storeType}
                     onChange={(e)=>props.setStoreType(e.target.value)}>
                               <option value="">نوع المتجر</option>
-                              <option value="Clothes">ألبسة</option>
-                              <option value="Shoes">أحذية</option>
-                              <option value="Food">مواد غذائية</option>
-                              <option value="Gold">صاغة</option>
-                              <option value="Cleaning materials">مواد تنظيف</option>
-                              <option value="Grocery">بقالية</option>
-                              <option value="Toaster">محمصة</option>
-                              <option value="Bale">بالة</option>
-                              <option value="Fast Food">وجبات سريعة</option>
-                              <option value="Others">أخرى</option>
+                              <option value="ألبسة">ألبسة</option>
+                              <option value="أحذية">أحذية</option>
+                              <option value="مواد غذائية">مواد غذائية</option>
+                              <option value="صاغة">صاغة</option>
+                              <option value="مواد تنظيف">مواد تنظيف</option>
+                              <option value="بقالية">بقالية</option>
+                              <option value="محمصة">محمصة</option>
+                              <option value="بالة">بالة</option>
+                              <option value="أخرى">أخرى</option>
                     </select>
                           
                     <label className="font-bold mb-1 mr-2 mt-2"> المحافظة </label>
@@ -184,20 +183,20 @@ function UpgradeToSeller(props) {
                     value={props.city}
                     onChange={(e)=>props.setCity(e.target.value)}>
                               <option value="">المحافظة</option>
-                              <option value="Aleppo">حلب</option>
-                              <option value="Damascus">دمشق</option>
-                              <option value="Homs">حمص</option>
-                              <option value="Hama">حماة</option>
-                              <option value="Latakia">اللاذقية</option>
-                              <option value="Deir ez-Zor">دير الزور</option>
-                              <option value="As-Suwayda">السويداء</option>
-                              <option value="Ar-Raqqah">الرقة</option>
-                              <option value="Al-Hasakah">الحسكة</option>
-                              <option value="Damascus countryside">ريف دمشق</option>
-                              <option value="Daraa">درعا</option>
-                              <option value="Idlib">إدلب</option>
-                              <option value="Tartus">طرطوس</option>
-                              <option value="Quneitra">القنيطرة</option>
+                              <option value="حلب">حلب</option>
+                              <option value="دمشق">دمشق</option>
+                              <option value="حمص">حمص</option>
+                              <option value="حماة">حماة</option>
+                              <option value="اللاذقية">اللاذقية</option>
+                              <option value="دير الزور">دير الزور</option>
+                              <option value="السويداء">السويداء</option>
+                              <option value="الرقة">الرقة</option>
+                              <option value="الحسكة">الحسكة</option>
+                              <option value="ريف دمشق">ريف دمشق</option>
+                              <option value="درعا">درعا</option>
+                              <option value="إدلب">إدلب</option>
+                              <option value="طرطوس">طرطوس</option>
+                              <option value="القنيطرة">القنيطرة</option>
                     </select>
                     
                     <label className="font-bold mb-1 mr-2 mt-2">عنوان المحل </label>

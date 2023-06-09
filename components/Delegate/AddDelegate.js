@@ -164,15 +164,20 @@ function AddDelegate() {
                       onChange={e=>setCity(e.target.value)}
                     >
                       <option value=""> المحافظة </option>
-                      <option value="حمص">حمص</option>
                       <option value="حلب">حلب</option>
+                      <option value="دمشق">دمشق</option>
+                      <option value="حمص">حمص</option>
                       <option value="حماة">حماة</option>
                       <option value="اللاذقية">اللاذقية</option>
-                      <option value=" طرطوس">طرطوس </option>
                       <option value="دير الزور">دير الزور</option>
+                      <option value="السويداء">السويداء</option>
+                      <option value="الرقة">الرقة</option>
                       <option value="الحسكة">الحسكة</option>
-                      <option value="دمشق">دمشق</option>
+                      <option value="ريف دمشق">ريف دمشق</option>
+                      <option value="درعا">درعا</option>
                       <option value="إدلب">إدلب</option>
+                      <option value="طرطوس">طرطوس</option>
+                      <option value="القنيطرة">القنيطرة</option>
                     </select>
                   </div>
 

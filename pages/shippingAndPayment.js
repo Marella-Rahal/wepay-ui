@@ -19,11 +19,14 @@ import { ThreeDots } from 'react-loader-spinner'
 import NotePopUp from '../components/PopUp/NotePopUp'
 import { wrapper } from '../Redux/Store';
 import { saveUser } from '../Redux/Slices/userSlice';
+import ShippingRequests from '../components/ShippingAndPayment/ShippingRequests';
+import WithdrawRequests from '../components/ShippingAndPayment/WithdrawRequests';
 
 const ShippingAndPayment = (props) => {
 
   const cookies = parseCookies();
   const token = cookies.token;
+  const role = cookies.role;
   const [sendingStatus,setSendingStatus]=useState(false);
   const [noteMsg,setNoteMsg]=useState("");  
 
@@ -41,27 +44,43 @@ const ShippingAndPayment = (props) => {
 
       try {
       
-        setSendingStatus(true);
+          setSendingStatus(true);
 
-        const res= await axios.get(`${process.env.server_url}/api/v1.0/transaction/getActions?actionType=deposit`, {
-          headers : {
-            Authorization : `Bearer ${token}`
+          if(role !== 'admin'){
+
+              const res= await axios.get(`${process.env.server_url}/api/v1.0/transaction/getActions?actionType=deposit`, {
+                headers : {
+                  Authorization : `Bearer ${token}`
+                }
+              })
+        
+              const info = res.data.data;
+
+              info !== undefined ? setShippingActions(info.slice(0,5)) : setShippingActions([]) ;
+
+          }else{
+
+              const res= await axios.get(`${process.env.server_url}/api/v1.0/transaction/getAllDepositRequest`, {
+                headers : {
+                  Authorization : `Bearer ${token}`
+                }
+              })
+              
+              const info = res.data.depositRequests;
+
+              info !== undefined ? setShippingActions(info) : setShippingActions([]) ;
+
           }
-        })
-  
-        const info = res.data.data;
-  
-        info !== undefined ? setShippingActions(info.slice(0,5)) : setShippingActions([]) ;
-  
-        setShippingAndPaymentInfo("shipping");
+    
+          setShippingAndPaymentInfo("shipping");
 
-        setSendingStatus(false);
+          setSendingStatus(false);
   
       } catch (error) {
 
-        setSendingStatus(false);
-  
-        alert(error?.response?.data?.message)
+          setSendingStatus(false);
+    
+          alert(error?.response?.data?.message)
         
       }
 
@@ -79,27 +98,43 @@ const ShippingAndPayment = (props) => {
 
       try {
       
-        setSendingStatus(true);
+          setSendingStatus(true);
 
-        const res= await axios.get(`${process.env.server_url}/api/v1.0/transaction/getActions?actionType=withdraw`, {
-          headers : {
-            Authorization : `Bearer ${token}`
+          if(role !== 'admin'){
+
+              const res= await axios.get(`${process.env.server_url}/api/v1.0/transaction/getActions?actionType=withdraw`, {
+                headers : {
+                  Authorization : `Bearer ${token}`
+                }
+              })
+        
+              const info = res.data.data;
+        
+              info !== undefined ? setWithdrawActions(info.slice(0,5)) : setWithdrawActions([]) ;
+
+          }else{
+
+              const res= await axios.get(`${process.env.server_url}/api/v1.0/transaction/getAllWithdrawRequest`, {
+                headers : {
+                  Authorization : `Bearer ${token}`
+                }
+              })
+              
+              const info = res.data.withdrawRequest;
+        
+              info !== undefined ? setWithdrawActions(info) : setWithdrawActions([]) ;
+
           }
-        })
-  
-        const info = res.data.data;
-  
-        info !== undefined ? setWithdrawActions(info.slice(0,5)) : setWithdrawActions([]) ;
-  
-        setShippingAndPaymentInfo("withdraw");
+    
+          setShippingAndPaymentInfo("withdraw");
 
-        setSendingStatus(false);
+          setSendingStatus(false);
   
       } catch (error) {
 
-        setSendingStatus(false);
-  
-        alert(error?.response?.data?.message)
+          setSendingStatus(false);
+    
+          alert(error?.response?.data?.message)
         
       }
 
@@ -139,7 +174,7 @@ const ShippingAndPayment = (props) => {
                   <div className='w-full md:w-1/2 xl:w-2/3 rounded-lg shadow-cardShadow mt-10 md:mt-0 p-5 flex md:min-h-[532px]'>
 
                       {
-                        shippingAndPaymentInfo == 'transfer' && (
+                        ( shippingAndPaymentInfo == 'transfer' || role === 'admin' ) && (
 
                               <motion.div initial={{opacity:0}} animate={{opacity:1}}
                               transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex justify-center'>
@@ -154,7 +189,7 @@ const ShippingAndPayment = (props) => {
                       {/* //! end of transfer section */}
 
                       {
-                        ( shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'general' ) && (
+                        ( shippingAndPaymentInfo == 'shipping' && typeOfShipping == 'general' && role !== 'admin' ) && (
 
                             <motion.div initial={{opacity:0}} animate={{opacity:1}}
                             transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 md:space-y-20 items-center text-center font-semibold'>
@@ -206,7 +241,7 @@ const ShippingAndPayment = (props) => {
                       {/* //! end of shipping section */}
 
                       {
-                        ( shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'general' ) && (
+                        ( shippingAndPaymentInfo == 'withdraw' && typeOfWithdraw == 'general' && role !== 'admin' ) && (
 
                             <motion.div initial={{opacity:0}} animate={{opacity:1}}
                             transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 md:space-y-20 items-center text-center font-semibold'>
@@ -270,12 +305,16 @@ const ShippingAndPayment = (props) => {
 
                         <div className={shippingAndPaymentInfo=='shipping'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'} 
                         onClick={getShippingActions}>
-                                  شحن الرصيد 
+                          {
+                            role !== 'admin' ? 'شحن الرصيد' : 'طلبات الشحن'
+                          } 
                         </div>
 
                         <div className={shippingAndPaymentInfo=='withdraw'?'text-textColor2 bg-gradient-to-b from-gradientFrom to-gradientTo rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center':'text-effectColor dark:text-textColor2 hover:border-[1px] border-effectColor rounded-lg shadow-cardShadow cursor-pointer h-10 flex justify-center items-center'}
                         onClick={getWithdrawActions}>
-                                  سحب الرصيد 
+                          {
+                            role !== 'admin' ? 'سحب الرصيد' : 'طلبات السحب'
+                          } 
                         </div>
 
                   </TotalCash>
@@ -331,18 +370,50 @@ const ShippingAndPayment = (props) => {
                         ( shippingAndPaymentInfo == 'shipping' ) && (
                           <>
 
-                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                                  transition={{ ease: "easeInOut", duration: 1 }} className='self-end text-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات الشحن</motion.div>
+                              <motion.div 
+                              initial={{opacity:0}} animate={{opacity:1}}
+                              transition={{ ease: "easeInOut", duration: 1 }} className='self-end text-end pb-2 text-effectColor border-b-[2px] border-effectColor'>
+                              {
+                                role !== 'admin' ? 'آخر عمليات الشحن' : 'طلبات الشحن'
+                              }      
+                              </motion.div>
 
-                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                                  transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
+                              <motion.div
+                              dir={role !== 'admin' ? 'ltr' : 'rtl'} 
+                              initial={{opacity:0}} animate={{opacity:1}}
+                              transition={{ ease: "easeInOut", duration: 1 }} className={ role !== 'admin' ? 'w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2' : 'w-full flex flex-col md:flex-row md:justify-evenly md:flex-wrap' }>
 
                                   {
                                       ( shippingActions.length !== 0 ) ? (
 
                                         shippingActions.map((action,index)=>{
                                           const formattedDate= new Date(action.createdAt).toLocaleString();
-                                          return <Activity key={index} type={action.reciverAction} msg={action.reciverDetails} value={action.amountValue} date={formattedDate} status={action.status}/>
+                                          return (
+                                            role !== 'admin' 
+                                            ? <Activity 
+                                                key={index} 
+                                                type={action.reciverAction} 
+                                                msg={action.reciverDetails} 
+                                                value={action.amountValue} 
+                                                date={formattedDate} 
+                                                status={action.status}/> 
+                                            : <ShippingRequests 
+                                                key={index}
+                                                id={action._id}
+                                                type={action.processType}
+                                                value={action.amountValue}
+                                                date={formattedDate}
+                                                processImageUrl={action.processImageUrl}
+                                                processNumber={action.processNumber}
+                                                city={action.senderCity}
+                                                name={action.senderName}
+                                                phone={action.senderPhone}
+                                                accountID={action.accountID}
+                                                setSendingStatus={setSendingStatus}
+                                                setActions={setActions}
+                                                setShippingActions={setShippingActions}
+                                              />
+                                          )
                                         })
 
                                       ) : (
@@ -365,18 +436,47 @@ const ShippingAndPayment = (props) => {
 
                           <>
 
-                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                                  transition={{ ease: "easeInOut", duration: 1 }} className='self-end text-end pb-2 text-effectColor border-b-[2px] border-effectColor'>آخر عمليات السحب</motion.div>
+                              <motion.div 
+                              initial={{opacity:0}} animate={{opacity:1}}
+                              transition={{ ease: "easeInOut", duration: 1 }} className='self-end text-end pb-2 text-effectColor border-b-[2px] border-effectColor'>
+                              {
+                                role !== 'admin' ? 'آخر عمليات السحب' : 'طلبات السحب'
+                              }
+                              </motion.div>
 
-                              <motion.div initial={{opacity:0}} animate={{opacity:1}}
-                                  transition={{ ease: "easeInOut", duration: 1 }} className='w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2'>
+                              <motion.div
+                              dir={role !== 'admin' ? 'ltr' : 'rtl'} 
+                              initial={{opacity:0}} animate={{opacity:1}}
+                              transition={{ ease: "easeInOut", duration: 1 }} className={ role !== 'admin' ? 'w-full flex flex-col space-y-10 [&>*:nth-child(even)]:bg-effectColor [&>*:nth-child(even)]:text-textColor2' : 'w-full flex flex-col md:flex-row md:justify-evenly md:flex-wrap' }>
 
                                   {
                                       ( withdrawActions.length !== 0 ) ? (
 
                                         withdrawActions.map((action,index)=>{
                                           const formattedDate= new Date(action.createdAt).toLocaleString();
-                                          return <Activity key={index} type={action.senderAction} msg={action.senderDetails} value={action.amountValue} date={formattedDate} status={action.status}/>
+                                          return (
+                                            role !== 'admin' 
+                                            ? <Activity 
+                                                key={index} 
+                                                type={action.senderAction} 
+                                                msg={action.senderDetails} 
+                                                value={action.amountValue} 
+                                                date={formattedDate} 
+                                                status={action.status}/>
+                                            : <WithdrawRequests 
+                                                key={index}
+                                                id={action._id}
+                                                type={action.processType}
+                                                value={action.amountValue}
+                                                date={formattedDate}
+                                                city={action.reciverCity}
+                                                name={action.reciverName}
+                                                phone={action.reciverPhone}
+                                                accountID={action.accountID}
+                                                cashType={action.cashType}
+                                                setSendingStatus={setSendingStatus}
+                                                setWithdrawActions={setWithdrawActions}/> 
+                                          )
                                         })
 
                                       ) : (
