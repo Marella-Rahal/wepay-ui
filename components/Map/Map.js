@@ -76,7 +76,7 @@ const Map = ({ stores,coords}) => {
                 el.className = "removablePerson"
                 ReactDOM.render(
                   <Marker
-                  image={ imgURL !== undefined ? imgURL : "../../public/default.jpg" }
+                  image={ imgURL !== undefined ? imgURL : "/default.jpg" }
                   color= "#3fb37f"
                   />
                 ,el)
