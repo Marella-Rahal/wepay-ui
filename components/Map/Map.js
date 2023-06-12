@@ -4,6 +4,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Marker from "./Marker";
 import axios from "axios";
+import { parseCookies } from "nookies";
 
 mapboxgl.accessToken = process.env.mapbox_key;
 
@@ -14,6 +15,9 @@ mapboxgl.setRTLTextPlugin(
 );
 
 const Map = ({ stores,coords}) => {
+
+  const cookies = parseCookies();
+  const imgURL = cookies.imgURL ;
 
   const mapContainerRef = useRef(null);
 
@@ -72,7 +76,7 @@ const Map = ({ stores,coords}) => {
                 el.className = "removablePerson"
                 ReactDOM.render(
                   <Marker
-                  image="../../default.jpg"
+                  image={ imgURL !== undefined ? imgURL : "../../default.jpg" }
                   color= "#3fb37f"
                   />
                 ,el)
