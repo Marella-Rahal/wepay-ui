@@ -1,5 +1,6 @@
 import React from "react";
 import {motion} from 'framer-motion';
+import Image from "next/image";
 const markerVariant={
   animate:{
     y:7,
@@ -22,7 +23,12 @@ const Marker = ({ image, color }) => {
           className="marker-btn after:top-[80%] xs:after:top-[83%] sm:after:top-[85%] hover:bg-none"
           style={{ backgroundColor: color, borderColor: color }}
         >
-          <img src={image} alt="product image" className="marker-img" />
+          <Image 
+          src={image}
+          width={27}
+          height={27} 
+          alt="product image" 
+          className="rounded-full m-auto" />
         </button>
       </motion.div>
       <style jsx>
@@ -48,7 +54,7 @@ const Marker = ({ image, color }) => {
           .marker-btn::after {
             content: " ";
             position: absolute;
-            left: 50%;
+            left: 51%;
             margin-left: -10px;
             border-width: 10px;
             border-style: solid;
@@ -56,14 +62,6 @@ const Marker = ({ image, color }) => {
             border-left-color: transparent;
             border-right-color: transparent;
             border-bottom-color: transparent;
-          }
-
-          // the image
-          .marker-img {
-            width: 21px;
-            height: 23px;
-            border-radius: 100%;
-            margin: auto;
           }
 
           @media (orientation: landscape) and (max-width: 976px) and (max-height: 500px) {
