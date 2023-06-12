@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import Search from '../components/Sellers/Search'
 import Seller from '../components/Sellers/Seller';
 import usePosition from "../hooks/usePosition";
-// import NotePopUp, { showPopUpNote } from "../components/PopUp/NotePopUp";
+import NotePopUp, { showPopUpNote } from "../components/PopUp/NotePopUp";
 import dynamic from "next/dynamic";
 import Loading from "../components/Loading";
 import axios from 'axios';
@@ -78,29 +78,29 @@ const Sellers = (props) => {
     },[cityFilter,nameFilter,typeFilter])
 
     //todo *********** the massage for the popUp
-    // const [noteMsg, setNoteMsg] = useState("");
+    const [noteMsg, setNoteMsg] = useState("");
     //todo ********** the location of the user
     const [coords, error] = usePosition();
-    // useEffect(() => {
-    //     if (error && props.success) {
-    //       setNoteMsg(
-    //         <>
-    //           <h5 className="text-red-600 text-center">
-    //             فشلنا في الحصول على موقعك لذلك سيتم تعطيل بعض الميزات التي تتطلب
-    //             الموقع ضمن هذه الصفحة أو أعد تحميل الصفحة للمحاولة مرة أخرى
-    //           </h5>
-    //         </>
-    //       );
-    //       showPopUpNote();
-    //     }
-    // }, [error])  
+    useEffect(() => {
+        if (error && props.success) {
+          setNoteMsg(
+            <>
+              <h5 className="text-red-600 text-center">
+                فشلنا في الحصول على موقعك لذلك سيتم تعطيل بعض الميزات التي تتطلب
+                الموقع ضمن هذه الصفحة أو أعد تحميل الصفحة للمحاولة مرة أخرى
+              </h5>
+            </>
+          );
+          showPopUpNote();
+        }
+    }, [error])  
     
   return (
     <>
         {
           props.success ? (
             <>
-                {/* <NotePopUp noteMsg={noteMsg} /> */}
+                <NotePopUp noteMsg={noteMsg} />
                 <Navbar/>  
                 <div className='bg-bgColor shadow-bgShadow pt-28 md:pt-24 pb-7 md:pb-4 px-4 md:px-8 min-h-screen md:h-screen flex flex-col-reverse items-center md:flex-row md:space-x-7 text-end'>
 
@@ -132,7 +132,7 @@ const Sellers = (props) => {
                         {/* Map */}
                         <div className='w-full h-[400px] md:h-full rounded-lg shadow-cardShadow'>
                             <div className="w-full h-full rounded-lg shadow-mapShadow dark:shadow-darkMapShadow">
-                                <Map stores={storesOnMap} coords={coords} />
+                                { coords.length > 0 && <Map stores={storesOnMap} coords={coords} /> }
                             </div>
                         </div>
 
