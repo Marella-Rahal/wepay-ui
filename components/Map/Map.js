@@ -117,7 +117,7 @@ const Map = ({ stores,coords}) => {
       el.className = "removableMarker";
 
       ReactDOM.render(
-        <Marker image="../../storePhoto.svg" color={markerColor} />
+        <Marker image={x.storeImgURL} color={markerColor} />
       ,el)
 
       new mapboxgl.Marker(el, { offset: [0, -10] })
@@ -270,7 +270,7 @@ const Map = ({ stores,coords}) => {
           }}
           className="border-x-4"
         >
-          {marker.name}
+          {marker.storeName}
         </h4>
       </>
     );

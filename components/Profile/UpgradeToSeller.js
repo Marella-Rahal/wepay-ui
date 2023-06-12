@@ -22,7 +22,7 @@ function UpgradeToSeller(props) {
 
   const [coords , error] =usePosition();
 
-  console.log(coords)
+  console.log(JSON.stringify(coords));
 
   const updateImage3 = (e) => {
     
@@ -62,7 +62,7 @@ function UpgradeToSeller(props) {
     fd.append('storeType',props.storeType);
     fd.append('city',props.city);
     fd.append('address',props.address);
-    fd.append('coo',coords)
+    fd.append('coo',JSON.stringify(coords))
     fd.append('storeImgURL', props.storeImgURL, props.storeImgURL.name);
 
     try {
