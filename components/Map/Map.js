@@ -15,6 +15,8 @@ mapboxgl.setRTLTextPlugin(
 
 const Map = ({ stores,coords}) => {
 
+  console.log(coords)
+  
   const mapContainerRef = useRef(null);
 
   const [lng, setLng] = useState(() => {
