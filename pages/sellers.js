@@ -22,7 +22,26 @@ const Sellers = (props) => {
     const [nameFilter,setNameFilter]=useState('');
     const [typeFilter,setTypeFilter]=useState('');
 
+    //! to display number of stores on map
+    const [storesCounter,setStoresCounter]=useState('all');
+    const [storeId,setStoreId]=useState('');
+    const [storesOnMap,setStoresOnMap]=useState([]);
     useEffect(()=>{
+
+        if(storesCounter=='all'){
+            setStoresOnMap(stores);
+        }else if(storesCounter=='only'&& storeId){
+            setStoresOnMap(stores.filter(store => store._id == storeId))
+        }else{
+            setStoresOnMap([])
+        }
+
+    },[storeId,storesCounter,stores])
+
+    useEffect(()=>{
+
+      setStoresCounter('all');
+      setStoreId('');
 
       if(cityFilter && nameFilter && typeFilter){
 
@@ -57,23 +76,6 @@ const Sellers = (props) => {
       }
 
     },[cityFilter,nameFilter,typeFilter])
-
-    //! to display number of stores on map
-    const [storesCounter,setStoresCounter]=useState('all');
-    const [storeId,setStoreId]=useState('');
-    const [storesOnMap,setStoresOnMap]=useState([]);
-    useEffect(()=>{
-
-        if(storesCounter=='all'){
-            setStoresOnMap(stores);
-        }else if(storesCounter=='only'&& storeId){
-            setStoresOnMap(stores.filter(store => store.id == storeId))
-        }else{
-            setStoresOnMap([])
-        }
-
-    },[storeId,storesCounter])
-
 
     //todo *********** the massage for the popUp
     const [noteMsg, setNoteMsg] = useState("");
@@ -112,6 +114,7 @@ const Sellers = (props) => {
                                 type="radio" 
                                 id="only" 
                                 name='mapStore'
+                                checked={storesCounter == 'only' ? true : false}
                                 onChange={(e)=>setStoresCounter('only')}/>
                             </div>
                             <div className='flex items-center space-x-1'>
@@ -120,7 +123,7 @@ const Sellers = (props) => {
                                 type="radio" 
                                 id="all"  
                                 name='mapStore' 
-                                defaultChecked={true}
+                                checked={storesCounter == 'all' ? true : false}
                                 onChange={(e)=>setStoresCounter('all')}/>
                             </div>
 
