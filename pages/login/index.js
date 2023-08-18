@@ -10,6 +10,7 @@ import { setCookie } from 'nookies'
 const Login = () => {
 
   const router=useRouter();
+  const { objects } = router.query;  
 
   const [noteMsg,setNoteMsg]=useState("");  
   const [sendingStatus,setSendingStatus]=useState(false); 
@@ -51,7 +52,14 @@ const Login = () => {
             sameSite: 'none', // Adjust according to your requirements
         });
 
-        router.replace('/shippingAndPayment');
+        if(objects !== undefined){
+            const objects1 = JSON.parse(objects);
+            const queryString = encodeURIComponent(JSON.stringify(objects1))
+            router.replace(`/shippingAndPayment?objects=${queryString}`);
+        }else{
+            router.replace('/shippingAndPayment')
+        }
+        
         
     } catch (error) {
         

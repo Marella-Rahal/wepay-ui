@@ -16,13 +16,18 @@ import FailToGet from '../components/FailToGet'
 import Lottie from "lottie-react";
 import emptyResult from "../public/empty.json";
 import { ThreeDots } from 'react-loader-spinner'
-import NotePopUp from '../components/PopUp/NotePopUp'
+import NotePopUp, { showPopUpNote } from '../components/PopUp/NotePopUp'
 import { wrapper } from '../Redux/Store';
 import { saveUser } from '../Redux/Slices/userSlice';
 import ShippingRequests from '../components/ShippingAndPayment/ShippingRequests';
 import WithdrawRequests from '../components/ShippingAndPayment/WithdrawRequests';
+import { useRouter } from 'next/router';
+import ShoppingoPopUp from '../components/PopUp/ShoppingoPopUp';
 
 const ShippingAndPayment = (props) => {
+
+  const router = useRouter();
+  const { objects } = router.query;
 
   const cookies = parseCookies();
   const token = cookies.token;
@@ -80,7 +85,15 @@ const ShippingAndPayment = (props) => {
 
           setSendingStatus(false);
     
-          alert(error?.response?.data?.message)
+          setSendingStatus(false);
+    
+          setNoteMsg(<h5 className='text-red-600 text-center'>
+            {
+                error?.response?.data?.message !== undefined ? error?.response?.data?.message : error?.message
+            }
+          </h5>)
+
+          showPopUpNote();
         
       }
 
@@ -134,7 +147,13 @@ const ShippingAndPayment = (props) => {
 
           setSendingStatus(false);
     
-          alert(error?.response?.data?.message)
+          setNoteMsg(<h5 className='text-red-600 text-center'>
+            {
+                error?.response?.data?.message !== undefined ? error?.response?.data?.message : error?.message
+            }
+          </h5>)
+
+          showPopUpNote();
         
       }
 
@@ -163,6 +182,11 @@ const ShippingAndPayment = (props) => {
                 )
               }
               <NotePopUp noteMsg={noteMsg}/>
+              {
+                objects !== undefined && (
+                  <ShoppingoPopUp objects={JSON.parse(objects)} setNoteMsg={setNoteMsg} setSendingStatus={setSendingStatus}/>
+                )
+              } 
               <Navbar/>
               <div className='pt-28 pb-14 px-4 md:px-8 w-full min-h-screen bg-bgColor shadow-bgShadow flex flex-col space-y-10'>
 
@@ -515,6 +539,12 @@ export const getServerSideProps = wrapper.getServerSideProps( store => async (co
     const cookies=parseCookies(context);
     const token=cookies.token;
 
+    const {objects} = context.query;
+    if(objects !== undefined){
+      const objects1 = JSON.parse(objects);
+      var queryString = encodeURIComponent(JSON.stringify(objects1))
+    }
+
     try {
 
           const res = await axios.get(`${process.env.server_url}/api/v1.0/transaction/getShipping`,{
@@ -550,7 +580,7 @@ export const getServerSideProps = wrapper.getServerSideProps( store => async (co
 
             return {
               redirect: {
-                destination: '/login',
+                destination: objects !== undefined ? `/login?objects=${queryString}` : '/login',
                 permanent: false, // Set to false if it's a temporary redirect
               },
             }
